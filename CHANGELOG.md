@@ -7,6 +7,29 @@
 
 ---
 
+## [1.0.1] — 2026-10-30
+
+修掉三个 AI 功能上的缺陷，都是用户直接撞得到的。
+
+### 修复
+
+- **单行「AI 讲解」讲错行数** —— `explain(keys)` 的入口判断 `keys && keys.length` 对字符串恒为真，`row.key` 原样当数组发出去。服务端 `Array.isArray(body.keys)` 为 false，`keys` 退化成 null，`rows` 变成「全部未讲解的行」，再被 `limit`（字符串长度 39）截断。点 1 行实际讲 8 行、耗时约 11 秒，并把 8 条讲解写进 `categories.json`。现在字符串会包成单元素数组，数组原样传，只有 `null`/`undefined` 才回落到选中集。
+- **三个 Agent 工具返回非法输出** —— `text()` 返回的是完整 ToolResult 形状 `{ content: [...] }`，但宿主契约要求 `output.render` 直接返回 `ContentBlock[]`。宿主以 `INVALID_TOOL_OUTPUT` 拒绝，`studio_list` / `studio_explain` / `studio_remove` 在 UI 里从未可用。现在直接返回数组，并去掉重复的 `JSON.stringify`。
+- **token 统计恒为 0** —— 宿主发的是 `{ type: 'usage', usage: { inputTokens, outputTokens } }`，代码读的是 `chunk.inputTokens`。现在优先读 `chunk.usage`，兼容旧 provider 的扁平写法与下划线命名。
+
+### 改进
+
+- **模型漏答会补问** —— 24 行只回来 23 行时原先静默丢一条。抽出 `askBatch()`，对缺的 key 再问一遍；重试不计入 `asked`/`failed`，单列 `stats.retried`，避免 UI 声称读了比实际更多的行。
+- **服务端校验 `keys` 类型** —— `/explain` 对非数组 `keys` 返回 400，而不是静默讲解全部积压。
+- **显示 AI 统计** —— `aiStats` state 原本只写不渲染，是死代码。现在接到界面上（模型名、读了几条、回来几条、token 用量），部分成功时用 `explainPartial` 明说「只讲了 23/24 条，其余可再点一次补上」。
+
+### 测试
+
+- `scripts/ai.mjs` 新增两组回归：拒绝非数组 `keys`、工具 `render` 返回 `ContentBlock[]`。
+- `node scripts/all.mjs --offline` 10/10 通过。
+
+---
+
 ## [1.0.0] — 2026-10-30
 
 第一个正式版本。相对前身 `dsh-modpack` 0.9.1 是一次重写：换了名字、换了界面、

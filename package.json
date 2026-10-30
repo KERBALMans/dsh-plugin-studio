@@ -1,6 +1,6 @@
 {
   "name": "dsh-plugin-studio",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": false,
   "type": "module",
   "description": "Plugin Studio for DeepSeek Harness — one workspace that manages both installed plugins and skills: three-level auto-classification, batch removal with restart notice, plain-language AI analysis, last-used tracking, and one-click packing. 插件工坊：同时管理插件与技能，三级自动分类、批量删除、AI 大白话分析、最后使用时间、一键打包。",

@@ -163,16 +163,16 @@ plugin_manager action: install_bundle
 
 ```
 plugin_manager action: install_bundle
-                target: github:KERBALMans/dsh-plugin-studio#v1.0.0
+                target: github:KERBALMans/dsh-plugin-studio#v1.0.1
 ```
 
 ### 方式二：从 tgz 安装（离线/内网）
 
-从 [Releases](https://github.com/KERBALMans/dsh-plugin-studio/releases) 下载 `dsh-plugin-studio-1.0.0.tgz`，然后：
+从 [Releases](https://github.com/KERBALMans/dsh-plugin-studio/releases) 下载 `dsh-plugin-studio-1.0.1.tgz`，然后：
 
 ```
 plugin_manager action: install_bundle
-                target: E:\下载路径\dsh-plugin-studio-1.0.0.tgz
+                target: E:\下载路径\dsh-plugin-studio-1.0.1.tgz
 ```
 
 ### 方式三：从本地目录安装（改代码时用）
