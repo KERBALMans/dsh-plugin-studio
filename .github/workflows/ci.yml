@@ -66,8 +66,13 @@ jobs:
         with:
           node-version: '22'
 
+      # `dist/` is gitignored — tarballs ship as Release assets, not commits — so
+      # a fresh clone has no such directory and `npm pack --pack-destination`
+      # fails with ENOENT instead of creating it.
       - name: Pack
-        run: npm pack --pack-destination dist
+        run: |
+          mkdir -p dist
+          npm pack --pack-destination dist
 
       - name: Show what went in
         run: |
