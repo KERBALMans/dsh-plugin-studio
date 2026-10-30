@@ -5,8 +5,9 @@
  */
 import { rowFacts, classifyFacts } from '../lib/classify.js'
 import { setProfileDir } from '../lib/env.js'
+import { resolveProfile } from './_profile.mjs'
 
-const PROFILE = 'C:\\Users\\Administrator\\.dsh\\profiles\\desktop'
+const PROFILE = resolveProfile()
 setProfileDir(PROFILE)
 
 const needle = process.argv[2] || 'dsh-base'

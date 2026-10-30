@@ -9,9 +9,10 @@
  * Run: node scripts/routes.mjs
  */
 import { setProfileDir } from '../lib/env.js'
+import { resolveProfile } from './_profile.mjs'
 import { makeHandler } from '../index.js'
 
-const PROFILE = 'C:\\Users\\Administrator\\.dsh\\profiles\\desktop'
+const PROFILE = resolveProfile()
 setProfileDir(PROFILE)
 
 const ctx = {

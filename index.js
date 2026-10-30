@@ -218,8 +218,14 @@ async function analyse(ctx, options = {}) {
 /* tools                                                               */
 /* ------------------------------------------------------------------ */
 
+/**
+ * `output.render` must return a ContentBlock[] — NOT a full tool-result shape
+ * ({ content: [...] }). Wrapping it makes the host reject every call with
+ * INVALID_TOOL_OUTPUT ("output.render returned ... it must return an ARRAY of
+ * content blocks"), which is why every studio_* tool failed in the UI.
+ */
 function text(value) {
-  return { content: [{ type: 'text', text: typeof value === 'string' ? value : JSON.stringify(value, null, 2) }] }
+  return [{ type: 'text', text: typeof value === 'string' ? value : JSON.stringify(value, null, 2) }]
 }
 
 function registerTools(toolsCtx, ctx) {
@@ -237,7 +243,7 @@ function registerTools(toolsCtx, ctx) {
         filter: { type: 'string', description: 'Optional case-insensitive substring to keep only matching rows.' },
       },
     },
-    output: { schema: { type: 'object', additionalProperties: true }, render: (_args, value) => text(JSON.stringify(value, null, 2)) },
+    output: { schema: { type: 'object', additionalProperties: true }, render: (_args, value) => text(value) },
     async execute(args) {
       const view = await analyse(ctx, { kind: args && args.kind })
       const filter = args && args.filter ? String(args.filter).toLowerCase() : null
@@ -275,7 +281,7 @@ function registerTools(toolsCtx, ctx) {
         online: { type: 'boolean', description: 'Allow a GitHub lookup for rows with no local description. Default true.' },
       },
     },
-    output: { schema: { type: 'object', additionalProperties: true }, render: (_args, value) => text(JSON.stringify(value, null, 2)) },
+    output: { schema: { type: 'object', additionalProperties: true }, render: (_args, value) => text(value) },
     async execute(args) {
       const view = await analyse(ctx, { kind: args && args.kind })
       const limit = Math.max(1, Math.min(24, Number(args && args.limit) || 8))
@@ -315,7 +321,7 @@ function registerTools(toolsCtx, ctx) {
       },
       required: ['keys'],
     },
-    output: { schema: { type: 'object', additionalProperties: true }, render: (_args, value) => text(JSON.stringify(value, null, 2)) },
+    output: { schema: { type: 'object', additionalProperties: true }, render: (_args, value) => text(value) },
     async execute(args) {
       const view = await analyse(ctx, { kind: args && args.kind })
       const keys = new Set(Array.isArray(args && args.keys) ? args.keys : [])
@@ -681,6 +687,12 @@ function makeHandler(ctx) {
       if (tail === '/explain' && body) {
         const kind = body.kind === 'skill' ? 'skill' : 'plugin'
         const view = await analyse(ctx, { kind, cwd: body.cwd })
+        // A malformed `keys` used to mean "no filter", which silently explained
+        // the whole backlog. Treat anything that is not an array as an error.
+        if (body.keys !== undefined && body.keys !== null && !Array.isArray(body.keys)) {
+          sendJson(res, 400, { ok: false, error: 'keys 必须是数组' })
+          return
+        }
         const keys = Array.isArray(body.keys) ? new Set(body.keys) : null
         let rows = keys ? view.rows.filter((row) => keys.has(row.key)) : view.rows.filter((row) => !row.ai)
         const limit = Math.max(1, Math.min(24, Number(body.limit) || 8))

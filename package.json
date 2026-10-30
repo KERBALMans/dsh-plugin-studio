@@ -43,6 +43,21 @@
     "node": ">=20.0.0",
     "dsh": ">=0.2.0-rc.1"
   },
+  "scripts": {
+    "test": "node scripts/all.mjs --offline",
+    "test:live": "node scripts/all.mjs",
+    "test:smoke": "node scripts/smoke.mjs",
+    "test:analyse": "node scripts/analyse.mjs",
+    "test:routes": "node scripts/routes.mjs",
+    "test:actions": "node scripts/actions.mjs",
+    "test:ai": "node scripts/ai.mjs",
+    "test:style": "node scripts/style.mjs",
+    "test:compat": "node scripts/compat.mjs",
+    "render": "node scripts/render.mjs --offline",
+    "measure": "node scripts/measure.mjs",
+    "shots": "node scripts/shoot.mjs",
+    "fixtures": "node scripts/_make-profile-fixture.mjs"
+  },
   "dsh": {
     "bundle": {
       "patch": "./cordis.patch.yml"

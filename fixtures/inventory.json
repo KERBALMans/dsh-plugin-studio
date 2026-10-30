@@ -1,0 +1,3445 @@
+{
+ "ok": true,
+ "apiVersion": 3,
+ "kind": "plugin",
+ "rows": [
+  {
+   "name": "@deepseek-ai/dsh-base",
+   "version": "0.2.1-rc.3",
+   "description": "The shared dsh core as a profile bundle: the first patch layer of base-backed profiles, inserting core rows over the empty profile root",
+   "title": "@deepseek-ai/dsh-base",
+   "spec": null,
+   "enabled": true,
+   "installed": false,
+   "official": false,
+   "optional": false,
+   "removable": false,
+   "availability": "installation",
+   "source": null,
+   "local": false,
+   "rowCount": 96,
+   "readOnlyReason": "management-required",
+   "error": null,
+   "overrides": [],
+   "rows": [
+    {
+     "rowId": "tool-plugin-manager",
+     "moduleName": "@deepseek-ai/dsh-plugin-manager/tools",
+     "entryId": "include:tool-plugin-manager",
+     "enabled": true
+    },
+    {
+     "rowId": "plugin-manager",
+     "moduleName": "@deepseek-ai/dsh-plugin-manager",
+     "entryId": "include:plugin-manager",
+     "enabled": true
+    },
+    {
+     "rowId": "timer",
+     "moduleName": "@deepseek-ai/cordis-plugin-timer",
+     "entryId": "include:timer",
+     "enabled": true
+    },
+    {
+     "rowId": "hmr",
+     "moduleName": "@deepseek-ai/dsh-hmr",
+     "entryId": "include:hmr",
+     "enabled": true
+    },
+    {
+     "rowId": "llm",
+     "moduleName": "@deepseek-ai/dsh-llm",
+     "entryId": "include:llm",
+     "enabled": true
+    },
+    {
+     "rowId": "deepseek-llm-api-extensions",
+     "moduleName": "@deepseek-ai/dsh-deepseek-llm-api-extensions",
+     "entryId": "include:deepseek-llm-api-extensions",
+     "enabled": true
+    },
+    {
+     "rowId": "session",
+     "moduleName": "@deepseek-ai/dsh-session",
+     "entryId": "include:session",
+     "enabled": true
+    },
+    {
+     "rowId": "session-log-deepseek",
+     "moduleName": "@deepseek-ai/dsh-session-log-deepseek",
+     "entryId": "include:session-log-deepseek",
+     "enabled": true
+    },
+    {
+     "rowId": "typert",
+     "moduleName": "@deepseek-ai/dsh-typert-registry",
+     "entryId": "include:typert",
+     "enabled": true
+    },
+    {
+     "rowId": "typert-loader",
+     "moduleName": "@deepseek-ai/dsh-typert-loader",
+     "entryId": "include:typert-loader",
+     "enabled": true
+    },
+    {
+     "rowId": "typert-gateway",
+     "moduleName": "@deepseek-ai/dsh-api-gateway",
+     "entryId": "include:typert-gateway",
+     "enabled": true
+    },
+    {
+     "rowId": "remote-access",
+     "moduleName": "@deepseek-ai/dsh-api-remote-access",
+     "entryId": "include:remote-access",
+     "enabled": true
+    },
+    {
+     "rowId": "session-title",
+     "moduleName": "@deepseek-ai/dsh-session-title",
+     "entryId": "include:session-title",
+     "enabled": true
+    },
+    {
+     "rowId": "session-title-llm",
+     "moduleName": "@deepseek-ai/dsh-session-title-first-prompt-llm",
+     "entryId": "include:session-title-llm",
+     "enabled": true
+    },
+    {
+     "rowId": "user-questions",
+     "moduleName": "@deepseek-ai/dsh-user-questions",
+     "entryId": "include:user-questions",
+     "enabled": true
+    },
+    {
+     "rowId": "agent",
+     "moduleName": "@deepseek-ai/dsh-agent",
+     "entryId": "include:agent",
+     "enabled": true
+    },
+    {
+     "rowId": "plugin-package-inventory-deepseek",
+     "moduleName": "@deepseek-ai/dsh-plugin-package-inventory-deepseek",
+     "entryId": "include:plugin-package-inventory-deepseek",
+     "enabled": true
+    },
+    {
+     "rowId": "agent-default-model",
+     "moduleName": "@deepseek-ai/dsh-agent-default-model",
+     "entryId": "include:agent-default-model",
+     "enabled": true
+    },
+    {
+     "rowId": "jobs",
+     "moduleName": "@deepseek-ai/dsh-jobs-local",
+     "entryId": "include:jobs",
+     "enabled": true
+    },
+    {
+     "rowId": "llm-retry",
+     "moduleName": "@deepseek-ai/dsh-llm-retry",
+     "entryId": "include:llm-retry",
+     "enabled": true
+    },
+    {
+     "rowId": "config-editor",
+     "moduleName": "@deepseek-ai/dsh-config-editor",
+     "entryId": "include:config-editor",
+     "enabled": true
+    },
+    {
+     "rowId": "settings",
+     "moduleName": "@deepseek-ai/dsh-settings",
+     "entryId": "include:settings",
+     "enabled": true
+    },
+    {
+     "rowId": "authorization",
+     "moduleName": "@deepseek-ai/dsh-authorization",
+     "entryId": "include:authorization",
+     "enabled": true
+    },
+    {
+     "rowId": "deepseek-account",
+     "moduleName": "@deepseek-ai/dsh-deepseek-account-platform",
+     "entryId": "include:deepseek-account",
+     "enabled": true
+    },
+    {
+     "rowId": "credentials",
+     "moduleName": "@deepseek-ai/dsh-credentials-local",
+     "entryId": "include:credentials",
+     "enabled": true
+    },
+    {
+     "rowId": "llm-pi-ai",
+     "moduleName": "@deepseek-ai/dsh-llm-pi-ai",
+     "entryId": "include:llm-pi-ai",
+     "enabled": true
+    },
+    {
+     "rowId": "session-persistence-jsonl",
+     "moduleName": "@deepseek-ai/dsh-session-persistence-jsonl",
+     "entryId": "include:session-persistence-jsonl",
+     "enabled": true
+    },
+    {
+     "rowId": "attachment-local",
+     "moduleName": "@deepseek-ai/dsh-attachment-local",
+     "entryId": "include:attachment-local",
+     "enabled": true
+    },
+    {
+     "rowId": "session-query-sqlite",
+     "moduleName": "@deepseek-ai/dsh-session-query-sqlite",
+     "entryId": "include:session-query-sqlite",
+     "enabled": true
+    },
+    {
+     "rowId": "working-directory",
+     "moduleName": "@deepseek-ai/dsh-working-directory",
+     "entryId": "include:working-directory",
+     "enabled": true
+    },
+    {
+     "rowId": "tool-working-directory",
+     "moduleName": "@deepseek-ai/dsh-tool-working-directory",
+     "entryId": "include:tool-working-directory",
+     "enabled": true
+    },
+    {
+     "rowId": "session-projection",
+     "moduleName": "@deepseek-ai/dsh-session-projection",
+     "entryId": "include:session-projection",
+     "enabled": true
+    },
+    {
+     "rowId": "storage",
+     "moduleName": "@deepseek-ai/dsh-storage",
+     "entryId": "include:storage",
+     "enabled": true
+    },
+    {
+     "rowId": "storage-json",
+     "moduleName": "@deepseek-ai/dsh-storage-json",
+     "entryId": "include:storage-json",
+     "enabled": true
+    },
+    {
+     "rowId": "storage-domain",
+     "moduleName": "@deepseek-ai/dsh-storage-domain",
+     "entryId": "include:storage-domain",
+     "enabled": true
+    },
+    {
+     "rowId": "session-projection-cache",
+     "moduleName": "@deepseek-ai/dsh-session-projection-cache",
+     "entryId": "include:session-projection-cache",
+     "enabled": true
+    },
+    {
+     "rowId": "otel",
+     "moduleName": "@deepseek-ai/dsh-otel",
+     "entryId": "include:otel",
+     "enabled": true
+    },
+    {
+     "rowId": "session-telemetry-otel",
+     "moduleName": "@deepseek-ai/dsh-session-telemetry-otel",
+     "entryId": "include:session-telemetry-otel",
+     "enabled": true
+    },
+    {
+     "rowId": "subprocess",
+     "moduleName": "@deepseek-ai/dsh-subprocess-local",
+     "entryId": "include:subprocess",
+     "enabled": true
+    },
+    {
+     "rowId": "sandbox",
+     "moduleName": "@deepseek-ai/dsh-sandbox-local",
+     "entryId": "include:sandbox",
+     "enabled": true
+    },
+    {
+     "rowId": "sandbox-policy",
+     "moduleName": "@deepseek-ai/dsh-sandbox-policy",
+     "entryId": "include:sandbox-policy",
+     "enabled": true
+    },
+    {
+     "rowId": "bash-sandbox",
+     "moduleName": "@deepseek-ai/dsh-bash-sandbox",
+     "entryId": "include:bash-sandbox",
+     "enabled": true
+    },
+    {
+     "rowId": "pwsh-sandbox",
+     "moduleName": "@deepseek-ai/dsh-pwsh-sandbox",
+     "entryId": "include:pwsh-sandbox",
+     "enabled": true
+    },
+    {
+     "rowId": "approval",
+     "moduleName": "@deepseek-ai/dsh-user-approval",
+     "entryId": "include:approval",
+     "enabled": true
+    },
+    {
+     "rowId": "permission",
+     "moduleName": "@deepseek-ai/dsh-permission-presets",
+     "entryId": "include:permission",
+     "enabled": true
+    },
+    {
+     "rowId": "shell-env",
+     "moduleName": "@deepseek-ai/dsh-shell-env",
+     "entryId": "include:shell-env",
+     "enabled": true
+    },
+    {
+     "rowId": "tool-bash",
+     "moduleName": "@deepseek-ai/dsh-tool-bash",
+     "entryId": "include:tool-bash",
+     "enabled": true
+    },
+    {
+     "rowId": "tool-pwsh",
+     "moduleName": "@deepseek-ai/dsh-tool-pwsh",
+     "entryId": "include:tool-pwsh",
+     "enabled": true
+    },
+    {
+     "rowId": "tool-jobs",
+     "moduleName": "@deepseek-ai/dsh-tool-jobs",
+     "entryId": "include:tool-jobs",
+     "enabled": true
+    },
+    {
+     "rowId": "fs-observation-policy",
+     "moduleName": "@deepseek-ai/dsh-fs-observation-policy",
+     "entryId": "include:fs-observation-policy",
+     "enabled": true
+    },
+    {
+     "rowId": "tool-fs",
+     "moduleName": "@deepseek-ai/dsh-tool-fs",
+     "entryId": "include:tool-fs",
+     "enabled": true
+    },
+    {
+     "rowId": "tool-fs-search",
+     "moduleName": "@deepseek-ai/dsh-tool-fs-search",
+     "entryId": "include:tool-fs-search",
+     "enabled": true
+    },
+    {
+     "rowId": "agent-instructions",
+     "moduleName": "@deepseek-ai/dsh-agent-instructions",
+     "entryId": "include:agent-instructions",
+     "enabled": true
+    },
+    {
+     "rowId": "skill",
+     "moduleName": "@deepseek-ai/dsh-skill",
+     "entryId": "include:skill",
+     "enabled": true
+    },
+    {
+     "rowId": "skill-filesystem",
+     "moduleName": "@deepseek-ai/dsh-skill-filesystem",
+     "entryId": "include:skill-filesystem",
+     "enabled": true
+    },
+    {
+     "rowId": "tool-skill",
+     "moduleName": "@deepseek-ai/dsh-tool-skill",
+     "entryId": "include:tool-skill",
+     "enabled": true
+    },
+    {
+     "rowId": "commands",
+     "moduleName": "@deepseek-ai/dsh-commands",
+     "entryId": "include:commands",
+     "enabled": true
+    },
+    {
+     "rowId": "command-feedback",
+     "moduleName": "@deepseek-ai/dsh-command-feedback",
+     "entryId": "include:command-feedback",
+     "enabled": true
+    },
+    {
+     "rowId": "goal",
+     "moduleName": "@deepseek-ai/dsh-goal",
+     "entryId": "include:goal",
+     "enabled": true
+    },
+    {
+     "rowId": "goal-round-driver",
+     "moduleName": "@deepseek-ai/dsh-goal-round-driver",
+     "entryId": "include:goal-round-driver",
+     "enabled": true
+    },
+    {
+     "rowId": "command-goal",
+     "moduleName": "@deepseek-ai/dsh-command-goal",
+     "entryId": "include:command-goal",
+     "enabled": true
+    },
+    {
+     "rowId": "plan-mode",
+     "moduleName": "@deepseek-ai/dsh-plan-mode",
+     "entryId": "include:plan-mode",
+     "enabled": true
+    },
+    {
+     "rowId": "token-meter",
+     "moduleName": "@deepseek-ai/dsh-token-meter",
+     "entryId": "include:token-meter",
+     "enabled": true
+    },
+    {
+     "rowId": "compaction-basic",
+     "moduleName": "@deepseek-ai/dsh-compaction-basic",
+     "entryId": "include:compaction-basic",
+     "enabled": true
+    },
+    {
+     "rowId": "command-compact",
+     "moduleName": "@deepseek-ai/dsh-command-compact",
+     "entryId": "include:command-compact",
+     "enabled": true
+    },
+    {
+     "rowId": "subagent",
+     "moduleName": "@deepseek-ai/dsh-subagent",
+     "entryId": "include:subagent",
+     "enabled": true
+    },
+    {
+     "rowId": "subagent-spawn-in-process",
+     "moduleName": "@deepseek-ai/dsh-subagent-spawn-in-process",
+     "entryId": "include:subagent-spawn-in-process",
+     "enabled": true
+    },
+    {
+     "rowId": "subagent-fork-in-process",
+     "moduleName": "@deepseek-ai/dsh-subagent-fork-in-process",
+     "entryId": "include:subagent-fork-in-process",
+     "enabled": true
+    },
+    {
+     "rowId": "tool-subagent-control",
+     "moduleName": "@deepseek-ai/dsh-tool-subagent-control",
+     "entryId": "include:tool-subagent-control",
+     "enabled": true
+    },
+    {
+     "rowId": "tool-subagent-list-agents",
+     "moduleName": "@deepseek-ai/dsh-tool-subagent-control/list-agents",
+     "entryId": "include:tool-subagent-list-agents",
+     "enabled": true
+    },
+    {
+     "rowId": "tool-subagent",
+     "moduleName": "@deepseek-ai/dsh-tool-subagent",
+     "entryId": "include:tool-subagent",
+     "enabled": true
+    },
+    {
+     "rowId": "tool-subagent-fork",
+     "moduleName": "@deepseek-ai/dsh-tool-subagent",
+     "entryId": "include:tool-subagent-fork",
+     "enabled": true
+    },
+    {
+     "rowId": "ptc-runtime",
+     "moduleName": "@deepseek-ai/dsh-ptc-runtime-node",
+     "entryId": "include:ptc-runtime",
+     "enabled": true
+    },
+    {
+     "rowId": "workflow-ptc",
+     "moduleName": "@deepseek-ai/dsh-workflow-ptc",
+     "entryId": "include:workflow-ptc",
+     "enabled": true
+    },
+    {
+     "rowId": "tool-workflow",
+     "moduleName": "@deepseek-ai/dsh-tool-workflow",
+     "entryId": "include:tool-workflow",
+     "enabled": true
+    },
+    {
+     "rowId": "timeout-policy",
+     "moduleName": "@deepseek-ai/dsh-tool-call-timeout-policy",
+     "entryId": "include:timeout-policy",
+     "enabled": true
+    },
+    {
+     "rowId": "spill-local",
+     "moduleName": "@deepseek-ai/dsh-spill-local",
+     "entryId": "include:spill-local",
+     "enabled": true
+    },
+    {
+     "rowId": "spill-policy",
+     "moduleName": "@deepseek-ai/dsh-spill-policy",
+     "entryId": "include:spill-policy",
+     "enabled": true
+    },
+    {
+     "rowId": "session-checkpoint-policy",
+     "moduleName": "@deepseek-ai/dsh-session-checkpoint-policy",
+     "entryId": "include:session-checkpoint-policy",
+     "enabled": true
+    },
+    {
+     "rowId": "tool-result-pruner",
+     "moduleName": "@deepseek-ai/dsh-compaction-tool-result-pruner",
+     "entryId": "include:tool-result-pruner",
+     "enabled": true
+    },
+    {
+     "rowId": "image-offload",
+     "moduleName": "@deepseek-ai/dsh-compaction-image-offload",
+     "entryId": "include:image-offload",
+     "enabled": true
+    },
+    {
+     "rowId": "tool-todo",
+     "moduleName": "@deepseek-ai/dsh-tool-todo",
+     "entryId": "include:tool-todo",
+     "enabled": true
+    },
+    {
+     "rowId": "tool-goal",
+     "moduleName": "@deepseek-ai/dsh-tool-goal",
+     "entryId": "include:tool-goal",
+     "enabled": true
+    },
+    {
+     "rowId": "repeat-tool-reminder",
+     "moduleName": "@deepseek-ai/dsh-repeat-tool-reminder",
+     "entryId": "include:repeat-tool-reminder",
+     "enabled": true
+    },
+    {
+     "rowId": "web",
+     "moduleName": "@deepseek-ai/dsh-web",
+     "entryId": "include:web",
+     "enabled": true
+    },
+    {
+     "rowId": "web-search-deepseek",
+     "moduleName": "@deepseek-ai/dsh-web-search-deepseek",
+     "entryId": "include:web-search-deepseek",
+     "enabled": true
+    },
+    {
+     "rowId": "web-deepseek-api",
+     "moduleName": "@deepseek-ai/dsh-web-deepseek-api",
+     "entryId": "include:web-deepseek-api",
+     "enabled": true
+    },
+    {
+     "rowId": "web-fetch-http",
+     "moduleName": "@deepseek-ai/dsh-web-fetch-http",
+     "entryId": "include:web-fetch-http",
+     "enabled": true
+    },
+    {
+     "rowId": "tool-web",
+     "moduleName": "@deepseek-ai/dsh-tool-web",
+     "entryId": "include:tool-web",
+     "enabled": true
+    },
+    {
+     "rowId": "mcp-resources",
+     "moduleName": "@deepseek-ai/dsh-mcp-resources",
+     "entryId": "include:mcp-resources",
+     "enabled": true
+    },
+    {
+     "rowId": "tools",
+     "moduleName": "@deepseek-ai/dsh-tools",
+     "entryId": "include:tools",
+     "enabled": true
+    },
+    {
+     "rowId": "system-prompt",
+     "moduleName": "@deepseek-ai/dsh-system-prompt",
+     "entryId": "include:system-prompt",
+     "enabled": true
+    },
+    {
+     "rowId": "agent-loop",
+     "moduleName": "@deepseek-ai/dsh-agent-loop",
+     "entryId": "include:agent-loop",
+     "enabled": true
+    },
+    {
+     "rowId": "fs-sandbox",
+     "moduleName": "@deepseek-ai/dsh-fs-sandbox",
+     "entryId": "include:fs-sandbox",
+     "enabled": true
+    },
+    {
+     "rowId": "llm-deepseek",
+     "moduleName": "@deepseek-ai/dsh-llm-deepseek-api-key",
+     "entryId": "include:llm-deepseek",
+     "enabled": true
+    },
+    {
+     "rowId": "llm-deepseek-account",
+     "moduleName": "@deepseek-ai/dsh-llm-deepseek-account",
+     "entryId": "include:llm-deepseek-account",
+     "enabled": true
+    }
+   ],
+   "kind": "bundle",
+   "key": "bundle:@deepseek-ai/dsh-base",
+   "family": "core",
+   "domain": "core.service",
+   "familyLabel": "系统与内核",
+   "domainLabel": "宿主服务",
+   "confidence": "high",
+   "evidence": [
+    "说明里写明它是 Harness 底座/内核层"
+   ],
+   "usedAt": null,
+   "usedText": null,
+   "usedVia": "mention",
+   "mentionedAt": 1793290402343,
+   "mentionedText": "15 小时前"
+  },
+  {
+   "name": "@deepseek-ai/dsh-web-app",
+   "version": "0.2.1-rc.3",
+   "description": "The dsh browser-surface bundle: the web patch layer over dsh-base plus the runtime glue plugin (frontend dist serving, bash runtime variables, URL line)",
+   "title": "Web 应用运行支持",
+   "spec": null,
+   "enabled": true,
+   "installed": false,
+   "official": false,
+   "optional": false,
+   "removable": false,
+   "availability": "installation",
+   "source": null,
+   "local": false,
+   "rowCount": 95,
+   "readOnlyReason": "management-required",
+   "error": null,
+   "overrides": [
+    "system-prompt",
+    "session-query-sqlite",
+    "tools",
+    "tool-plugin-manager",
+    "tool-bash",
+    "tool-pwsh",
+    "tool-jobs",
+    "tool-fs",
+    "tool-fs-search",
+    "skill-filesystem",
+    "tool-skill",
+    "command-goal",
+    "tool-goal",
+    "plan-mode",
+    "compaction-basic",
+    "command-compact",
+    "tool-result-pruner",
+    "tool-subagent-control",
+    "tool-subagent-list-agents",
+    "tool-subagent",
+    "tool-subagent-fork",
+    "workflow-ptc",
+    "tool-workflow",
+    "agent-instructions",
+    "tool-todo",
+    "tool-web"
+   ],
+   "rows": [
+    {
+     "rowId": "desktop-product-telemetry",
+     "moduleName": "@deepseek-ai/dsh-host-product-telemetry-otel",
+     "entryId": "include:desktop-product-telemetry",
+     "enabled": true
+    },
+    {
+     "rowId": "product-analytics",
+     "moduleName": "@deepseek-ai/dsh-client-product-analytics",
+     "entryId": "include:product-analytics",
+     "enabled": true
+    },
+    {
+     "rowId": "subagent-model-selection-settings",
+     "moduleName": "@deepseek-ai/dsh-tool-subagent/model-selection-settings",
+     "entryId": "include:subagent-model-selection-settings",
+     "enabled": true
+    },
+    {
+     "rowId": "message-feedback",
+     "moduleName": "@deepseek-ai/dsh-message-feedback",
+     "entryId": "include:message-feedback",
+     "enabled": true
+    },
+    {
+     "rowId": "session-log-download",
+     "moduleName": "@deepseek-ai/dsh-session-log-export",
+     "entryId": "include:session-log-download",
+     "enabled": true
+    },
+    {
+     "rowId": "open-in-app",
+     "moduleName": "@deepseek-ai/dsh-host-open-in-app",
+     "entryId": "include:open-in-app",
+     "enabled": true
+    },
+    {
+     "rowId": "ui-open-in-app",
+     "moduleName": "@deepseek-ai/dsh-client-ui-open-in-app",
+     "entryId": "include:ui-open-in-app",
+     "enabled": true
+    },
+    {
+     "rowId": "workspace",
+     "moduleName": "@deepseek-ai/dsh-workspace",
+     "entryId": "include:workspace",
+     "enabled": true
+    },
+    {
+     "rowId": "session-reference",
+     "moduleName": "@deepseek-ai/dsh-session-reference",
+     "entryId": "include:session-reference",
+     "enabled": true
+    },
+    {
+     "rowId": "file-reference-local",
+     "moduleName": "@deepseek-ai/dsh-file-reference-local",
+     "entryId": "include:file-reference-local",
+     "enabled": true
+    },
+    {
+     "rowId": "session-stats",
+     "moduleName": "@deepseek-ai/dsh-session-stats",
+     "entryId": "include:session-stats",
+     "enabled": true
+    },
+    {
+     "rowId": "session-turn-outline",
+     "moduleName": "@deepseek-ai/dsh-session-turn-outline",
+     "entryId": "include:session-turn-outline",
+     "enabled": true
+    },
+    {
+     "rowId": "directory-picker",
+     "moduleName": "@deepseek-ai/dsh-host-directory-picker-auto",
+     "entryId": "include:directory-picker",
+     "enabled": true
+    },
+    {
+     "rowId": "plugin-inventory",
+     "moduleName": "@deepseek-ai/dsh-host-plugin-inventory",
+     "entryId": "include:plugin-inventory",
+     "enabled": true
+    },
+    {
+     "rowId": "session-controller",
+     "moduleName": "@deepseek-ai/dsh-api-session-controller",
+     "entryId": "include:session-controller",
+     "enabled": true
+    },
+    {
+     "rowId": "job-controller",
+     "moduleName": "@deepseek-ai/dsh-api-job-controller",
+     "entryId": "include:job-controller",
+     "enabled": true
+    },
+    {
+     "rowId": "terminal-controller",
+     "moduleName": "@deepseek-ai/dsh-api-terminal-controller",
+     "entryId": "include:terminal-controller",
+     "enabled": true
+    },
+    {
+     "rowId": "workspace-files",
+     "moduleName": "@deepseek-ai/dsh-api-workspace-files",
+     "entryId": "include:workspace-files",
+     "enabled": true
+    },
+    {
+     "rowId": "schedule",
+     "moduleName": "@deepseek-ai/dsh-schedule",
+     "entryId": "include:schedule",
+     "enabled": true
+    },
+    {
+     "rowId": "ui-settings-account",
+     "moduleName": "@deepseek-ai/dsh-client-ui-settings-account",
+     "entryId": "include:ui-settings-account",
+     "enabled": true
+    },
+    {
+     "rowId": "account-controller",
+     "moduleName": "@deepseek-ai/dsh-api-account-controller",
+     "entryId": "include:account-controller",
+     "enabled": true
+    },
+    {
+     "rowId": "settings-controller",
+     "moduleName": "@deepseek-ai/dsh-api-settings-controller",
+     "entryId": "include:settings-controller",
+     "enabled": true
+    },
+    {
+     "rowId": "workspace-controller",
+     "moduleName": "@deepseek-ai/dsh-api-workspace-controller",
+     "entryId": "include:workspace-controller",
+     "enabled": true
+    },
+    {
+     "rowId": "cordis-host-runner",
+     "moduleName": "@deepseek-ai/dsh-cordis-host-runner",
+     "entryId": "include:cordis-host-runner",
+     "enabled": true
+    },
+    {
+     "rowId": "cordis-inspect-providers",
+     "moduleName": "@deepseek-ai/dsh-tool-cordis/host",
+     "entryId": "include:cordis-inspect-providers",
+     "enabled": true
+    },
+    {
+     "rowId": "web-startup",
+     "moduleName": "@deepseek-ai/dsh-web-app/startup",
+     "entryId": "include:web-startup",
+     "enabled": true
+    },
+    {
+     "rowId": "webserver",
+     "moduleName": "@deepseek-ai/dsh-host-webserver",
+     "entryId": "include:webserver",
+     "enabled": true
+    },
+    {
+     "rowId": "web-runtime",
+     "moduleName": "@deepseek-ai/dsh-web-app",
+     "entryId": "include:web-runtime",
+     "enabled": true
+    },
+    {
+     "rowId": "harness-dev-context",
+     "moduleName": "@deepseek-ai/dsh-harness-dev-context",
+     "entryId": "include:harness-dev-context",
+     "enabled": true
+    },
+    {
+     "rowId": "client-hmr",
+     "moduleName": "@deepseek-ai/dsh-client-hmr",
+     "entryId": "include:client-hmr",
+     "enabled": true
+    },
+    {
+     "rowId": "modules",
+     "moduleName": "@deepseek-ai/dsh-client-modules",
+     "entryId": "include:modules",
+     "enabled": true
+    },
+    {
+     "rowId": "connection",
+     "moduleName": "@deepseek-ai/dsh-client-connection",
+     "entryId": "include:connection",
+     "enabled": true
+    },
+    {
+     "rowId": "file-upload",
+     "moduleName": "@deepseek-ai/dsh-client-file-upload",
+     "entryId": "include:file-upload",
+     "enabled": true
+    },
+    {
+     "rowId": "api-remotes",
+     "moduleName": "@deepseek-ai/dsh-api-remotes",
+     "entryId": "include:api-remotes",
+     "enabled": true
+    },
+    {
+     "rowId": "cordis-client-runner",
+     "moduleName": "@deepseek-ai/dsh-cordis-client-runner",
+     "entryId": "include:cordis-client-runner",
+     "enabled": true
+    },
+    {
+     "rowId": "ui-theme",
+     "moduleName": "@deepseek-ai/dsh-client-ui-theme",
+     "entryId": "include:ui-theme",
+     "enabled": true
+    },
+    {
+     "rowId": "locale",
+     "moduleName": "@deepseek-ai/dsh-client-locale",
+     "entryId": "include:locale",
+     "enabled": true
+    },
+    {
+     "rowId": "shortcuts",
+     "moduleName": "@deepseek-ai/dsh-client-shortcuts",
+     "entryId": "include:shortcuts",
+     "enabled": true
+    },
+    {
+     "rowId": "ui-shortcuts",
+     "moduleName": "@deepseek-ai/dsh-client-ui-shortcuts",
+     "entryId": "include:ui-shortcuts",
+     "enabled": true
+    },
+    {
+     "rowId": "ui-layout",
+     "moduleName": "@deepseek-ai/dsh-client-ui-layout",
+     "entryId": "include:ui-layout",
+     "enabled": true
+    },
+    {
+     "rowId": "ui-renderer",
+     "moduleName": "@deepseek-ai/dsh-client-ui-renderer",
+     "entryId": "include:ui-renderer",
+     "enabled": true
+    },
+    {
+     "rowId": "ui-session",
+     "moduleName": "@deepseek-ai/dsh-client-ui-session",
+     "entryId": "include:ui-session",
+     "enabled": true
+    },
+    {
+     "rowId": "resources",
+     "moduleName": "@deepseek-ai/dsh-client-resources",
+     "entryId": "include:resources",
+     "enabled": true
+    },
+    {
+     "rowId": "ui-sidebar",
+     "moduleName": "@deepseek-ai/dsh-client-ui-sidebar",
+     "entryId": "include:ui-sidebar",
+     "enabled": true
+    },
+    {
+     "rowId": "ui-sidebar-right",
+     "moduleName": "@deepseek-ai/dsh-client-ui-sidebar-right",
+     "entryId": "include:ui-sidebar-right",
+     "enabled": true
+    },
+    {
+     "rowId": "office-to-pdf",
+     "moduleName": "@deepseek-ai/dsh-office-to-pdf",
+     "entryId": "include:office-to-pdf",
+     "enabled": true
+    },
+    {
+     "rowId": "ui-sidebar-documentpreview",
+     "moduleName": "@deepseek-ai/dsh-client-ui-sidebar-documentpreview",
+     "entryId": "include:ui-sidebar-documentpreview",
+     "enabled": true
+    },
+    {
+     "rowId": "ui-sidebar-browser",
+     "moduleName": "@deepseek-ai/dsh-client-ui-sidebar-browser",
+     "entryId": "include:ui-sidebar-browser",
+     "enabled": true
+    },
+    {
+     "rowId": "ui-sidebar-terminal",
+     "moduleName": "@deepseek-ai/dsh-client-ui-sidebar-terminal",
+     "entryId": "include:ui-sidebar-terminal",
+     "enabled": true
+    },
+    {
+     "rowId": "ui-sidebar-files",
+     "moduleName": "@deepseek-ai/dsh-client-ui-sidebar-files",
+     "entryId": "include:ui-sidebar-files",
+     "enabled": true
+    },
+    {
+     "rowId": "ui-settings",
+     "moduleName": "@deepseek-ai/dsh-client-ui-settings",
+     "entryId": "include:ui-settings",
+     "enabled": true
+    },
+    {
+     "rowId": "ui-settings-general",
+     "moduleName": "@deepseek-ai/dsh-client-ui-settings-general",
+     "entryId": "include:ui-settings-general",
+     "enabled": true
+    },
+    {
+     "rowId": "ui-settings-models",
+     "moduleName": "@deepseek-ai/dsh-client-ui-settings-models",
+     "entryId": "include:ui-settings-models",
+     "enabled": true
+    },
+    {
+     "rowId": "ui-plugin-manager",
+     "moduleName": "@deepseek-ai/dsh-client-ui-plugin-manager",
+     "entryId": "include:ui-plugin-manager",
+     "enabled": true
+    },
+    {
+     "rowId": "ui-settings-plugin-inventory",
+     "moduleName": "@deepseek-ai/dsh-client-ui-settings-plugin-inventory",
+     "entryId": "include:ui-settings-plugin-inventory",
+     "enabled": true
+    },
+    {
+     "rowId": "ui-conversation",
+     "moduleName": "@deepseek-ai/dsh-client-ui-conversation",
+     "entryId": "include:ui-conversation",
+     "enabled": true
+    },
+    {
+     "rowId": "ui-approval",
+     "moduleName": "@deepseek-ai/dsh-client-ui-approval",
+     "entryId": "include:ui-approval",
+     "enabled": true
+    },
+    {
+     "rowId": "ui-chat",
+     "moduleName": "@deepseek-ai/dsh-client-ui-chat",
+     "entryId": "include:ui-chat",
+     "enabled": true
+    },
+    {
+     "rowId": "ui-brand-official",
+     "moduleName": "@deepseek-ai/dsh-client-ui-brand-official",
+     "entryId": "include:ui-brand-official",
+     "enabled": true
+    },
+    {
+     "rowId": "ui-attachment",
+     "moduleName": "@deepseek-ai/dsh-client-ui-attachment",
+     "entryId": "include:ui-attachment",
+     "enabled": true
+    },
+    {
+     "rowId": "ui-tool",
+     "moduleName": "@deepseek-ai/dsh-client-ui-tool",
+     "entryId": "include:ui-tool",
+     "enabled": true
+    },
+    {
+     "rowId": "ui-cordis",
+     "moduleName": "@deepseek-ai/dsh-client-ui-cordis",
+     "entryId": "include:ui-cordis",
+     "enabled": true
+    },
+    {
+     "rowId": "ui-deliverables",
+     "moduleName": "@deepseek-ai/dsh-client-ui-deliverables",
+     "entryId": "include:ui-deliverables",
+     "enabled": true
+    },
+    {
+     "rowId": "workspace-changes",
+     "moduleName": "@deepseek-ai/dsh-workspace-changes",
+     "entryId": "include:workspace-changes",
+     "enabled": true
+    },
+    {
+     "rowId": "ui-workspace",
+     "moduleName": "@deepseek-ai/dsh-client-ui-workspace",
+     "entryId": "include:ui-workspace",
+     "enabled": true
+    },
+    {
+     "rowId": "ui-workflow-run",
+     "moduleName": "@deepseek-ai/dsh-client-ui-workflow-run",
+     "entryId": "include:ui-workflow-run",
+     "enabled": true
+    },
+    {
+     "rowId": "ui-input-trigger",
+     "moduleName": "@deepseek-ai/dsh-client-ui-input-trigger",
+     "entryId": "include:ui-input-trigger",
+     "enabled": true
+    },
+    {
+     "rowId": "ui-commands",
+     "moduleName": "@deepseek-ai/dsh-client-ui-commands",
+     "entryId": "include:ui-commands",
+     "enabled": true
+    },
+    {
+     "rowId": "ui-skill",
+     "moduleName": "@deepseek-ai/dsh-client-ui-skill",
+     "entryId": "include:ui-skill",
+     "enabled": true
+    },
+    {
+     "rowId": "ui-subagent",
+     "moduleName": "@deepseek-ai/dsh-client-ui-subagent",
+     "entryId": "include:ui-subagent",
+     "enabled": true
+    },
+    {
+     "rowId": "ui-reference",
+     "moduleName": "@deepseek-ai/dsh-client-ui-reference",
+     "entryId": "include:ui-reference",
+     "enabled": true
+    },
+    {
+     "rowId": "ui-secret-mask",
+     "moduleName": "@deepseek-ai/dsh-client-ui-secret-mask",
+     "entryId": "include:ui-secret-mask",
+     "enabled": true
+    },
+    {
+     "rowId": "ui-jobs",
+     "moduleName": "@deepseek-ai/dsh-client-ui-jobs",
+     "entryId": "include:ui-jobs",
+     "enabled": true
+    },
+    {
+     "rowId": "ui-schedule",
+     "moduleName": "@deepseek-ai/dsh-client-ui-schedule",
+     "entryId": "include:ui-schedule",
+     "enabled": true
+    },
+    {
+     "rowId": "ui-goal",
+     "moduleName": "@deepseek-ai/dsh-client-ui-goal",
+     "entryId": "include:ui-goal",
+     "enabled": true
+    },
+    {
+     "rowId": "ui-message-feedback",
+     "moduleName": "@deepseek-ai/dsh-client-ui-message-feedback",
+     "entryId": "include:ui-message-feedback",
+     "enabled": true
+    },
+    {
+     "rowId": "ui-model-selection",
+     "moduleName": "@deepseek-ai/dsh-client-ui-model-selection",
+     "entryId": "include:ui-model-selection",
+     "enabled": true
+    },
+    {
+     "rowId": "ui-deepseek-model-label-1017",
+     "moduleName": "@deepseek-ai/dsh-client-ui-deepseek-model-label-1017",
+     "entryId": "include:ui-deepseek-model-label-1017",
+     "enabled": true
+    },
+    {
+     "rowId": "ui-permission",
+     "moduleName": "@deepseek-ai/dsh-client-ui-permission-presets",
+     "entryId": "include:ui-permission",
+     "enabled": true
+    },
+    {
+     "rowId": "ui-agent-preset",
+     "moduleName": "@deepseek-ai/dsh-client-ui-agent-preset",
+     "entryId": "include:ui-agent-preset",
+     "enabled": true
+    },
+    {
+     "rowId": "entry-customization",
+     "moduleName": "@deepseek-ai/dsh-client-ui-entry-customization",
+     "entryId": "include:entry-customization",
+     "enabled": true
+    },
+    {
+     "rowId": "ui-settings-session-log",
+     "moduleName": "@deepseek-ai/dsh-client-ui-settings-session-log",
+     "entryId": "include:ui-settings-session-log",
+     "enabled": true
+    },
+    {
+     "rowId": "ui-settings-plugins",
+     "moduleName": "@deepseek-ai/dsh-client-ui-settings-plugins",
+     "entryId": "include:ui-settings-plugins",
+     "enabled": true
+    },
+    {
+     "rowId": "ui-settings-shell",
+     "moduleName": "@deepseek-ai/dsh-client-ui-settings-shell",
+     "entryId": "include:ui-settings-shell",
+     "enabled": true
+    },
+    {
+     "rowId": "ui-settings-agent-loop",
+     "moduleName": "@deepseek-ai/dsh-client-ui-settings-agent-loop",
+     "entryId": "include:ui-settings-agent-loop",
+     "enabled": true
+    },
+    {
+     "rowId": "ui-settings-subagent",
+     "moduleName": "@deepseek-ai/dsh-client-ui-settings-subagent",
+     "entryId": "include:ui-settings-subagent",
+     "enabled": true
+    },
+    {
+     "rowId": "ui-settings-web-search",
+     "moduleName": "@deepseek-ai/dsh-client-ui-settings-web-search",
+     "entryId": "include:ui-settings-web-search",
+     "enabled": true
+    },
+    {
+     "rowId": "ui-plan",
+     "moduleName": "@deepseek-ai/dsh-client-ui-plan",
+     "entryId": "include:ui-plan",
+     "enabled": true
+    },
+    {
+     "rowId": "ui-user-questions",
+     "moduleName": "@deepseek-ai/dsh-client-ui-user-questions",
+     "entryId": "include:ui-user-questions",
+     "enabled": true
+    },
+    {
+     "rowId": "ui-trajectory",
+     "moduleName": "@deepseek-ai/dsh-client-ui-trajectory",
+     "entryId": "include:ui-trajectory",
+     "enabled": true
+    },
+    {
+     "rowId": "agent-preset-registry",
+     "moduleName": "@deepseek-ai/dsh-agent-preset-registry",
+     "entryId": "include:agent-preset-registry",
+     "enabled": true
+    },
+    {
+     "rowId": "preset-standard",
+     "moduleName": "@deepseek-ai/dsh-agent-preset",
+     "entryId": "include:preset-standard",
+     "enabled": true
+    },
+    {
+     "rowId": "preset-ptc",
+     "moduleName": "@deepseek-ai/dsh-agent-preset",
+     "entryId": "include:preset-ptc",
+     "enabled": true
+    },
+    {
+     "rowId": "preset-minimal",
+     "moduleName": "@deepseek-ai/dsh-agent-preset",
+     "entryId": "include:preset-minimal",
+     "enabled": true
+    },
+    {
+     "rowId": "preset-cordis",
+     "moduleName": "@deepseek-ai/dsh-agent-preset",
+     "entryId": "include:preset-cordis",
+     "enabled": true
+    }
+   ],
+   "kind": "bundle",
+   "key": "bundle:@deepseek-ai/dsh-web-app",
+   "family": "core",
+   "domain": "core.service",
+   "familyLabel": "系统与内核",
+   "domainLabel": "宿主服务",
+   "confidence": "high",
+   "evidence": [
+    "说明里写明它是 Harness 底座/内核层"
+   ],
+   "usedAt": null,
+   "usedText": null,
+   "usedVia": "mention",
+   "mentionedAt": 1793295929740,
+   "mentionedText": "14 小时前"
+  },
+  {
+   "name": "@agents-anywhere/dsh-bridge-next",
+   "version": "2.1.0-desktop.c0e7605dd6a22.r7504932a",
+   "description": "Agents Anywhere onboarding, Connector management and event-driven session runtime for DeepSeek Harness",
+   "title": "远程控制",
+   "spec": null,
+   "enabled": true,
+   "installed": false,
+   "official": true,
+   "optional": true,
+   "removable": false,
+   "availability": "installation",
+   "source": null,
+   "local": false,
+   "rowCount": 1,
+   "readOnlyReason": null,
+   "error": null,
+   "overrides": [],
+   "rows": [
+    {
+     "rowId": "agents-anywhere-bridge-next",
+     "moduleName": "@agents-anywhere/dsh-bridge-next",
+     "entryId": "include:agents-anywhere-bridge-next",
+     "enabled": true
+    }
+   ],
+   "kind": "bundle",
+   "key": "bundle:@agents-anywhere/dsh-bridge-next",
+   "family": "core",
+   "domain": "core.service",
+   "familyLabel": "系统与内核",
+   "domainLabel": "宿主服务",
+   "confidence": "low",
+   "evidence": [
+    "官方行且无其它证据，按内核服务归档"
+   ],
+   "usedAt": null,
+   "usedText": null,
+   "usedVia": "mention",
+   "mentionedAt": 1793288529534,
+   "mentionedText": "16 小时前"
+  },
+  {
+   "name": "dsh-community-market",
+   "version": "0.1.0-dev.0",
+   "description": "Community plugin discovery and managed package operations for DeepSeek Harness Desktop",
+   "title": "dsh-community-market",
+   "spec": null,
+   "enabled": true,
+   "installed": false,
+   "official": true,
+   "optional": true,
+   "removable": false,
+   "availability": "installation",
+   "source": null,
+   "local": false,
+   "rowCount": 1,
+   "readOnlyReason": null,
+   "error": null,
+   "overrides": [],
+   "rows": [
+    {
+     "rowId": "community-market",
+     "moduleName": "dsh-community-market",
+     "entryId": "include:community-market",
+     "enabled": true
+    }
+   ],
+   "kind": "bundle",
+   "key": "bundle:dsh-community-market",
+   "family": "ops",
+   "domain": "ops.other",
+   "familyLabel": "运维与诊断",
+   "domainLabel": "运维能力",
+   "confidence": "high",
+   "evidence": [
+    "说明里写明它是插件市场/安装器"
+   ],
+   "usedAt": null,
+   "usedText": null,
+   "usedVia": "mention",
+   "mentionedAt": 1793293961863,
+   "mentionedText": "14 小时前"
+  },
+  {
+   "name": "dsh-plugin-wallpaper-engine",
+   "version": "1.4.0",
+   "description": "Wallpaper Engine backgrounds for the DSH web GUI: render your local Wallpaper Engine wallpapers behind the chat — Scene and Web in real time through the bundled WebWallGL engine, Video played directly — with iOS-style liquid glass, adjustable blur/scrim/border/opacity, custom typography and caret, and a liquid-glass makeover of the whole settings window. Prerequisite: DeepSeek Harness 0.2 kernel (including 0.2.0-rc.1/rc.2) and Node.js >=22.12.0. No version restriction on dsh-better-sidebar.",
+   "title": "dsh-plugin-wallpaper-engine",
+   "spec": "dsh-plugin-wallpaper-engine@1.4.0",
+   "enabled": true,
+   "installed": true,
+   "official": false,
+   "optional": false,
+   "removable": true,
+   "availability": "profile",
+   "source": "dsh-plugin-wallpaper-engine@1.4.0",
+   "local": false,
+   "rowCount": 8,
+   "readOnlyReason": null,
+   "error": null,
+   "overrides": [],
+   "rows": [
+    {
+     "rowId": "wallpaper-engine",
+     "moduleName": "dsh-plugin-wallpaper-engine",
+     "entryId": "include:wallpaper-engine",
+     "enabled": true
+    },
+    {
+     "rowId": "wallpaper-engine-about-notice",
+     "moduleName": "dsh-plugin-wallpaper-engine-about-notice",
+     "entryId": "include:wallpaper-engine-about-notice",
+     "enabled": true
+    },
+    {
+     "rowId": "wallpaper-engine-mascot-avatar",
+     "moduleName": "dsh-plugin-wallpaper-engine-mascot-avatar",
+     "entryId": "include:wallpaper-engine-mascot-avatar",
+     "enabled": true
+    },
+    {
+     "rowId": "wallpaper-engine-media-bridge",
+     "moduleName": "dsh-plugin-wallpaper-engine-media-bridge",
+     "entryId": "include:wallpaper-engine-media-bridge",
+     "enabled": true
+    },
+    {
+     "rowId": "wallpaper-engine-pet-link",
+     "moduleName": "dsh-plugin-wallpaper-engine-pet-link",
+     "entryId": "include:wallpaper-engine-pet-link",
+     "enabled": true
+    },
+    {
+     "rowId": "wallpaper-engine-fx",
+     "moduleName": "dsh-plugin-wallpaper-engine-fx",
+     "entryId": "include:wallpaper-engine-fx",
+     "enabled": true
+    },
+    {
+     "rowId": "wallpaper-engine-parallax",
+     "moduleName": "dsh-plugin-wallpaper-engine-parallax",
+     "entryId": "include:wallpaper-engine-parallax",
+     "enabled": true
+    },
+    {
+     "rowId": "wallpaper-engine-fonts",
+     "moduleName": "dsh-plugin-wallpaper-engine-fonts",
+     "entryId": "include:wallpaper-engine-fonts",
+     "enabled": true
+    }
+   ],
+   "kind": "bundle",
+   "key": "bundle:dsh-plugin-wallpaper-engine",
+   "family": "ui",
+   "domain": "ui.theme",
+   "familyLabel": "界面与交互",
+   "domainLabel": "主题与外观",
+   "confidence": "high",
+   "evidence": [
+    "说明里写明它是壁纸/主题类外观插件",
+    "修改主题或外观 token",
+    "注册了界面插槽 sidebar.right.pane.tab, conversation.view, tool.call.toolview",
+    "声明了 dsh.client（会往界面里画东西）",
+    "同时涉及 模型与推理（8 分）、网络与数据（4 分）"
+   ],
+   "usedAt": null,
+   "usedText": null,
+   "usedVia": "mention",
+   "mentionedAt": 1793287500598,
+   "mentionedText": "16 小时前"
+  },
+  {
+   "name": "dsh-aliyun-coupon",
+   "version": "1.3.1",
+   "description": "阿里云云工开物学生专属代金券余额实时查看插件（DeepSeek Harness）：零 Token 消耗、真实浏览器实时抓取账单控制台。 / Live Aliyun student coupon balance viewer for DeepSeek Harness — zero-token, real-time console scrape.",
+   "title": "dsh-aliyun-coupon",
+   "spec": "file:E:\\MY Base Text\\DeepSeek Harness\\.dsh-install\\dsh-aliyun-coupon-1.3.1.tgz",
+   "enabled": true,
+   "installed": true,
+   "official": false,
+   "optional": false,
+   "removable": true,
+   "availability": "profile",
+   "source": "file:E:\\MY Base Text\\DeepSeek Harness\\.dsh-install\\dsh-aliyun-coupon-1.3.1.tgz",
+   "local": true,
+   "rowCount": 1,
+   "readOnlyReason": null,
+   "error": null,
+   "overrides": [],
+   "rows": [
+    {
+     "rowId": "dsh-aliyun-coupon",
+     "moduleName": "dsh-aliyun-coupon",
+     "entryId": "include:dsh-aliyun-coupon",
+     "enabled": true
+    }
+   ],
+   "kind": "bundle",
+   "key": "bundle:dsh-aliyun-coupon",
+   "family": "net",
+   "domain": "net.scrape",
+   "familyLabel": "网络与数据",
+   "domainLabel": "抓取与同步",
+   "confidence": "high",
+   "evidence": [
+    "说明里写明它联网抓取/查询外部数据",
+    "注册了 HTTP 路由",
+    "会发起网络请求",
+    "同时涉及 会话与工作区（4 分）、界面与交互（3 分）"
+   ],
+   "usedAt": null,
+   "usedText": null,
+   "usedVia": "mention",
+   "mentionedAt": 1793287708084,
+   "mentionedText": "16 小时前"
+  },
+  {
+   "name": "dsh-connect-workbuddy",
+   "version": "5.13.1",
+   "description": "把本机登录的 WorkBuddy 模型（国内版与国际版）接入 DeepSeek Harness：每次刷新按上游目录自动读取每个模型的积分倍率，支持逐模型图片输入开关、多账号切换与账号池自动换号，并提供每日签到、卡片与输入框里的胶囊积分读数等只读积分概览。",
+   "title": "dsh-connect-workbuddy",
+   "spec": "dsh-connect-workbuddy@5.13.1",
+   "enabled": true,
+   "installed": true,
+   "official": false,
+   "optional": false,
+   "removable": true,
+   "availability": "profile",
+   "source": "dsh-connect-workbuddy@5.13.1",
+   "local": false,
+   "rowCount": 1,
+   "readOnlyReason": null,
+   "error": null,
+   "overrides": [],
+   "rows": [
+    {
+     "rowId": "dsh-connect-workbuddy",
+     "moduleName": "dsh-connect-workbuddy",
+     "entryId": "include:dsh-connect-workbuddy",
+     "enabled": true
+    }
+   ],
+   "kind": "bundle",
+   "key": "bundle:dsh-connect-workbuddy",
+   "family": "model",
+   "domain": "model.provider",
+   "familyLabel": "模型与推理",
+   "domainLabel": "模型接入",
+   "confidence": "high",
+   "evidence": [
+    "说明里写明它接模型或改推理",
+    "代码里调用模型接口",
+    "代码里压缩或改写上下文",
+    "同时涉及 工具与执行（14 分）、网络与数据（4 分）"
+   ],
+   "usedAt": null,
+   "usedText": null,
+   "usedVia": "mention",
+   "mentionedAt": 1793293849988,
+   "mentionedText": "14 小时前"
+  },
+  {
+   "name": "billion-context",
+   "version": "0.1.209",
+   "description": "A context-compression plugin — small context windows (a 100K context is enough), 5x fewer tokens, month-long single sessions (billions of tokens), and compression quality — for all agents: pi, OpenCode, Codex, Claude Code, and more. billion-context is all you need.",
+   "title": "billion-context",
+   "spec": "billion-context@0.1.209",
+   "enabled": true,
+   "installed": true,
+   "official": false,
+   "optional": false,
+   "removable": true,
+   "availability": "profile",
+   "source": "billion-context@0.1.209",
+   "local": false,
+   "rowCount": 2,
+   "readOnlyReason": null,
+   "error": null,
+   "overrides": [
+    "compaction-basic",
+    "preset-standard",
+    "preset-ptc",
+    "preset-minimal",
+    "preset-cordis",
+    "llm-deepseek",
+    "llm-deepseek-account"
+   ],
+   "rows": [
+    {
+     "rowId": "bili-native",
+     "moduleName": "billion-context",
+     "entryId": "include:bili-native",
+     "enabled": true
+    },
+    {
+     "rowId": "bili-compaction-gate",
+     "moduleName": "billion-context/dsh-compaction-gate",
+     "entryId": "include:bili-compaction-gate",
+     "enabled": true
+    }
+   ],
+   "kind": "bundle",
+   "key": "bundle:billion-context",
+   "family": "model",
+   "domain": "model.compact",
+   "familyLabel": "模型与推理",
+   "domainLabel": "上下文压缩",
+   "confidence": "high",
+   "evidence": [
+    "说明里写明它压缩上下文",
+    "代码里压缩或改写上下文",
+    "同时涉及 工具与执行（7 分）、会话与工作区（4 分）"
+   ],
+   "usedAt": null,
+   "usedText": null,
+   "usedVia": null,
+   "mentionedAt": null,
+   "mentionedText": null
+  },
+  {
+   "name": "dsh-session-clean",
+   "version": "1.6.2",
+   "description": "为 DeepSeek Harness 侧栏会话补上官方缺失的「删除会话」：运行中置灰、二次确认、真正删除（列表、登记与磁盘数据一并清除，做不到时如实告知）；侧栏底部另有「清理分组」面板，可批量清空整组会话或清空并移除分组。Adds the missing per-session Delete action and a workspace cleanup panel to the DeepSeek Harness sidebar.",
+   "title": "dsh-session-clean",
+   "spec": "dsh-session-clean@1.6.2",
+   "enabled": true,
+   "installed": true,
+   "official": false,
+   "optional": false,
+   "removable": true,
+   "availability": "profile",
+   "source": "dsh-session-clean@1.6.2",
+   "local": false,
+   "rowCount": 1,
+   "readOnlyReason": null,
+   "error": null,
+   "overrides": [],
+   "rows": [
+    {
+     "rowId": "session-delete",
+     "moduleName": "dsh-session-clean",
+     "entryId": "include:session-delete",
+     "enabled": true
+    }
+   ],
+   "kind": "bundle",
+   "key": "bundle:dsh-session-clean",
+   "family": "session",
+   "domain": "session.manage",
+   "familyLabel": "会话与工作区",
+   "domainLabel": "会话管理",
+   "confidence": "high",
+   "evidence": [
+    "说明里写明它管会话（增删/分组/清理）",
+    "会读写本地文件",
+    "同时涉及 网络与数据（4 分）、界面与交互（3 分）"
+   ],
+   "usedAt": null,
+   "usedText": null,
+   "usedVia": "mention",
+   "mentionedAt": 1793293858493,
+   "mentionedText": "14 小时前"
+  },
+  {
+   "name": "dsh-plugin-rea",
+   "version": "2.0.13",
+   "description": "One-plugin bundle: provisions Node/REA/JDK/Ghidra for you, then registers the upstream REA MCP server as mcp__rea__* tools. · 一体包：自动准备 Node/REA/JDK/Ghidra，并把上游 REA 的 MCP 服务接入 DeepSeek Harness。",
+   "title": "dsh-plugin-rea",
+   "spec": "dsh-plugin-rea@^2.0.13",
+   "enabled": true,
+   "installed": true,
+   "official": false,
+   "optional": false,
+   "removable": true,
+   "availability": "profile",
+   "source": "dsh-plugin-rea@^2.0.13",
+   "local": false,
+   "rowCount": 2,
+   "readOnlyReason": null,
+   "error": null,
+   "overrides": [],
+   "rows": [
+    {
+     "rowId": "mcp-rea",
+     "moduleName": "@deepseek-ai/dsh-mcp-client",
+     "entryId": "include:mcp-rea",
+     "enabled": true
+    },
+    {
+     "rowId": "rea-guide",
+     "moduleName": "dsh-plugin-rea",
+     "entryId": "include:rea-guide",
+     "enabled": true
+    }
+   ],
+   "kind": "bundle",
+   "key": "bundle:dsh-plugin-rea",
+   "family": "tools",
+   "domain": "tools.mcp",
+   "familyLabel": "工具与执行",
+   "domainLabel": "MCP 服务",
+   "confidence": "high",
+   "evidence": [
+    "说明里写明它提供工具或 MCP 服务",
+    "同时涉及 网络与数据（4 分）、界面与交互（2 分）"
+   ],
+   "usedAt": null,
+   "usedText": null,
+   "usedVia": "mention",
+   "mentionedAt": 1793339961788,
+   "mentionedText": "2 小时前"
+  },
+  {
+   "name": "@local/rea-switch",
+   "version": "1.0.0",
+   "description": "REA 逆向工具集的热开关：默认关闭，需要时一键加载 229 个 REA 工具。",
+   "title": "REA 热开关",
+   "spec": "link:E:\\REA Tool\\rea-switch",
+   "enabled": true,
+   "installed": true,
+   "official": false,
+   "optional": false,
+   "removable": true,
+   "availability": "profile",
+   "source": "link:E:\\REA Tool\\rea-switch",
+   "local": true,
+   "rowCount": 1,
+   "readOnlyReason": null,
+   "error": null,
+   "overrides": [
+    "mcp-rea"
+   ],
+   "rows": [
+    {
+     "rowId": "rea-switch",
+     "moduleName": "@local/rea-switch",
+     "entryId": "include:rea-switch",
+     "enabled": true
+    }
+   ],
+   "kind": "bundle",
+   "key": "bundle:@local/rea-switch",
+   "family": "tools",
+   "domain": "tools.register",
+   "familyLabel": "工具与执行",
+   "domainLabel": "工具注册",
+   "confidence": "high",
+   "evidence": [
+    "说明里写明它提供工具或 MCP 服务",
+    "代码里注册了工具",
+    "注册了 1 个工具：rea_switch",
+    "同时涉及 网络与数据（4 分）、会话与工作区（4 分）"
+   ],
+   "usedAt": null,
+   "usedText": null,
+   "usedVia": null,
+   "mentionedAt": null,
+   "mentionedText": null
+  },
+  {
+   "name": "dsh-plugin-studio",
+   "version": "1.0.0",
+   "description": "Plugin Studio for DeepSeek Harness — one workspace that manages both installed plugins and skills: three-level auto-classification, batch removal with restart notice, plain-language AI analysis, last-used tracking, and one-click packing. 插件工坊：同时管理插件与技能，三级自动分类、批量删除、AI 大白话分析、最后使用时间、一键打包。",
+   "title": "dsh-plugin-studio",
+   "spec": "file:E:\\MY Base Text\\DeepSeek Harness\\.dsh-install\\dsh-plugin-studio-1.0.0.tgz",
+   "enabled": true,
+   "installed": true,
+   "official": false,
+   "optional": false,
+   "removable": true,
+   "availability": "profile",
+   "source": "file:E:\\MY Base Text\\DeepSeek Harness\\.dsh-install\\dsh-plugin-studio-1.0.0.tgz",
+   "local": true,
+   "rowCount": 1,
+   "readOnlyReason": null,
+   "error": null,
+   "overrides": [],
+   "rows": [
+    {
+     "rowId": "dsh-plugin-studio",
+     "moduleName": "dsh-plugin-studio",
+     "entryId": "include:dsh-plugin-studio",
+     "enabled": true
+    }
+   ],
+   "kind": "bundle",
+   "key": "bundle:dsh-plugin-studio",
+   "family": "ops",
+   "domain": "ops.manage",
+   "familyLabel": "运维与诊断",
+   "domainLabel": "插件与技能管理",
+   "confidence": "high",
+   "evidence": [
+    "说明里写明它管理插件/技能/整合包",
+    "代码里直接调用插件管理服务",
+    "代码里调用技能服务",
+    "同时涉及 工具与执行（18 分）、模型与推理（16 分）"
+   ],
+   "usedAt": 1793293617301,
+   "usedText": "14 小时前",
+   "usedVia": "tool:studio_list",
+   "mentionedAt": null,
+   "mentionedText": null
+  },
+  {
+   "name": "dsh-context",
+   "version": "0.78.1",
+   "description": "A DeepSeek Harness plugin for context insight and management, with context dashboard and context command, for understanding how the context is made of, and how it evolves.",
+   "title": "上下文 (dsh-context)",
+   "spec": "dsh-context@^0.78.1",
+   "enabled": true,
+   "installed": true,
+   "official": false,
+   "optional": false,
+   "removable": true,
+   "availability": "profile",
+   "source": "dsh-context@^0.78.1",
+   "local": false,
+   "rowCount": 1,
+   "readOnlyReason": null,
+   "error": null,
+   "overrides": [],
+   "rows": [
+    {
+     "rowId": "dsh-context",
+     "moduleName": "dsh-context",
+     "entryId": "include:dsh-context",
+     "enabled": true
+    }
+   ],
+   "kind": "bundle",
+   "key": "bundle:dsh-context",
+   "family": "model",
+   "domain": "model.provider",
+   "familyLabel": "模型与推理",
+   "domainLabel": "模型接入",
+   "confidence": "high",
+   "evidence": [
+    "说明里写明它接模型或改推理",
+    "代码里调用模型接口",
+    "代码里压缩或改写上下文",
+    "同时涉及 工具与执行（12 分）、会话与工作区（8 分）"
+   ],
+   "usedAt": null,
+   "usedText": null,
+   "usedVia": "mention",
+   "mentionedAt": 1793296680219,
+   "mentionedText": "14 小时前"
+  },
+  {
+   "name": "dsh-cost-meter",
+   "version": "1.9.46",
+   "description": "DeepSeek Harness 会话费用统计插件:本会话成本、当日费用、历史记录与官方价格同步,支持多厂商多模型价格计费(内置 170+ 模型 ID 价格目录与自动匹配)、主流 Coding Plan 订阅额度查询与显示(16 家,含 WorkBuddy 官方积分、OpenDesign 工作区查询、含小米 MiMo Token Plan 控制台 Cookie 查询、SCNet Token Plan 本地 Credits 计量与火山方舟 Volcano Ark Coding Plan AK/SK 签名查询)、自定义 Provider 余额查询(可配任意 HTTP 端点)与余额进度条、峰谷计价时段显示与切换前弹窗/系统通知提醒(位置/提前量/类型可配),界面中英双语。Session cost tracking plugin for DeepSeek Harness: per-conversation cost, daily totals, history and official price sync, with multi-vendor model pricing (built-in 170+ model-ID catalog with auto-matching), Coding Plan quota queries & display for 16 vendors (incl. WorkBuddy official credits, OpenDesign workspace queries, Xiaomi MiMo Token Plan via console cookie, local credits metering for the SCNet Token Plan and Volcano Ark Coding Plan via AK/SK signature), plan/API dual-track billing with per-1% & full-window Token Plan usage estimates, custom provider balance lookup (configurable HTTP endpoint) and balance progress bar, plus peak/off-peak pricing display with pre-switch popup & system-notification alerts (position / lead time / type configurable), in a bilingual (Chinese/English) UI.",
+   "title": "费用计量 (dsh-cost-meter)",
+   "spec": "dsh-cost-meter@^1.9.46",
+   "enabled": true,
+   "installed": true,
+   "official": false,
+   "optional": false,
+   "removable": true,
+   "availability": "profile",
+   "source": "dsh-cost-meter@^1.9.46",
+   "local": false,
+   "rowCount": 1,
+   "readOnlyReason": null,
+   "error": null,
+   "overrides": [],
+   "rows": [
+    {
+     "rowId": "cost-meter",
+     "moduleName": "dsh-cost-meter",
+     "entryId": "include:cost-meter",
+     "enabled": true
+    }
+   ],
+   "kind": "bundle",
+   "key": "bundle:dsh-cost-meter",
+   "family": "model",
+   "domain": "model.provider",
+   "familyLabel": "模型与推理",
+   "domainLabel": "模型接入",
+   "confidence": "medium",
+   "evidence": [
+    "代码里调用模型接口",
+    "代码里压缩或改写上下文",
+    "同时涉及 运维与诊断（14 分）、网络与数据（12 分）"
+   ],
+   "usedAt": null,
+   "usedText": null,
+   "usedVia": "mention",
+   "mentionedAt": 1793296694252,
+   "mentionedText": "14 小时前"
+  },
+  {
+   "name": "dsh-smooth-stream",
+   "version": "0.7.0",
+   "description": "Fluid streaming rendering and silky scrolling for DeepSeek Harness replies, including Markdown, code blocks, tables, and tool results.",
+   "title": "dsh-smooth-stream",
+   "spec": "dsh-smooth-stream@^0.7.0",
+   "enabled": true,
+   "installed": true,
+   "official": false,
+   "optional": false,
+   "removable": true,
+   "availability": "profile",
+   "source": "dsh-smooth-stream@^0.7.0",
+   "local": false,
+   "rowCount": 1,
+   "readOnlyReason": null,
+   "error": null,
+   "overrides": [],
+   "rows": [
+    {
+     "rowId": "smooth-stream",
+     "moduleName": "dsh-smooth-stream",
+     "entryId": "include:smooth-stream",
+     "enabled": true
+    }
+   ],
+   "kind": "bundle",
+   "key": "bundle:dsh-smooth-stream",
+   "family": "tools",
+   "domain": "tools.other",
+   "familyLabel": "工具与执行",
+   "domainLabel": "执行能力",
+   "confidence": "medium",
+   "evidence": [
+    "说明里写明它提供工具或 MCP 服务",
+    "同时涉及 模型与推理（8 分）、会话与工作区（4 分）"
+   ],
+   "usedAt": null,
+   "usedText": null,
+   "usedVia": "mention",
+   "mentionedAt": 1793296694252,
+   "mentionedText": "14 小时前"
+  },
+  {
+   "name": "dsh-gitbash-shell",
+   "version": "0.46.0",
+   "description": "Windows 上给 agent 一个真正的 Git Bash 命令工具:私有 Git Bash 执行器实例(官方 PowerShell 执行器原样保留),统一 MSYS 盘根路径方言,官方 pwsh 工具默认隐藏可开关,物化四个内置预设的 Git Bash 变体,侧栏终端接管可开关。· Give agents a real Git Bash tool on Windows: a private Git Bash executor instance (the official PowerShell executor stays untouched), a unified MSYS drive-root path dialect, an opt-in official pwsh tool, and four Git Bash preset variants.",
+   "title": "Git Bash Shell",
+   "spec": "dsh-gitbash-shell@^0.46.0",
+   "enabled": true,
+   "installed": true,
+   "official": false,
+   "optional": false,
+   "removable": true,
+   "availability": "profile",
+   "source": "dsh-gitbash-shell@^0.46.0",
+   "local": false,
+   "rowCount": 1,
+   "readOnlyReason": null,
+   "error": null,
+   "overrides": [
+    "better-sidebar"
+   ],
+   "rows": [
+    {
+     "rowId": "gitbash-shell",
+     "moduleName": "dsh-gitbash-shell",
+     "entryId": "include:gitbash-shell",
+     "enabled": true
+    }
+   ],
+   "kind": "bundle",
+   "key": "bundle:dsh-gitbash-shell",
+   "family": "session",
+   "domain": "session.manage",
+   "familyLabel": "会话与工作区",
+   "domainLabel": "会话管理",
+   "confidence": "high",
+   "evidence": [
+    "说明里写明它管终端/常驻进程",
+    "会读写本地文件",
+    "会启动子进程",
+    "同时涉及 工具与执行（9 分）、模型与推理（8 分）"
+   ],
+   "usedAt": null,
+   "usedText": null,
+   "usedVia": "mention",
+   "mentionedAt": 1793296694252,
+   "mentionedText": "14 小时前"
+  },
+  {
+   "name": "@deepseek-ai/dsh-experimental-agent-team-profile",
+   "version": "0.2.1-rc.3",
+   "description": "Agent Teams collaboration, tools, and Web UI in one experimental bundle",
+   "title": "智能体团队",
+   "spec": null,
+   "enabled": false,
+   "installed": false,
+   "official": true,
+   "optional": true,
+   "removable": false,
+   "availability": "installation",
+   "source": null,
+   "local": false,
+   "rowCount": 3,
+   "readOnlyReason": null,
+   "error": null,
+   "overrides": [
+    "tool-subagent-control",
+    "tool-subagent-list-agents",
+    "tool-subagent",
+    "tool-subagent-fork"
+   ],
+   "rows": [
+    {
+     "rowId": "agent-team",
+     "moduleName": "@deepseek-ai/dsh-experimental-agent-team",
+     "enabled": true
+    },
+    {
+     "rowId": "tool-agent-team",
+     "moduleName": "@deepseek-ai/dsh-experimental-tool-agent-team",
+     "enabled": true
+    },
+    {
+     "rowId": "ui-agent-team",
+     "moduleName": "@deepseek-ai/dsh-experimental-client-ui-agent-team",
+     "enabled": true
+    }
+   ],
+   "kind": "bundle",
+   "key": "bundle:@deepseek-ai/dsh-experimental-agent-team-profile",
+   "family": "tools",
+   "domain": "tools.other",
+   "familyLabel": "工具与执行",
+   "domainLabel": "执行能力",
+   "confidence": "high",
+   "evidence": [
+    "说明里写明它编排子智能体/委派任务"
+   ],
+   "usedAt": null,
+   "usedText": null,
+   "usedVia": null,
+   "mentionedAt": null,
+   "mentionedText": null
+  },
+  {
+   "name": "@deepseek-ai/dsh-experimental-auto-review",
+   "version": "0.2.1-rc.3",
+   "description": "Per-tool LLM authorization review for the DeepSeek Harness Auto permission preset",
+   "title": "自动授权审查",
+   "spec": null,
+   "enabled": false,
+   "installed": false,
+   "official": true,
+   "optional": true,
+   "removable": false,
+   "availability": "installation",
+   "source": null,
+   "local": false,
+   "rowCount": 1,
+   "readOnlyReason": null,
+   "error": null,
+   "overrides": [],
+   "rows": [
+    {
+     "rowId": "auto-review",
+     "moduleName": "@deepseek-ai/dsh-experimental-auto-review",
+     "enabled": true
+    }
+   ],
+   "kind": "bundle",
+   "key": "bundle:@deepseek-ai/dsh-experimental-auto-review",
+   "family": "model",
+   "domain": "model.other",
+   "familyLabel": "模型与推理",
+   "domainLabel": "推理能力",
+   "confidence": "high",
+   "evidence": [
+    "说明里写明它接模型或改推理"
+   ],
+   "usedAt": null,
+   "usedText": null,
+   "usedVia": null,
+   "mentionedAt": null,
+   "mentionedText": null
+  },
+  {
+   "name": "@deepseek-ai/dsh-experimental-badge-skill-bundle",
+   "version": "0.2.1-rc.3",
+   "description": "Let agents add a “powered by dsh” badge to documents, pull requests, and other outputs.",
+   "title": "DSH 徽章技能",
+   "spec": null,
+   "enabled": false,
+   "installed": false,
+   "official": true,
+   "optional": true,
+   "removable": false,
+   "availability": "installation",
+   "source": null,
+   "local": false,
+   "rowCount": 1,
+   "readOnlyReason": null,
+   "error": null,
+   "overrides": [],
+   "rows": [
+    {
+     "rowId": "skill-badge",
+     "moduleName": "@deepseek-ai/dsh-skill-badge",
+     "enabled": true
+    }
+   ],
+   "kind": "bundle",
+   "key": "bundle:@deepseek-ai/dsh-experimental-badge-skill-bundle",
+   "family": "ops",
+   "domain": "ops.skills",
+   "familyLabel": "运维与诊断",
+   "domainLabel": "技能管理",
+   "confidence": "high",
+   "evidence": [
+    "说明里写明它管理插件/技能/整合包"
+   ],
+   "usedAt": null,
+   "usedText": null,
+   "usedVia": null,
+   "mentionedAt": null,
+   "mentionedText": null
+  },
+  {
+   "name": "@deepseek-ai/dsh-experimental-cot-translation-bundle",
+   "version": "0.2.1-rc.3",
+   "description": "Experimental machine translation of expanded reasoning",
+   "title": "思考过程机器翻译",
+   "spec": null,
+   "enabled": false,
+   "installed": false,
+   "official": true,
+   "optional": true,
+   "removable": false,
+   "availability": "installation",
+   "source": null,
+   "local": false,
+   "rowCount": 2,
+   "readOnlyReason": null,
+   "error": null,
+   "overrides": [],
+   "rows": [
+    {
+     "rowId": "translator",
+     "moduleName": "@deepseek-ai/dsh-experimental-translator",
+     "enabled": true
+    },
+    {
+     "rowId": "cot-translation",
+     "moduleName": "@deepseek-ai/dsh-experimental-client-ui-cot-translation",
+     "enabled": true
+    }
+   ],
+   "kind": "bundle",
+   "key": "bundle:@deepseek-ai/dsh-experimental-cot-translation-bundle",
+   "family": "model",
+   "domain": "model.prompt",
+   "familyLabel": "模型与推理",
+   "domainLabel": "提示词与推理",
+   "confidence": "high",
+   "evidence": [
+    "说明里写明它翻译或改写模型输出"
+   ],
+   "usedAt": null,
+   "usedText": null,
+   "usedVia": null,
+   "mentionedAt": null,
+   "mentionedText": null
+  },
+  {
+   "name": "@deepseek-ai/dsh-experimental-inspector-profile",
+   "version": "0.2.1-rc.3",
+   "description": "Optional Web bundle for raw Session logs and Chat node inspection",
+   "title": "开发者工具",
+   "spec": null,
+   "enabled": false,
+   "installed": false,
+   "official": true,
+   "optional": true,
+   "removable": false,
+   "availability": "installation",
+   "source": null,
+   "local": false,
+   "rowCount": 2,
+   "readOnlyReason": null,
+   "error": null,
+   "overrides": [],
+   "rows": [
+    {
+     "rowId": "experimental-inspector",
+     "moduleName": "@deepseek-ai/dsh-experimental-inspector",
+     "enabled": true
+    },
+    {
+     "rowId": "session-inspector",
+     "moduleName": "@deepseek-ai/dsh-experimental-session-inspector",
+     "enabled": true
+    }
+   ],
+   "kind": "bundle",
+   "key": "bundle:@deepseek-ai/dsh-experimental-inspector-profile",
+   "family": "ops",
+   "domain": "ops.diag",
+   "familyLabel": "运维与诊断",
+   "domainLabel": "诊断与日志",
+   "confidence": "high",
+   "evidence": [
+    "说明里写明它是开发者调试/检查工具"
+   ],
+   "usedAt": null,
+   "usedText": null,
+   "usedVia": null,
+   "mentionedAt": null,
+   "mentionedText": null
+  },
+  {
+   "name": "@deepseek-ai/dsh-experimental-plugin-market-bundle",
+   "version": "0.2.1-rc.3",
+   "description": "Experimental custom plugin markets: a Discover tab that browses and installs bundles from plugin market indexes",
+   "title": "自定义插件市场",
+   "spec": null,
+   "enabled": false,
+   "installed": false,
+   "official": true,
+   "optional": true,
+   "removable": false,
+   "availability": "installation",
+   "source": null,
+   "local": false,
+   "rowCount": 2,
+   "readOnlyReason": null,
+   "error": null,
+   "overrides": [],
+   "rows": [
+    {
+     "rowId": "plugin-market",
+     "moduleName": "@deepseek-ai/dsh-plugin-market",
+     "enabled": true
+    },
+    {
+     "rowId": "ui-plugin-market",
+     "moduleName": "@deepseek-ai/dsh-client-ui-plugin-market",
+     "enabled": true
+    }
+   ],
+   "kind": "bundle",
+   "key": "bundle:@deepseek-ai/dsh-experimental-plugin-market-bundle",
+   "family": "ops",
+   "domain": "ops.other",
+   "familyLabel": "运维与诊断",
+   "domainLabel": "运维能力",
+   "confidence": "high",
+   "evidence": [
+    "说明里写明它是插件市场/安装器"
+   ],
+   "usedAt": null,
+   "usedText": null,
+   "usedVia": null,
+   "mentionedAt": null,
+   "mentionedText": null
+  },
+  {
+   "name": "@deepseek-ai/dsh-experimental-ralph-bundle",
+   "version": "0.2.1-rc.3",
+   "description": "Run explicitly requested repeated work with fresh agents.",
+   "title": "Ralph 循环",
+   "spec": null,
+   "enabled": false,
+   "installed": false,
+   "official": true,
+   "optional": true,
+   "removable": false,
+   "availability": "installation",
+   "source": null,
+   "local": false,
+   "rowCount": 2,
+   "readOnlyReason": null,
+   "error": null,
+   "overrides": [],
+   "rows": [
+    {
+     "rowId": "optional-ralph-workflow",
+     "moduleName": "@deepseek-ai/dsh-workflow-ptc",
+     "enabled": true
+    },
+    {
+     "rowId": "tool-ralph",
+     "moduleName": "@deepseek-ai/dsh-tool-ralph",
+     "enabled": true
+    }
+   ],
+   "kind": "bundle",
+   "key": "bundle:@deepseek-ai/dsh-experimental-ralph-bundle",
+   "family": "tools",
+   "domain": "tools.other",
+   "familyLabel": "工具与执行",
+   "domainLabel": "执行能力",
+   "confidence": "high",
+   "evidence": [
+    "说明里写明它编排子智能体/委派任务"
+   ],
+   "usedAt": null,
+   "usedText": null,
+   "usedVia": null,
+   "mentionedAt": null,
+   "mentionedText": null
+  },
+  {
+   "name": "@deepseek-ai/dsh-experimental-session-search",
+   "version": "0.2.1-rc.3",
+   "description": "Give Agents tools to search and read earlier sessions from the current workspace.",
+   "title": "会话搜索",
+   "spec": null,
+   "enabled": false,
+   "installed": false,
+   "official": true,
+   "optional": true,
+   "removable": false,
+   "availability": "installation",
+   "source": null,
+   "local": false,
+   "rowCount": 2,
+   "readOnlyReason": null,
+   "error": null,
+   "overrides": [],
+   "rows": [
+    {
+     "rowId": "optional-session-query-sqlite",
+     "moduleName": "@deepseek-ai/dsh-session-query-sqlite",
+     "enabled": true
+    },
+    {
+     "rowId": "optional-tool-session-query",
+     "moduleName": "@deepseek-ai/dsh-tool-session-query",
+     "enabled": true
+    }
+   ],
+   "kind": "bundle",
+   "key": "bundle:@deepseek-ai/dsh-experimental-session-search",
+   "family": "session",
+   "domain": "session.manage",
+   "familyLabel": "会话与工作区",
+   "domainLabel": "会话管理",
+   "confidence": "high",
+   "evidence": [
+    "说明里写明它检索历史会话"
+   ],
+   "usedAt": null,
+   "usedText": null,
+   "usedVia": null,
+   "mentionedAt": null,
+   "mentionedText": null
+  },
+  {
+   "name": "@deepseek-ai/dsh-experimental-session-titles-bundle",
+   "version": "0.2.1-rc.3",
+   "description": "Refresh session titles as new human prompts arrive.",
+   "title": "随对话更新的标题",
+   "spec": null,
+   "enabled": false,
+   "installed": false,
+   "official": true,
+   "optional": true,
+   "removable": false,
+   "availability": "installation",
+   "source": null,
+   "local": false,
+   "rowCount": 1,
+   "readOnlyReason": null,
+   "error": null,
+   "overrides": [
+    "session-title-llm"
+   ],
+   "rows": [
+    {
+     "rowId": "optional-session-title-all-prompts",
+     "moduleName": "@deepseek-ai/dsh-session-title-all-prompts-llm",
+     "enabled": true
+    }
+   ],
+   "kind": "bundle",
+   "key": "bundle:@deepseek-ai/dsh-experimental-session-titles-bundle",
+   "family": "session",
+   "domain": "session.manage",
+   "familyLabel": "会话与工作区",
+   "domainLabel": "会话管理",
+   "confidence": "high",
+   "evidence": [
+    "说明里写明它改会话标题"
+   ],
+   "usedAt": null,
+   "usedText": null,
+   "usedVia": null,
+   "mentionedAt": null,
+   "mentionedText": null
+  },
+  {
+   "name": "@deepseek-ai/dsh-experimental-terminal-bundle",
+   "version": "0.2.1-rc.3",
+   "description": "Keep shell processes alive across tool calls.",
+   "title": "持久终端",
+   "spec": null,
+   "enabled": false,
+   "installed": false,
+   "official": true,
+   "optional": true,
+   "removable": false,
+   "availability": "installation",
+   "source": null,
+   "local": false,
+   "rowCount": 4,
+   "readOnlyReason": null,
+   "error": null,
+   "overrides": [],
+   "rows": [
+    {
+     "rowId": "optional-terminal-registry",
+     "moduleName": "@deepseek-ai/dsh-terminal",
+     "enabled": true
+    },
+    {
+     "rowId": "optional-terminal-bash",
+     "moduleName": "@deepseek-ai/dsh-terminal-bash",
+     "enabled": true
+    },
+    {
+     "rowId": "optional-terminal-pwsh",
+     "moduleName": "@deepseek-ai/dsh-terminal-bash",
+     "enabled": true
+    },
+    {
+     "rowId": "optional-tool-terminal",
+     "moduleName": "@deepseek-ai/dsh-tool-terminal",
+     "enabled": true
+    }
+   ],
+   "kind": "bundle",
+   "key": "bundle:@deepseek-ai/dsh-experimental-terminal-bundle",
+   "family": "session",
+   "domain": "session.other",
+   "familyLabel": "会话与工作区",
+   "domainLabel": "会话能力",
+   "confidence": "high",
+   "evidence": [
+    "说明里写明它管终端/常驻进程"
+   ],
+   "usedAt": null,
+   "usedText": null,
+   "usedVia": "mention",
+   "mentionedAt": 1793295495595,
+   "mentionedText": "14 小时前"
+  },
+  {
+   "name": "@deepseek-ai/dsh-experimental-tool-worktree",
+   "version": "0.2.1-rc.3",
+   "description": "Model tool that creates and enters a new Git worktree",
+   "title": "Git 工作树",
+   "spec": null,
+   "enabled": false,
+   "installed": false,
+   "official": true,
+   "optional": true,
+   "removable": false,
+   "availability": "installation",
+   "source": null,
+   "local": false,
+   "rowCount": 2,
+   "readOnlyReason": null,
+   "error": null,
+   "overrides": [],
+   "rows": [
+    {
+     "rowId": "worktree",
+     "moduleName": "@deepseek-ai/dsh-experimental-worktree",
+     "enabled": true
+    },
+    {
+     "rowId": "tool-worktree",
+     "moduleName": "@deepseek-ai/dsh-experimental-tool-worktree",
+     "enabled": true
+    }
+   ],
+   "kind": "bundle",
+   "key": "bundle:@deepseek-ai/dsh-experimental-tool-worktree",
+   "family": "tools",
+   "domain": "tools.other",
+   "familyLabel": "工具与执行",
+   "domainLabel": "执行能力",
+   "confidence": "high",
+   "evidence": [
+    "说明里写明它创建 Git 工作树"
+   ],
+   "usedAt": null,
+   "usedText": null,
+   "usedVia": null,
+   "mentionedAt": null,
+   "mentionedText": null
+  },
+  {
+   "name": "@deepseek-ai/dsh-experimental-voice-input-bundle",
+   "version": "0.2.1-rc.3",
+   "description": "Experimental voice input with local SenseVoice; downloads its runtime on first use",
+   "title": "语音输入",
+   "spec": null,
+   "enabled": false,
+   "installed": false,
+   "official": true,
+   "optional": true,
+   "removable": false,
+   "availability": "installation",
+   "source": null,
+   "local": false,
+   "rowCount": 4,
+   "readOnlyReason": null,
+   "error": null,
+   "overrides": [],
+   "rows": [
+    {
+     "rowId": "speech-to-text",
+     "moduleName": "@deepseek-ai/dsh-experimental-speech-to-text",
+     "enabled": true
+    },
+    {
+     "rowId": "speech-to-text-sensevoice",
+     "moduleName": "@deepseek-ai/dsh-experimental-speech-to-text-sensevoice",
+     "enabled": true
+    },
+    {
+     "rowId": "api-speech-to-text",
+     "moduleName": "@deepseek-ai/dsh-experimental-api-speech-to-text",
+     "enabled": true
+    },
+    {
+     "rowId": "ui-voice-input",
+     "moduleName": "@deepseek-ai/dsh-experimental-client-ui-voice-input",
+     "enabled": true
+    }
+   ],
+   "kind": "bundle",
+   "key": "bundle:@deepseek-ai/dsh-experimental-voice-input-bundle",
+   "family": "ui",
+   "domain": "ui.page",
+   "familyLabel": "界面与交互",
+   "domainLabel": "界面插件",
+   "confidence": "high",
+   "evidence": [
+    "说明里写明它处理语音/音频输入"
+   ],
+   "usedAt": null,
+   "usedText": null,
+   "usedVia": null,
+   "mentionedAt": null,
+   "mentionedText": null
+  },
+  {
+   "name": "dshmarket",
+   "version": "1.71.1",
+   "description": "Visual plugin market inside DeepSeek Harness — browse, search, and one-click install community plugins. · DSH 可视化插件市场：逛一逛，点一下，装好。",
+   "title": "插件市场",
+   "spec": null,
+   "enabled": false,
+   "installed": false,
+   "official": true,
+   "optional": true,
+   "removable": false,
+   "availability": "installation",
+   "source": null,
+   "local": false,
+   "rowCount": 1,
+   "readOnlyReason": null,
+   "error": null,
+   "overrides": [],
+   "rows": [
+    {
+     "rowId": "dsh-market",
+     "moduleName": "dshmarket",
+     "enabled": true
+    }
+   ],
+   "kind": "bundle",
+   "key": "bundle:dshmarket",
+   "family": "ops",
+   "domain": "ops.other",
+   "familyLabel": "运维与诊断",
+   "domainLabel": "运维能力",
+   "confidence": "high",
+   "evidence": [
+    "说明里写明它是插件市场/安装器"
+   ],
+   "usedAt": null,
+   "usedText": null,
+   "usedVia": "mention",
+   "mentionedAt": 1793293923547,
+   "mentionedText": "14 小时前"
+  },
+  {
+   "name": "@deepseek-ai/dsh-subagent-claude-code",
+   "version": null,
+   "description": "使用 Claude Code 原生认证和设置委派单个任务。",
+   "title": "Claude Code 子智能体",
+   "spec": "@deepseek-ai/dsh-subagent-claude-code@0.2.1-rc.3",
+   "enabled": false,
+   "installed": false,
+   "official": true,
+   "optional": false,
+   "removable": false,
+   "availability": "missing",
+   "source": null,
+   "local": false,
+   "rowCount": 0,
+   "readOnlyReason": null,
+   "error": null,
+   "overrides": [],
+   "rows": [],
+   "kind": "bundle",
+   "key": "bundle:@deepseek-ai/dsh-subagent-claude-code",
+   "family": "tools",
+   "domain": "tools.other",
+   "familyLabel": "工具与执行",
+   "domainLabel": "执行能力",
+   "confidence": "high",
+   "evidence": [
+    "说明里写明它编排子智能体/委派任务"
+   ],
+   "usedAt": null,
+   "usedText": null,
+   "usedVia": null,
+   "mentionedAt": null,
+   "mentionedText": null
+  },
+  {
+   "name": "@deepseek-ai/dsh-subagent-codex",
+   "version": null,
+   "description": "使用 Codex 原生认证和设置委派单个任务。",
+   "title": "Codex 子智能体",
+   "spec": "@deepseek-ai/dsh-subagent-codex@0.2.1-rc.3",
+   "enabled": false,
+   "installed": false,
+   "official": true,
+   "optional": false,
+   "removable": false,
+   "availability": "missing",
+   "source": null,
+   "local": false,
+   "rowCount": 0,
+   "readOnlyReason": null,
+   "error": null,
+   "overrides": [],
+   "rows": [],
+   "kind": "bundle",
+   "key": "bundle:@deepseek-ai/dsh-subagent-codex",
+   "family": "tools",
+   "domain": "tools.other",
+   "familyLabel": "工具与执行",
+   "domainLabel": "执行能力",
+   "confidence": "high",
+   "evidence": [
+    "说明里写明它编排子智能体/委派任务"
+   ],
+   "usedAt": null,
+   "usedText": null,
+   "usedVia": null,
+   "mentionedAt": null,
+   "mentionedText": null
+  }
+ ],
+ "tree": [
+  {
+   "id": "ui",
+   "label": "界面与交互",
+   "hint": "主要给用户看和点的：设置页、侧栏、面板、装饰、主题",
+   "count": 2,
+   "domains": [
+    {
+     "id": "ui.theme",
+     "label": "主题与外观",
+     "leaves": [
+      {
+       "key": "bundle:dsh-plugin-wallpaper-engine",
+       "name": "dsh-plugin-wallpaper-engine",
+       "title": "dsh-plugin-wallpaper-engine",
+       "enabled": true,
+       "removable": true,
+       "official": false,
+       "confidence": "high",
+       "evidence": [
+        "说明里写明它是壁纸/主题类外观插件",
+        "修改主题或外观 token",
+        "注册了界面插槽 sidebar.right.pane.tab, conversation.view, tool.call.toolview",
+        "声明了 dsh.client（会往界面里画东西）",
+        "同时涉及 模型与推理（8 分）、网络与数据（4 分）"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "ui.page",
+     "label": "界面插件",
+     "leaves": [
+      {
+       "key": "bundle:@deepseek-ai/dsh-experimental-voice-input-bundle",
+       "name": "@deepseek-ai/dsh-experimental-voice-input-bundle",
+       "title": "语音输入",
+       "enabled": false,
+       "removable": false,
+       "official": true,
+       "confidence": "high",
+       "evidence": [
+        "说明里写明它处理语音/音频输入"
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "tools",
+   "label": "工具与执行",
+   "hint": "主要给模型加能力的：新工具、斜杠命令、MCP 服务",
+   "count": 8,
+   "domains": [
+    {
+     "id": "tools.mcp",
+     "label": "MCP 服务",
+     "leaves": [
+      {
+       "key": "bundle:dsh-plugin-rea",
+       "name": "dsh-plugin-rea",
+       "title": "dsh-plugin-rea",
+       "enabled": true,
+       "removable": true,
+       "official": false,
+       "confidence": "high",
+       "evidence": [
+        "说明里写明它提供工具或 MCP 服务",
+        "同时涉及 网络与数据（4 分）、界面与交互（2 分）"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "tools.register",
+     "label": "工具注册",
+     "leaves": [
+      {
+       "key": "bundle:@local/rea-switch",
+       "name": "@local/rea-switch",
+       "title": "REA 热开关",
+       "enabled": true,
+       "removable": true,
+       "official": false,
+       "confidence": "high",
+       "evidence": [
+        "说明里写明它提供工具或 MCP 服务",
+        "代码里注册了工具",
+        "注册了 1 个工具：rea_switch",
+        "同时涉及 网络与数据（4 分）、会话与工作区（4 分）"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "tools.other",
+     "label": "执行能力",
+     "leaves": [
+      {
+       "key": "bundle:@deepseek-ai/dsh-experimental-agent-team-profile",
+       "name": "@deepseek-ai/dsh-experimental-agent-team-profile",
+       "title": "智能体团队",
+       "enabled": false,
+       "removable": false,
+       "official": true,
+       "confidence": "high",
+       "evidence": [
+        "说明里写明它编排子智能体/委派任务"
+       ]
+      },
+      {
+       "key": "bundle:@deepseek-ai/dsh-subagent-claude-code",
+       "name": "@deepseek-ai/dsh-subagent-claude-code",
+       "title": "Claude Code 子智能体",
+       "enabled": false,
+       "removable": false,
+       "official": true,
+       "confidence": "high",
+       "evidence": [
+        "说明里写明它编排子智能体/委派任务"
+       ]
+      },
+      {
+       "key": "bundle:@deepseek-ai/dsh-subagent-codex",
+       "name": "@deepseek-ai/dsh-subagent-codex",
+       "title": "Codex 子智能体",
+       "enabled": false,
+       "removable": false,
+       "official": true,
+       "confidence": "high",
+       "evidence": [
+        "说明里写明它编排子智能体/委派任务"
+       ]
+      },
+      {
+       "key": "bundle:dsh-smooth-stream",
+       "name": "dsh-smooth-stream",
+       "title": "dsh-smooth-stream",
+       "enabled": true,
+       "removable": true,
+       "official": false,
+       "confidence": "medium",
+       "evidence": [
+        "说明里写明它提供工具或 MCP 服务",
+        "同时涉及 模型与推理（8 分）、会话与工作区（4 分）"
+       ]
+      },
+      {
+       "key": "bundle:@deepseek-ai/dsh-experimental-tool-worktree",
+       "name": "@deepseek-ai/dsh-experimental-tool-worktree",
+       "title": "Git 工作树",
+       "enabled": false,
+       "removable": false,
+       "official": true,
+       "confidence": "high",
+       "evidence": [
+        "说明里写明它创建 Git 工作树"
+       ]
+      },
+      {
+       "key": "bundle:@deepseek-ai/dsh-experimental-ralph-bundle",
+       "name": "@deepseek-ai/dsh-experimental-ralph-bundle",
+       "title": "Ralph 循环",
+       "enabled": false,
+       "removable": false,
+       "official": true,
+       "confidence": "high",
+       "evidence": [
+        "说明里写明它编排子智能体/委派任务"
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "net",
+   "label": "网络与数据",
+   "hint": "主要联网或读写外部数据的：抓取、同步、接口、账号",
+   "count": 1,
+   "domains": [
+    {
+     "id": "net.scrape",
+     "label": "抓取与同步",
+     "leaves": [
+      {
+       "key": "bundle:dsh-aliyun-coupon",
+       "name": "dsh-aliyun-coupon",
+       "title": "dsh-aliyun-coupon",
+       "enabled": true,
+       "removable": true,
+       "official": false,
+       "confidence": "high",
+       "evidence": [
+        "说明里写明它联网抓取/查询外部数据",
+        "注册了 HTTP 路由",
+        "会发起网络请求",
+        "同时涉及 会话与工作区（4 分）、界面与交互（3 分）"
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "model",
+   "label": "模型与推理",
+   "hint": "主要接模型或改推理过程的：模型接入、提示词、上下文压缩",
+   "count": 6,
+   "domains": [
+    {
+     "id": "model.compact",
+     "label": "上下文压缩",
+     "leaves": [
+      {
+       "key": "bundle:billion-context",
+       "name": "billion-context",
+       "title": "billion-context",
+       "enabled": true,
+       "removable": true,
+       "official": false,
+       "confidence": "high",
+       "evidence": [
+        "说明里写明它压缩上下文",
+        "代码里压缩或改写上下文",
+        "同时涉及 工具与执行（7 分）、会话与工作区（4 分）"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "model.provider",
+     "label": "模型接入",
+     "leaves": [
+      {
+       "key": "bundle:dsh-cost-meter",
+       "name": "dsh-cost-meter",
+       "title": "费用计量 (dsh-cost-meter)",
+       "enabled": true,
+       "removable": true,
+       "official": false,
+       "confidence": "medium",
+       "evidence": [
+        "代码里调用模型接口",
+        "代码里压缩或改写上下文",
+        "同时涉及 运维与诊断（14 分）、网络与数据（12 分）"
+       ]
+      },
+      {
+       "key": "bundle:dsh-context",
+       "name": "dsh-context",
+       "title": "上下文 (dsh-context)",
+       "enabled": true,
+       "removable": true,
+       "official": false,
+       "confidence": "high",
+       "evidence": [
+        "说明里写明它接模型或改推理",
+        "代码里调用模型接口",
+        "代码里压缩或改写上下文",
+        "同时涉及 工具与执行（12 分）、会话与工作区（8 分）"
+       ]
+      },
+      {
+       "key": "bundle:dsh-connect-workbuddy",
+       "name": "dsh-connect-workbuddy",
+       "title": "dsh-connect-workbuddy",
+       "enabled": true,
+       "removable": true,
+       "official": false,
+       "confidence": "high",
+       "evidence": [
+        "说明里写明它接模型或改推理",
+        "代码里调用模型接口",
+        "代码里压缩或改写上下文",
+        "同时涉及 工具与执行（14 分）、网络与数据（4 分）"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "model.prompt",
+     "label": "提示词与推理",
+     "leaves": [
+      {
+       "key": "bundle:@deepseek-ai/dsh-experimental-cot-translation-bundle",
+       "name": "@deepseek-ai/dsh-experimental-cot-translation-bundle",
+       "title": "思考过程机器翻译",
+       "enabled": false,
+       "removable": false,
+       "official": true,
+       "confidence": "high",
+       "evidence": [
+        "说明里写明它翻译或改写模型输出"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "model.other",
+     "label": "推理能力",
+     "leaves": [
+      {
+       "key": "bundle:@deepseek-ai/dsh-experimental-auto-review",
+       "name": "@deepseek-ai/dsh-experimental-auto-review",
+       "title": "自动授权审查",
+       "enabled": false,
+       "removable": false,
+       "official": true,
+       "confidence": "high",
+       "evidence": [
+        "说明里写明它接模型或改推理"
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "session",
+   "label": "会话与工作区",
+   "hint": "主要管会话和文件的：会话增删、工作区、终端、磁盘数据",
+   "count": 5,
+   "domains": [
+    {
+     "id": "session.manage",
+     "label": "会话管理",
+     "leaves": [
+      {
+       "key": "bundle:@deepseek-ai/dsh-experimental-session-search",
+       "name": "@deepseek-ai/dsh-experimental-session-search",
+       "title": "会话搜索",
+       "enabled": false,
+       "removable": false,
+       "official": true,
+       "confidence": "high",
+       "evidence": [
+        "说明里写明它检索历史会话"
+       ]
+      },
+      {
+       "key": "bundle:@deepseek-ai/dsh-experimental-session-titles-bundle",
+       "name": "@deepseek-ai/dsh-experimental-session-titles-bundle",
+       "title": "随对话更新的标题",
+       "enabled": false,
+       "removable": false,
+       "official": true,
+       "confidence": "high",
+       "evidence": [
+        "说明里写明它改会话标题"
+       ]
+      },
+      {
+       "key": "bundle:dsh-session-clean",
+       "name": "dsh-session-clean",
+       "title": "dsh-session-clean",
+       "enabled": true,
+       "removable": true,
+       "official": false,
+       "confidence": "high",
+       "evidence": [
+        "说明里写明它管会话（增删/分组/清理）",
+        "会读写本地文件",
+        "同时涉及 网络与数据（4 分）、界面与交互（3 分）"
+       ]
+      },
+      {
+       "key": "bundle:dsh-gitbash-shell",
+       "name": "dsh-gitbash-shell",
+       "title": "Git Bash Shell",
+       "enabled": true,
+       "removable": true,
+       "official": false,
+       "confidence": "high",
+       "evidence": [
+        "说明里写明它管终端/常驻进程",
+        "会读写本地文件",
+        "会启动子进程",
+        "同时涉及 工具与执行（9 分）、模型与推理（8 分）"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "session.other",
+     "label": "会话能力",
+     "leaves": [
+      {
+       "key": "bundle:@deepseek-ai/dsh-experimental-terminal-bundle",
+       "name": "@deepseek-ai/dsh-experimental-terminal-bundle",
+       "title": "持久终端",
+       "enabled": false,
+       "removable": false,
+       "official": true,
+       "confidence": "high",
+       "evidence": [
+        "说明里写明它管终端/常驻进程"
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "ops",
+   "label": "运维与诊断",
+   "hint": "主要管插件本身的：插件/技能管理、诊断、打包备份",
+   "count": 6,
+   "domains": [
+    {
+     "id": "ops.manage",
+     "label": "插件与技能管理",
+     "leaves": [
+      {
+       "key": "bundle:dsh-plugin-studio",
+       "name": "dsh-plugin-studio",
+       "title": "dsh-plugin-studio",
+       "enabled": true,
+       "removable": true,
+       "official": false,
+       "confidence": "high",
+       "evidence": [
+        "说明里写明它管理插件/技能/整合包",
+        "代码里直接调用插件管理服务",
+        "代码里调用技能服务",
+        "同时涉及 工具与执行（18 分）、模型与推理（16 分）"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "ops.skills",
+     "label": "技能管理",
+     "leaves": [
+      {
+       "key": "bundle:@deepseek-ai/dsh-experimental-badge-skill-bundle",
+       "name": "@deepseek-ai/dsh-experimental-badge-skill-bundle",
+       "title": "DSH 徽章技能",
+       "enabled": false,
+       "removable": false,
+       "official": true,
+       "confidence": "high",
+       "evidence": [
+        "说明里写明它管理插件/技能/整合包"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "ops.diag",
+     "label": "诊断与日志",
+     "leaves": [
+      {
+       "key": "bundle:@deepseek-ai/dsh-experimental-inspector-profile",
+       "name": "@deepseek-ai/dsh-experimental-inspector-profile",
+       "title": "开发者工具",
+       "enabled": false,
+       "removable": false,
+       "official": true,
+       "confidence": "high",
+       "evidence": [
+        "说明里写明它是开发者调试/检查工具"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "ops.other",
+     "label": "运维能力",
+     "leaves": [
+      {
+       "key": "bundle:dshmarket",
+       "name": "dshmarket",
+       "title": "插件市场",
+       "enabled": false,
+       "removable": false,
+       "official": true,
+       "confidence": "high",
+       "evidence": [
+        "说明里写明它是插件市场/安装器"
+       ]
+      },
+      {
+       "key": "bundle:@deepseek-ai/dsh-experimental-plugin-market-bundle",
+       "name": "@deepseek-ai/dsh-experimental-plugin-market-bundle",
+       "title": "自定义插件市场",
+       "enabled": false,
+       "removable": false,
+       "official": true,
+       "confidence": "high",
+       "evidence": [
+        "说明里写明它是插件市场/安装器"
+       ]
+      },
+      {
+       "key": "bundle:dsh-community-market",
+       "name": "dsh-community-market",
+       "title": "dsh-community-market",
+       "enabled": true,
+       "removable": false,
+       "official": true,
+       "confidence": "high",
+       "evidence": [
+        "说明里写明它是插件市场/安装器"
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "core",
+   "label": "系统与内核",
+   "hint": "Harness 自带的底座服务，通常不该删",
+   "count": 3,
+   "domains": [
+    {
+     "id": "core.service",
+     "label": "宿主服务",
+     "leaves": [
+      {
+       "key": "bundle:@deepseek-ai/dsh-base",
+       "name": "@deepseek-ai/dsh-base",
+       "title": "@deepseek-ai/dsh-base",
+       "enabled": true,
+       "removable": false,
+       "official": false,
+       "confidence": "high",
+       "evidence": [
+        "说明里写明它是 Harness 底座/内核层"
+       ]
+      },
+      {
+       "key": "bundle:@agents-anywhere/dsh-bridge-next",
+       "name": "@agents-anywhere/dsh-bridge-next",
+       "title": "远程控制",
+       "enabled": true,
+       "removable": false,
+       "official": true,
+       "confidence": "low",
+       "evidence": [
+        "官方行且无其它证据，按内核服务归档"
+       ]
+      },
+      {
+       "key": "bundle:@deepseek-ai/dsh-web-app",
+       "name": "@deepseek-ai/dsh-web-app",
+       "title": "Web 应用运行支持",
+       "enabled": true,
+       "removable": false,
+       "official": false,
+       "confidence": "high",
+       "evidence": [
+        "说明里写明它是 Harness 底座/内核层"
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "roots": [
+  {
+   "path": "C:\\Users\\you\\.dsh\\profiles\\desktop",
+   "scope": "profile",
+   "label": "当前 Profile"
+  }
+ ],
+ "warnings": [],
+ "usage": {
+  "source": "sessionQuery",
+  "sessions": 6,
+  "files": 0,
+  "newest": 1793347371346
+ },
+ "catalog": {
+  "families": [
+   {
+    "id": "ui",
+    "label": "界面与交互",
+    "hint": "主要给用户看和点的：设置页、侧栏、面板、装饰、主题",
+    "order": 10
+   },
+   {
+    "id": "tools",
+    "label": "工具与执行",
+    "hint": "主要给模型加能力的：新工具、斜杠命令、MCP 服务",
+    "order": 20
+   },
+   {
+    "id": "net",
+    "label": "网络与数据",
+    "hint": "主要联网或读写外部数据的：抓取、同步、接口、账号",
+    "order": 30
+   },
+   {
+    "id": "model",
+    "label": "模型与推理",
+    "hint": "主要接模型或改推理过程的：模型接入、提示词、上下文压缩",
+    "order": 40
+   },
+   {
+    "id": "session",
+    "label": "会话与工作区",
+    "hint": "主要管会话和文件的：会话增删、工作区、终端、磁盘数据",
+    "order": 50
+   },
+   {
+    "id": "ops",
+    "label": "运维与诊断",
+    "hint": "主要管插件本身的：插件/技能管理、诊断、打包备份",
+    "order": 60
+   },
+   {
+    "id": "core",
+    "label": "系统与内核",
+    "hint": "Harness 自带的底座服务，通常不该删",
+    "order": 70
+   },
+   {
+    "id": "other",
+    "label": "其它与待确认",
+    "hint": "证据不足但已归档，附原因，可人工改判",
+    "order": 80
+   }
+  ],
+  "domains": [
+   {
+    "id": "ui.theme",
+    "family": "ui",
+    "label": "主题与外观",
+    "order": 5
+   },
+   {
+    "id": "ui.settings",
+    "family": "ui",
+    "label": "设置页面",
+    "order": 10
+   },
+   {
+    "id": "ui.sidebar",
+    "family": "ui",
+    "label": "侧栏与导航",
+    "order": 20
+   },
+   {
+    "id": "ui.conversation",
+    "family": "ui",
+    "label": "对话区扩展",
+    "order": 30
+   },
+   {
+    "id": "ui.overlay",
+    "family": "ui",
+    "label": "浮层与装饰",
+    "order": 40
+   },
+   {
+    "id": "ui.page",
+    "family": "ui",
+    "label": "界面插件",
+    "order": 90
+   },
+   {
+    "id": "tools.skill.doc",
+    "family": "tools",
+    "label": "文档处理技能",
+    "order": 4
+   },
+   {
+    "id": "tools.skill.dev",
+    "family": "tools",
+    "label": "开发与诊断技能",
+    "order": 5
+   },
+   {
+    "id": "tools.skill",
+    "family": "tools",
+    "label": "技能工具",
+    "order": 6
+   },
+   {
+    "id": "tools.mcp",
+    "family": "tools",
+    "label": "MCP 服务",
+    "order": 8
+   },
+   {
+    "id": "tools.command",
+    "family": "tools",
+    "label": "斜杠命令",
+    "order": 20
+   },
+   {
+    "id": "tools.register",
+    "family": "tools",
+    "label": "工具注册",
+    "order": 10
+   },
+   {
+    "id": "tools.other",
+    "family": "tools",
+    "label": "执行能力",
+    "order": 90
+   },
+   {
+    "id": "net.scrape",
+    "family": "net",
+    "label": "抓取与同步",
+    "order": 5
+   },
+   {
+    "id": "net.search",
+    "family": "net",
+    "label": "搜索与联网",
+    "order": 10
+   },
+   {
+    "id": "net.http",
+    "family": "net",
+    "label": "HTTP 接口",
+    "order": 20
+   },
+   {
+    "id": "net.account",
+    "family": "net",
+    "label": "账号与鉴权",
+    "order": 30
+   },
+   {
+    "id": "net.other",
+    "family": "net",
+    "label": "网络能力",
+    "order": 90
+   },
+   {
+    "id": "model.compact",
+    "family": "model",
+    "label": "上下文压缩",
+    "order": 5
+   },
+   {
+    "id": "model.provider",
+    "family": "model",
+    "label": "模型接入",
+    "order": 10
+   },
+   {
+    "id": "model.prompt",
+    "family": "model",
+    "label": "提示词与推理",
+    "order": 20
+   },
+   {
+    "id": "model.other",
+    "family": "model",
+    "label": "推理能力",
+    "order": 90
+   },
+   {
+    "id": "session.manage",
+    "family": "session",
+    "label": "会话管理",
+    "order": 10
+   },
+   {
+    "id": "session.workspace",
+    "family": "session",
+    "label": "工作区与文件",
+    "order": 20
+   },
+   {
+    "id": "session.terminal",
+    "family": "session",
+    "label": "终端与进程",
+    "order": 30
+   },
+   {
+    "id": "session.other",
+    "family": "session",
+    "label": "会话能力",
+    "order": 90
+   },
+   {
+    "id": "ops.manage",
+    "family": "ops",
+    "label": "插件与技能管理",
+    "order": 10
+   },
+   {
+    "id": "ops.skills",
+    "family": "ops",
+    "label": "技能管理",
+    "order": 20
+   },
+   {
+    "id": "ops.backup",
+    "family": "ops",
+    "label": "打包与备份",
+    "order": 30
+   },
+   {
+    "id": "ops.diag",
+    "family": "ops",
+    "label": "诊断与日志",
+    "order": 40
+   },
+   {
+    "id": "ops.other",
+    "family": "ops",
+    "label": "运维能力",
+    "order": 90
+   },
+   {
+    "id": "core.service",
+    "family": "core",
+    "label": "宿主服务",
+    "order": 10
+   },
+   {
+    "id": "other.unclear",
+    "family": "other",
+    "label": "证据不足",
+    "order": 10
+   }
+  ]
+ },
+ "saved": []
+}

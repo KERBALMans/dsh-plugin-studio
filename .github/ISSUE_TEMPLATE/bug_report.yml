@@ -1,0 +1,109 @@
+name: Bug 报告
+description: 页面打不开、分类不对、删除失败、AI 讲解报错 —— 任何「它没按说的那样工作」
+title: '[Bug] '
+labels: ['bug']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        感谢你花时间报问题。下面每一项都请填，缺项的问题通常需要来回好几轮才能定位。
+
+        提交前请先做两件事：在「设置 → 插件工坊」里点右上角刷新，确认不是缓存；再搜索一下已有的 Issue，可能已经有人报过。
+
+  - type: textarea
+    id: what
+    attributes:
+      label: 出了什么问题
+      description: 一两句话说明现象，不要只写「用不了」。
+      placeholder: 点「删除」之后弹窗提示成功，但刷新页面插件又出现了。
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: 复现步骤
+      description: 从打开客户端开始，按顺序写你点了什么。
+      placeholder: |
+        1. 打开设置 → 插件工坊
+        2. 勾选 dsh-session-clean
+        3. 点底部「删除选中」
+        4. 看到提示「已删除 1 个」
+        5. 点右上角刷新，那一行又回来了
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: 期望的结果
+      placeholder: 刷新之后那一行应该消失。
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: 实际的结果
+      description: 有红字报错就原样贴上来，不要转述。
+    validations:
+      required: true
+
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: 截图
+      description: 直接把图片拖进这个框。界面错位、空白、按钮点不动这类问题，截图比文字有用十倍。
+    validations:
+      required: false
+
+  - type: input
+    id: plugin-version
+    attributes:
+      label: 插件工坊版本
+      description: 设置 → 插件工坊，页面顶部显示的版本号。
+      placeholder: 1.0.0
+    validations:
+      required: true
+
+  - type: input
+    id: client-version
+    attributes:
+      label: DeepSeek Harness 版本
+      description: 客户端「关于」里的版本。
+      placeholder: 0.2.1-rc.3
+    validations:
+      required: true
+
+  - type: dropdown
+    id: os
+    attributes:
+      label: 操作系统
+      options:
+        - Windows 11
+        - Windows 10
+        - macOS (Apple Silicon)
+        - macOS (Intel)
+        - Linux
+        - 其他（请在补充里说明）
+    validations:
+      required: true
+
+  - type: textarea
+    id: diag
+    attributes:
+      label: 诊断信息
+      description: |
+        在「设置 → 插件工坊」点「诊断」按钮，会复制一段 JSON 到剪贴板，粘贴到这里。
+        里面只有版本号、服务可用性、路径，不含对话内容。
+      render: json
+    validations:
+      required: false
+
+  - type: textarea
+    id: extra
+    attributes:
+      label: 补充
+      description: 你试过什么？禁用别的插件之后还这样吗？重启过吗？
+    validations:
+      required: false

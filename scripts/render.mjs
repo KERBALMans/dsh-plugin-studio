@@ -38,8 +38,26 @@ const LIVE = !process.argv.includes('--offline')
 /* real data                                                          */
 /* ------------------------------------------------------------------ */
 
+/**
+ * Offline mode reads `fixtures/*.json` instead of the live API.
+ *
+ * CI has no running Host, and an empty dataset would make every layout check
+ * fail for a reason that has nothing to do with the plugin. The fixtures are a
+ * sanitised snapshot of one real run: 31 plugins, 8 skills, all three levels
+ * populated. They are committed so the render check is reproducible.
+ */
+const FIXTURE_DIR = new URL('../fixtures/', import.meta.url)
+
+function fixture(name, fallback) {
+  try {
+    return JSON.parse(fs.readFileSync(new URL(name, FIXTURE_DIR), 'utf8'))
+  } catch {
+    return fallback
+  }
+}
+
 async function grab(path, fallback) {
-  if (!LIVE) return fallback
+  if (!LIVE) return fixture(path.replace(/^\//, '') + '.json', fallback)
   try {
     const response = await fetch(API + path)
     if (!response.ok) return fallback

@@ -7,10 +7,11 @@
  * Run: node scripts/scores.mjs [name-filter]
  */
 import { setProfileDir, profileDir } from '../lib/env.js'
+import { resolveProfile } from './_profile.mjs'
 import { rowFacts, classifyFacts, FAMILIES } from '../lib/classify.js'
 import { inventory } from '../lib/inventory.js'
 
-const PROFILE = 'C:\\Users\\Administrator\\.dsh\\profiles\\desktop'
+const PROFILE = resolveProfile()
 setProfileDir(PROFILE)
 const filter = process.argv[2] || ''
 

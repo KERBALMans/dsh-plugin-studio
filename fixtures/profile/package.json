@@ -1,0 +1,16 @@
+{
+  "name": "dsh-profile-fixture",
+  "private": true,
+  "dsh": {
+    "version": "0.2.1-rc.3"
+  },
+  "dependencies": {
+    "demo-wallpaper-engine": "1.4.0",
+    "demo-tool-runner": "2.1.0",
+    "demo-context-compact": "0.1.9",
+    "demo-session-clean": "1.6.2",
+    "demo-web-fetch": "1.0.3",
+    "demo-modpack": "0.9.1",
+    "@deepseek-ai/dsh-base": "0.2.1-rc.3"
+  }
+}

@@ -10,13 +10,14 @@
  * Run: node scripts/smoke.mjs
  */
 import { setProfileDir, profileDir, storageDir } from '../lib/env.js'
+import { resolveProfile, USING_SYNTHETIC } from './_profile.mjs'
 import { capabilityReport } from '../lib/caps.js'
 import { inventory } from '../lib/inventory.js'
 import { FAMILIES, DOMAINS, classifyAll, buildTree, codeEvidence } from '../lib/classify.js'
 import { collectUsage, lastUsedFor, relativeAge } from '../lib/usage.js'
 import { skillInventory, skillRoots } from '../lib/skills.js'
 
-const PROFILE = 'C:\\Users\\Administrator\\.dsh\\profiles\\desktop'
+const PROFILE = resolveProfile()
 setProfileDir(PROFILE)
 
 let failures = 0
@@ -65,7 +66,19 @@ section('classification')
 const usage = await collectUsage(fakeCtx, {})
 console.log(`  usage source=${usage.source} sessions=${usage.sessions} tools=${Object.keys(usage.tools).length} mentions=${Object.keys(usage.mentions).length}`)
 for (const error of (usage.errors || []).slice(0, 4)) console.log(`    note: ${error}`)
-check('使用记录有内容', usage.sessions > 0 || Object.keys(usage.tools).length > 0)
+// Usage data comes from session logs, which a synthetic profile does not have.
+// The rule under test is "does the collector return a well-formed result", not
+// "does this machine have history" — asserting on the latter makes the suite
+// pass only where someone has been chatting.
+const usageShaped =
+  typeof usage.sessions === 'number' &&
+  typeof usage.tools === 'object' &&
+  typeof usage.mentions === 'object' &&
+  Array.isArray(usage.errors)
+check('使用记录结构完整', usageShaped, JSON.stringify({ sessions: usage.sessions, tools: Object.keys(usage.tools).length }))
+if (!USING_SYNTHETIC) {
+  check('使用记录有内容', usage.sessions > 0 || Object.keys(usage.tools).length > 0)
+}
 
 const rows = inv.bundles
 const verdicts = classifyAll(rows, { profileDir: PROFILE, usage })

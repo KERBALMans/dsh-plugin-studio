@@ -8,10 +8,11 @@
  * Run: node scripts/actions.mjs
  */
 import { setProfileDir, storageDir } from '../lib/env.js'
+import { resolveProfile } from './_profile.mjs'
 import { makeHandler, readCategories } from '../index.js'
 import { removeMany } from '../lib/remove.js'
 
-const PROFILE = 'C:\\Users\\Administrator\\.dsh\\profiles\\desktop'
+const PROFILE = resolveProfile()
 setProfileDir(PROFILE)
 
 const ctx = { get: (name) => (name === 'profileContext' ? { dir: PROFILE } : undefined) }
@@ -75,11 +76,18 @@ const self = await call(handler, '/api/dsh-plugin-studio/remove', {
   dryRun: true,
 })
 check('状态 200', self.status === 200, self.text.slice(0, 200))
-// The manager refuses the removal itself, so the route reports a per-row
-// failure rather than a request-level one. What matters is that nothing is
-// removed and the row carries a reason the UI can show.
-check('没有删除任何东西', self.json && self.json.removed === 0, JSON.stringify(self.json).slice(0, 300))
-check('该行带失败原因', self.json && self.json.results[0].ok === false && Boolean(self.json.results[0].error), JSON.stringify(self.json && self.json.results))
+// Two ways this can be refused, both correct: the manager rejects the row (a
+// per-row failure), or the key is not in this profile's inventory at all (a
+// request-level "nothing selected"). What matters either way is that the
+// response says nothing was removed.
+const removedCount = self.json && typeof self.json.removed === 'number' ? self.json.removed : 0
+check('没有删除任何东西', self.json && removedCount === 0, JSON.stringify(self.json).slice(0, 300))
+check(
+  '拒绝时给出了原因',
+  Boolean(self.json) &&
+    (Boolean(self.json.error) || (Array.isArray(self.json.results) && self.json.results.some((r) => r.ok === false && r.error))),
+  JSON.stringify(self.json).slice(0, 300),
+)
 
 console.log('\n=== /remove dryRun 不动磁盘 ===')
 const inventoryBefore = await call(handler, '/api/dsh-plugin-studio/inventory')

@@ -9,9 +9,10 @@
  * Run: node scripts/ai.mjs [limit]
  */
 import { setProfileDir } from '../lib/env.js'
+import { resolveProfile } from './_profile.mjs'
 import { makeHandler } from '../index.js'
 
-const PROFILE = 'C:\\Users\\Administrator\\.dsh\\profiles\\desktop'
+const PROFILE = resolveProfile()
 setProfileDir(PROFILE)
 
 // The real Host supplies these services; a bare fake ctx cannot, so the route
@@ -108,6 +109,36 @@ console.log('\n=== /explain 缺参数时不炸 ===')
 const empty = await call(handler, '/api/dsh-plugin-studio/explain', {})
 check('状态 200 或 400', empty.status === 200 || empty.status === 400, `got ${empty.status}`)
 check('有明确错误信息', empty.json && (empty.json.ok === false || empty.json.stats), empty.text.slice(0, 200))
+
+// Regression: a single row's button used to send `keys` as a bare string. The
+// server read that as "no filter" and explained the whole backlog, so one click
+// cost eight rows of tokens and wrote eight notes. The route must reject it.
+console.log('\n=== /explain 拒绝非数组 keys（单行按钮回归） ===')
+const scalar = await call(handler, '/api/dsh-plugin-studio/explain', {
+  kind: 'plugin',
+  keys: rows[0] ? rows[0].key : 'bundle:example',
+})
+check('状态 400', scalar.status === 400, `got ${scalar.status} ${scalar.text.slice(0, 200)}`)
+check('说明 keys 必须是数组', scalar.json && scalar.json.ok === false && /数组/.test(scalar.json.error || ''), scalar.text.slice(0, 200))
+
+// Regression: `output.render` must return ContentBlock[], not a {content:[...]}
+// wrapper. The host rejects the wrapper with INVALID_TOOL_OUTPUT, which made
+// every studio_* tool fail before it ever reached the model.
+console.log('\n=== 工具 render 返回 ContentBlock[]（宿主契约回归） ===')
+const registered = {}
+const toolCtx = {
+  get: (name) => (name === 'tools' ? { register: (definition) => { registered[definition.name] = definition } } : undefined),
+  effect: (fn) => fn(),
+}
+const { apply } = await import('../index.js')
+apply(toolCtx)
+const toolNames = Object.keys(registered)
+check('注册了三个工具', toolNames.length === 3, toolNames.join(','))
+for (const name of toolNames) {
+  const rendered = registered[name].output.render({}, { ok: true })
+  check(`${name} render 返回数组`, Array.isArray(rendered), typeof rendered)
+  check(`${name} 首块是 text`, Array.isArray(rendered) && rendered[0] && rendered[0].type === 'text', JSON.stringify(rendered).slice(0, 120))
+}
 
 console.log(failures === 0 ? '\nALL CHECKS PASSED' : `\n${failures} CHECK(S) FAILED`)
 process.exitCode = failures === 0 ? 0 : 1

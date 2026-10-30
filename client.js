@@ -81,6 +81,7 @@ window.__ModuleLoader__.load({
         noExplain: '还没有讲解。点「AI 讲解」让它读代码和说明后告诉你。',
         explainRunning: '正在读代码和说明…',
         explainDone: '讲解完成：{n} 条',
+        explainPartial: '模型只讲解了 {found}/{asked} 条，其余可再点一次补上。',
         removeTitle: '确认删除',
         removeBody: '下面这些会被真正移除，不是隐藏也不是停用。',
         removeSkillsBody: '下面这些技能目录会被删除。技能目录删掉就找不回来了，请确认。',
@@ -113,6 +114,10 @@ window.__ModuleLoader__.load({
         allFamilies: '全部分类',
         manual: '手动',
         size: '{n} 个文件',
+        copyDiag: '复制诊断信息',
+        copyDiagHint: '复制版本号、服务可用性和路径，报问题时贴给作者。不含对话内容。',
+        copyDiagDone: '诊断信息已复制到剪贴板，报问题时粘贴即可。',
+        copyDiagFail: '复制失败，下面是诊断信息，手动选中复制：',
       },
       en: {
         title: 'Plugin Studio',
@@ -158,6 +163,7 @@ window.__ModuleLoader__.load({
         noExplain: 'No explanation yet. Press Explain to read its code and description.',
         explainRunning: 'Reading code and description…',
         explainDone: 'Explained {n} rows',
+        explainPartial: 'Model explained {found}/{asked} rows; press again to fill the rest.',
         removeTitle: 'Confirm removal',
         removeBody: 'These will actually be removed, not hidden and not disabled.',
         removeSkillsBody: 'These skill directories will be deleted. A deleted directory does not come back.',
@@ -190,6 +196,10 @@ window.__ModuleLoader__.load({
         allFamilies: 'All families',
         manual: 'manual',
         size: '{n} files',
+        copyDiag: 'Copy diagnostics',
+        copyDiagHint: 'Copies versions, service availability and paths for a bug report. No conversation content.',
+        copyDiagDone: 'Diagnostics copied to the clipboard; paste them into your issue.',
+        copyDiagFail: 'Copy failed. Select and copy the diagnostics below manually:',
       },
     }
 
@@ -224,6 +234,7 @@ window.__ModuleLoader__.load({
 .dps-tab .dps-count { margin-left: 6px; font-size: 11px; color: var(--dsw-alias-label-secondary); }
 .dps-bar { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
 .dps-input { flex: 1 1 220px; min-width: 160px; background: var(--dsw-alias-bg-layer-1); border: 1px solid var(--dsw-alias-border-l1); border-radius: 9px; padding: 7px 10px; color: var(--dsw-alias-label-primary); font: inherit; font-size: 12.5px; }
+.dps-diag { width: 100%; min-height: 220px; resize: vertical; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11.5px; line-height: 1.5; white-space: pre; }
 .dps-input:focus { outline: none; border-color: var(--dsw-alias-brand-primary); }
 .dps-chips { display: flex; gap: 6px; flex-wrap: wrap; }
 .dps-chip { appearance: none; border: 1px solid var(--dsw-alias-border-l1); background: var(--dsw-alias-bg-layer-1); color: var(--dsw-alias-label-secondary); font: inherit; font-size: 12px; padding: 5px 10px; border-radius: 999px; cursor: pointer; }
@@ -237,6 +248,7 @@ window.__ModuleLoader__.load({
 .dps-sel { display: flex; gap: 8px; align-items: center; padding: 8px 10px; border-radius: 10px; background: var(--dsw-alias-bg-layer-2); border: 1px solid var(--dsw-alias-border-l1); }
 .dps-sel strong { font-weight: 600; }
 .dps-sel .dps-spacer { flex: 1; }
+.dps-aistats { font-size: 11.5px; color: var(--dsw-alias-label-secondary); padding: 0 2px; }
 .dps-card { border: 1px solid var(--dsw-alias-border-l1); border-radius: 12px; background: var(--dsw-alias-bg-layer-1); overflow: hidden; }
 .dps-banner { display: flex; gap: 8px; align-items: flex-start; padding: 9px 11px; border-radius: 10px; font-size: 12.5px; line-height: 1.55; border: 1px solid var(--dsw-alias-border-l1); background: var(--dsw-alias-bg-layer-2); }
 .dps-banner[data-tone="err"] { border-color: color-mix(in srgb, var(--dsw-alias-state-error-primary) 45%, transparent); color: var(--dsw-alias-state-error-primary); }
@@ -480,6 +492,7 @@ window.__ModuleLoader__.load({
       const [confirming, setConfirming] = React.useState(null)
       const [working, setWorking] = React.useState(false)
       const [aiStats, setAiStats] = React.useState(null)
+      const [diagText, setDiagText] = React.useState(null)
 
       const load = React.useCallback(async () => {
         setState((prev) => ({ ...prev, status: prev.data ? 'refreshing' : 'loading', error: null }))
@@ -598,7 +611,12 @@ window.__ModuleLoader__.load({
       }
 
       const explain = async (keys) => {
-        const list = keys && keys.length ? keys : [...selected]
+        // Accept one key, an array of keys, or nothing (use the selection).
+        // A bare string used to slip through `keys.length` and travel as a
+        // string, so the server saw no array and explained the whole backlog.
+        const list = keys == null
+          ? [...selected]
+          : (Array.isArray(keys) ? keys : [keys]).filter((key) => typeof key === 'string' && key.length > 0)
         if (list.length === 0) {
           setBanner({ tone: 'warn', text: '先勾选要讲解的条目，或直接点某一行的「AI 讲解」。' })
           return
@@ -608,12 +626,21 @@ window.__ModuleLoader__.load({
         try {
           const result = await request('/explain', { body: { kind, keys: list, limit: list.length, online: true } })
           setAiStats(result.stats)
-          if (result.stats && result.stats.available === false) {
-            setBanner({ tone: 'warn', text: t('aiOff', { reason: result.stats.reason || '' }) })
-          } else if (result.notes && result.notes.length > 0) {
-            setBanner({ tone: 'ok', text: t('explainDone', { n: result.notes.length }) })
+          const stats = result.stats || {}
+          const got = Array.isArray(result.notes) ? result.notes.length : 0
+          if (stats.available === false) {
+            setBanner({ tone: 'warn', text: t('aiOff', { reason: stats.reason || '' }) })
+          } else if (got > 0) {
+            // Report a partial answer instead of silently claiming success: the
+            // model can drop rows, and the old banner hid which ones were lost.
+            const asked = Number(stats.asked) || got
+            setBanner(got < asked
+              ? { tone: 'warn', text: t('explainPartial', { found: got, asked }) }
+              : { tone: 'ok', text: t('explainDone', { n: got }) })
+          } else if (stats.available && stats.failed > 0 && stats.reason) {
+            setBanner({ tone: 'err', text: stats.reason })
           } else {
-            setBanner({ tone: 'warn', text: t('aiOff', { reason: (result.stats && result.stats.reason) || '模型没有返回可用的结果' }) })
+            setBanner({ tone: 'warn', text: t('aiOff', { reason: stats.reason || '模型没有返回可用的结果' }) })
           }
           await load()
         } catch (err) {
@@ -657,6 +684,32 @@ window.__ModuleLoader__.load({
         }
       }
 
+      /**
+       * Copy the diagnostic JSON to the clipboard.
+       *
+       * `navigator.clipboard` needs a secure context and is not available in
+       * every shell the client runs in. The fallback is a modal with a
+       * read-only textarea the user selects themselves — deliberately not a
+       * hidden `document.body` node, because this plugin renders only inside
+       * its own panel and must not touch the shell's DOM.
+       */
+      const copyDiag = async () => {
+        try {
+          const diag = await request('/diag')
+          const text = JSON.stringify(diag, null, 2)
+          try {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+              await navigator.clipboard.writeText(text)
+              setBanner({ tone: 'ok', text: t('copyDiagDone') })
+              return
+            }
+          } catch {}
+          setDiagText(text)
+        } catch (err) {
+          setBanner({ tone: 'err', text: err.message })
+        }
+      }
+
       const doPack = async () => {
         const picked = rows.filter((row) => selected.has(row.key))
         if (picked.length === 0) {
@@ -695,6 +748,10 @@ window.__ModuleLoader__.load({
           }),
           h(Button, { onClick: load, disabled: state.status === 'loading' }, state.status === 'loading' ? t('loading') : t('refresh')),
           h(Button, { onClick: () => setView(view === 'tree' ? 'list' : 'tree') }, view === 'tree' ? t('viewList') : t('viewTree')),
+          // Bug reports are much easier to act on when the reporter can hand
+          // over the environment in one paste. The payload is the same JSON the
+          // `/diag` route serves: versions, which services resolved, paths.
+          h(Button, { onClick: copyDiag, title: t('copyDiagHint') }, t('copyDiag')),
         ),
         h(
           'div',
@@ -827,6 +884,16 @@ window.__ModuleLoader__.load({
         header,
         warnings.length > 0 ? h(Banner, { tone: 'warn' }, h('div', null, h('b', null, t('warnings')), `：${warnings.slice(0, 3).join('；')}`)) : null,
         banner ? h(Banner, { tone: banner.tone === 'info' ? undefined : banner.tone }, banner.text) : null,
+        aiStats && aiStats.available !== false
+          ? h(
+            'div',
+            { className: 'dps-aistats' },
+            t('aiStats', { model: aiStats.model || '—', asked: Number(aiStats.asked) || 0, found: Number(aiStats.found) || 0 }),
+            aiStats.inputTokens || aiStats.outputTokens
+              ? ` · ${Number(aiStats.inputTokens) || 0}→${Number(aiStats.outputTokens) || 0} tokens`
+              : '',
+          )
+          : null,
         selectionBar,
         body,
         confirming
@@ -856,6 +923,33 @@ window.__ModuleLoader__.load({
                 { className: 'dps-modal-actions' },
                 h(Button, { onClick: () => setConfirming(null), disabled: working }, t('cancel')),
                 h(Button, { tone: 'danger', onClick: doRemove, disabled: working }, working ? t('removing') : t('confirmRemove')),
+              ),
+            ),
+          )
+          : null,
+        // The clipboard fallback. `navigator.clipboard` is missing in some
+        // shells, and a button that appears to do nothing is worse than one
+        // that shows you the text to copy yourself.
+        diagText
+          ? h(
+            'div',
+            { className: 'dps-overlay', onClick: (event) => { if (event.target === event.currentTarget) setDiagText(null) } },
+            h(
+              'div',
+              { className: 'dps-modal' },
+              h('h3', null, t('copyDiag')),
+              h('p', null, t('copyDiagFail')),
+              h('textarea', {
+                className: 'dps-input dps-diag',
+                readOnly: true,
+                value: diagText,
+                rows: 14,
+                onFocus: (event) => event.target.select(),
+              }),
+              h(
+                'div',
+                { className: 'dps-modal-actions' },
+                h(Button, { onClick: () => setDiagText(null) }, t('knowIt')),
               ),
             ),
           )

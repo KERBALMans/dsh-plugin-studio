@@ -1,0 +1,615 @@
+{
+ "ok": true,
+ "apiVersion": 3,
+ "kind": "skill",
+ "rows": [
+  {
+   "name": "diagnose-windows-sandbox-acl",
+   "description": "Use on Windows for unexpected DSH sandbox access denials: workspace writes or listing fail, or an ordinarily readable path cannot be read. One bundled command inspects the path and every ancestor and repairs the ACL problems it proves in that same run. Expected confinement denials need no ACL repair.",
+   "title": "diagnose-windows-sandbox-acl",
+   "enabled": true,
+   "removable": false,
+   "source": "bundled",
+   "kind": "skill",
+   "key": "skill:bundled:diagnose-windows-sandbox-acl",
+   "family": "tools",
+   "domain": "tools.skill.dev",
+   "familyLabel": "工具与执行",
+   "domainLabel": "开发与诊断技能",
+   "confidence": "high",
+   "evidence": [
+    "技能目录（来源 bundled）"
+   ],
+   "usedAt": null,
+   "usedText": null,
+   "usedVia": null,
+   "mentionedAt": null,
+   "mentionedText": null,
+   "whenToUse": null,
+   "bodyHead": null,
+   "path": "C:\\tmp\\skill",
+   "scope": "bundled"
+  },
+  {
+   "name": "office",
+   "description": "Create, edit, inspect, or convert Office documents, spreadsheets, presentations, and PDFs. Load to choose the relevant workflow.",
+   "title": "office",
+   "enabled": true,
+   "removable": false,
+   "source": "bundled",
+   "kind": "skill",
+   "key": "skill:bundled:office",
+   "family": "tools",
+   "domain": "tools.skill.doc",
+   "familyLabel": "工具与执行",
+   "domainLabel": "文档处理技能",
+   "confidence": "high",
+   "evidence": [
+    "技能目录（来源 bundled）"
+   ],
+   "usedAt": null,
+   "usedText": null,
+   "usedVia": null,
+   "mentionedAt": null,
+   "mentionedText": null,
+   "whenToUse": null,
+   "bodyHead": null,
+   "path": "/opt/dsh/resources/runtime/x64/office-skills/office",
+   "scope": "bundled"
+  },
+  {
+   "name": "office-docx",
+   "description": "Create, read, edit, and validate Word documents (.docx).",
+   "title": "office-docx",
+   "enabled": true,
+   "removable": false,
+   "source": "bundled",
+   "kind": "skill",
+   "key": "skill:bundled:office-docx",
+   "family": "tools",
+   "domain": "tools.skill.doc",
+   "familyLabel": "工具与执行",
+   "domainLabel": "文档处理技能",
+   "confidence": "high",
+   "evidence": [
+    "技能目录（来源 bundled）"
+   ],
+   "usedAt": null,
+   "usedText": null,
+   "usedVia": null,
+   "mentionedAt": null,
+   "mentionedText": null,
+   "whenToUse": null,
+   "bodyHead": null,
+   "path": "/opt/dsh/resources/runtime/x64/office-skills/office-docx",
+   "scope": "bundled"
+  },
+  {
+   "name": "office-export-pdf",
+   "description": "Convert an Office document to a requested PDF with LibreOffice Kit.",
+   "title": "office-export-pdf",
+   "enabled": true,
+   "removable": false,
+   "source": "bundled",
+   "kind": "skill",
+   "key": "skill:bundled:office-export-pdf",
+   "family": "tools",
+   "domain": "tools.skill.doc",
+   "familyLabel": "工具与执行",
+   "domainLabel": "文档处理技能",
+   "confidence": "high",
+   "evidence": [
+    "技能目录（来源 bundled）"
+   ],
+   "usedAt": null,
+   "usedText": null,
+   "usedVia": null,
+   "mentionedAt": null,
+   "mentionedText": null,
+   "whenToUse": null,
+   "bodyHead": null,
+   "path": "/opt/dsh/resources/runtime/x64/office-skills/office-export-pdf",
+   "scope": "bundled"
+  },
+  {
+   "name": "office-pptx",
+   "description": "Create, read, edit, and validate PowerPoint presentations (.pptx).",
+   "title": "office-pptx",
+   "enabled": true,
+   "removable": false,
+   "source": "bundled",
+   "kind": "skill",
+   "key": "skill:bundled:office-pptx",
+   "family": "tools",
+   "domain": "tools.skill.doc",
+   "familyLabel": "工具与执行",
+   "domainLabel": "文档处理技能",
+   "confidence": "high",
+   "evidence": [
+    "技能目录（来源 bundled）"
+   ],
+   "usedAt": null,
+   "usedText": null,
+   "usedVia": null,
+   "mentionedAt": null,
+   "mentionedText": null,
+   "whenToUse": null,
+   "bodyHead": null,
+   "path": "/opt/dsh/resources/runtime/x64/office-skills/office-pptx",
+   "scope": "bundled"
+  },
+  {
+   "name": "office-recalculate",
+   "description": "Refresh spreadsheet formula caches and verify calculated values with LibreOffice Kit.",
+   "title": "office-recalculate",
+   "enabled": true,
+   "removable": false,
+   "source": "bundled",
+   "kind": "skill",
+   "key": "skill:bundled:office-recalculate",
+   "family": "tools",
+   "domain": "tools.skill.doc",
+   "familyLabel": "工具与执行",
+   "domainLabel": "文档处理技能",
+   "confidence": "high",
+   "evidence": [
+    "技能目录（来源 bundled）"
+   ],
+   "usedAt": null,
+   "usedText": null,
+   "usedVia": null,
+   "mentionedAt": null,
+   "mentionedText": null,
+   "whenToUse": null,
+   "bodyHead": null,
+   "path": "/opt/dsh/resources/runtime/x64/office-skills/office-recalculate",
+   "scope": "bundled"
+  },
+  {
+   "name": "office-render",
+   "description": "Render requested document images or inspect visual layout with LibreOffice Kit.",
+   "title": "office-render",
+   "enabled": true,
+   "removable": false,
+   "source": "bundled",
+   "kind": "skill",
+   "key": "skill:bundled:office-render",
+   "family": "tools",
+   "domain": "tools.skill.doc",
+   "familyLabel": "工具与执行",
+   "domainLabel": "文档处理技能",
+   "confidence": "high",
+   "evidence": [
+    "技能目录（来源 bundled）"
+   ],
+   "usedAt": null,
+   "usedText": null,
+   "usedVia": null,
+   "mentionedAt": null,
+   "mentionedText": null,
+   "whenToUse": null,
+   "bodyHead": null,
+   "path": "/opt/dsh/resources/runtime/x64/office-skills/office-render",
+   "scope": "bundled"
+  },
+  {
+   "name": "office-xlsx",
+   "description": "Read, create, edit, and validate Excel workbooks, data, and formulas (.xlsx).",
+   "title": "office-xlsx",
+   "enabled": true,
+   "removable": false,
+   "source": "bundled",
+   "kind": "skill",
+   "key": "skill:bundled:office-xlsx",
+   "family": "tools",
+   "domain": "tools.skill.doc",
+   "familyLabel": "工具与执行",
+   "domainLabel": "文档处理技能",
+   "confidence": "high",
+   "evidence": [
+    "技能目录（来源 bundled）"
+   ],
+   "usedAt": null,
+   "usedText": null,
+   "usedVia": null,
+   "mentionedAt": null,
+   "mentionedText": null,
+   "whenToUse": null,
+   "bodyHead": null,
+   "path": "/opt/dsh/resources/runtime/x64/office-skills/office-xlsx",
+   "scope": "bundled"
+  }
+ ],
+ "tree": [
+  {
+   "id": "tools",
+   "label": "工具与执行",
+   "hint": "主要给模型加能力的：新工具、斜杠命令、MCP 服务",
+   "count": 8,
+   "domains": [
+    {
+     "id": "tools.skill.doc",
+     "label": "文档处理技能",
+     "leaves": [
+      {
+       "key": "skill:bundled:office",
+       "name": "office",
+       "title": "office",
+       "enabled": true,
+       "removable": false,
+       "official": false,
+       "confidence": "high",
+       "evidence": [
+        "技能目录（来源 bundled）"
+       ]
+      },
+      {
+       "key": "skill:bundled:office-docx",
+       "name": "office-docx",
+       "title": "office-docx",
+       "enabled": true,
+       "removable": false,
+       "official": false,
+       "confidence": "high",
+       "evidence": [
+        "技能目录（来源 bundled）"
+       ]
+      },
+      {
+       "key": "skill:bundled:office-export-pdf",
+       "name": "office-export-pdf",
+       "title": "office-export-pdf",
+       "enabled": true,
+       "removable": false,
+       "official": false,
+       "confidence": "high",
+       "evidence": [
+        "技能目录（来源 bundled）"
+       ]
+      },
+      {
+       "key": "skill:bundled:office-pptx",
+       "name": "office-pptx",
+       "title": "office-pptx",
+       "enabled": true,
+       "removable": false,
+       "official": false,
+       "confidence": "high",
+       "evidence": [
+        "技能目录（来源 bundled）"
+       ]
+      },
+      {
+       "key": "skill:bundled:office-recalculate",
+       "name": "office-recalculate",
+       "title": "office-recalculate",
+       "enabled": true,
+       "removable": false,
+       "official": false,
+       "confidence": "high",
+       "evidence": [
+        "技能目录（来源 bundled）"
+       ]
+      },
+      {
+       "key": "skill:bundled:office-render",
+       "name": "office-render",
+       "title": "office-render",
+       "enabled": true,
+       "removable": false,
+       "official": false,
+       "confidence": "high",
+       "evidence": [
+        "技能目录（来源 bundled）"
+       ]
+      },
+      {
+       "key": "skill:bundled:office-xlsx",
+       "name": "office-xlsx",
+       "title": "office-xlsx",
+       "enabled": true,
+       "removable": false,
+       "official": false,
+       "confidence": "high",
+       "evidence": [
+        "技能目录（来源 bundled）"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "tools.skill.dev",
+     "label": "开发与诊断技能",
+     "leaves": [
+      {
+       "key": "skill:bundled:diagnose-windows-sandbox-acl",
+       "name": "diagnose-windows-sandbox-acl",
+       "title": "diagnose-windows-sandbox-acl",
+       "enabled": true,
+       "removable": false,
+       "official": false,
+       "confidence": "high",
+       "evidence": [
+        "技能目录（来源 bundled）"
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "roots": [
+  {
+   "path": "C:\\Users\\you\\.dsh\\skills",
+   "scope": "user-dsh",
+   "label": "用户级（~/.dsh/skills）",
+   "removable": true
+  },
+  {
+   "path": "C:\\Users\\you\\.dsh\\agents\\skills",
+   "scope": "user-agents",
+   "label": "用户级（~/.dsh/agents/skills）",
+   "removable": true
+  }
+ ],
+ "warnings": [],
+ "usage": {
+  "source": "sessionQuery",
+  "sessions": 6,
+  "files": 0,
+  "newest": 1793347385445
+ },
+ "catalog": {
+  "families": [
+   {
+    "id": "ui",
+    "label": "界面与交互",
+    "hint": "主要给用户看和点的：设置页、侧栏、面板、装饰、主题",
+    "order": 10
+   },
+   {
+    "id": "tools",
+    "label": "工具与执行",
+    "hint": "主要给模型加能力的：新工具、斜杠命令、MCP 服务",
+    "order": 20
+   },
+   {
+    "id": "net",
+    "label": "网络与数据",
+    "hint": "主要联网或读写外部数据的：抓取、同步、接口、账号",
+    "order": 30
+   },
+   {
+    "id": "model",
+    "label": "模型与推理",
+    "hint": "主要接模型或改推理过程的：模型接入、提示词、上下文压缩",
+    "order": 40
+   },
+   {
+    "id": "session",
+    "label": "会话与工作区",
+    "hint": "主要管会话和文件的：会话增删、工作区、终端、磁盘数据",
+    "order": 50
+   },
+   {
+    "id": "ops",
+    "label": "运维与诊断",
+    "hint": "主要管插件本身的：插件/技能管理、诊断、打包备份",
+    "order": 60
+   },
+   {
+    "id": "core",
+    "label": "系统与内核",
+    "hint": "Harness 自带的底座服务，通常不该删",
+    "order": 70
+   },
+   {
+    "id": "other",
+    "label": "其它与待确认",
+    "hint": "证据不足但已归档，附原因，可人工改判",
+    "order": 80
+   }
+  ],
+  "domains": [
+   {
+    "id": "ui.theme",
+    "family": "ui",
+    "label": "主题与外观",
+    "order": 5
+   },
+   {
+    "id": "ui.settings",
+    "family": "ui",
+    "label": "设置页面",
+    "order": 10
+   },
+   {
+    "id": "ui.sidebar",
+    "family": "ui",
+    "label": "侧栏与导航",
+    "order": 20
+   },
+   {
+    "id": "ui.conversation",
+    "family": "ui",
+    "label": "对话区扩展",
+    "order": 30
+   },
+   {
+    "id": "ui.overlay",
+    "family": "ui",
+    "label": "浮层与装饰",
+    "order": 40
+   },
+   {
+    "id": "ui.page",
+    "family": "ui",
+    "label": "界面插件",
+    "order": 90
+   },
+   {
+    "id": "tools.skill.doc",
+    "family": "tools",
+    "label": "文档处理技能",
+    "order": 4
+   },
+   {
+    "id": "tools.skill.dev",
+    "family": "tools",
+    "label": "开发与诊断技能",
+    "order": 5
+   },
+   {
+    "id": "tools.skill",
+    "family": "tools",
+    "label": "技能工具",
+    "order": 6
+   },
+   {
+    "id": "tools.mcp",
+    "family": "tools",
+    "label": "MCP 服务",
+    "order": 8
+   },
+   {
+    "id": "tools.command",
+    "family": "tools",
+    "label": "斜杠命令",
+    "order": 20
+   },
+   {
+    "id": "tools.register",
+    "family": "tools",
+    "label": "工具注册",
+    "order": 10
+   },
+   {
+    "id": "tools.other",
+    "family": "tools",
+    "label": "执行能力",
+    "order": 90
+   },
+   {
+    "id": "net.scrape",
+    "family": "net",
+    "label": "抓取与同步",
+    "order": 5
+   },
+   {
+    "id": "net.search",
+    "family": "net",
+    "label": "搜索与联网",
+    "order": 10
+   },
+   {
+    "id": "net.http",
+    "family": "net",
+    "label": "HTTP 接口",
+    "order": 20
+   },
+   {
+    "id": "net.account",
+    "family": "net",
+    "label": "账号与鉴权",
+    "order": 30
+   },
+   {
+    "id": "net.other",
+    "family": "net",
+    "label": "网络能力",
+    "order": 90
+   },
+   {
+    "id": "model.compact",
+    "family": "model",
+    "label": "上下文压缩",
+    "order": 5
+   },
+   {
+    "id": "model.provider",
+    "family": "model",
+    "label": "模型接入",
+    "order": 10
+   },
+   {
+    "id": "model.prompt",
+    "family": "model",
+    "label": "提示词与推理",
+    "order": 20
+   },
+   {
+    "id": "model.other",
+    "family": "model",
+    "label": "推理能力",
+    "order": 90
+   },
+   {
+    "id": "session.manage",
+    "family": "session",
+    "label": "会话管理",
+    "order": 10
+   },
+   {
+    "id": "session.workspace",
+    "family": "session",
+    "label": "工作区与文件",
+    "order": 20
+   },
+   {
+    "id": "session.terminal",
+    "family": "session",
+    "label": "终端与进程",
+    "order": 30
+   },
+   {
+    "id": "session.other",
+    "family": "session",
+    "label": "会话能力",
+    "order": 90
+   },
+   {
+    "id": "ops.manage",
+    "family": "ops",
+    "label": "插件与技能管理",
+    "order": 10
+   },
+   {
+    "id": "ops.skills",
+    "family": "ops",
+    "label": "技能管理",
+    "order": 20
+   },
+   {
+    "id": "ops.backup",
+    "family": "ops",
+    "label": "打包与备份",
+    "order": 30
+   },
+   {
+    "id": "ops.diag",
+    "family": "ops",
+    "label": "诊断与日志",
+    "order": 40
+   },
+   {
+    "id": "ops.other",
+    "family": "ops",
+    "label": "运维能力",
+    "order": 90
+   },
+   {
+    "id": "core.service",
+    "family": "core",
+    "label": "宿主服务",
+    "order": 10
+   },
+   {
+    "id": "other.unclear",
+    "family": "other",
+    "label": "证据不足",
+    "order": 10
+   }
+  ]
+ },
+ "saved": []
+}

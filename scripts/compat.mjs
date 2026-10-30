@@ -16,10 +16,11 @@
  * Run: node scripts/compat.mjs
  */
 import { setProfileDir } from '../lib/env.js'
+import { resolveProfile } from './_profile.mjs'
 import { capabilityReport } from '../lib/caps.js'
 import { makeHandler } from '../index.js'
 
-const PROFILE = 'C:\\Users\\Administrator\\.dsh\\profiles\\desktop'
+const PROFILE = resolveProfile()
 setProfileDir(PROFILE)
 
 let failures = 0

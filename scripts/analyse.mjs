@@ -9,9 +9,10 @@
  * Run: node scripts/analyse.mjs
  */
 import { setProfileDir } from '../lib/env.js'
+import { resolveProfile } from './_profile.mjs'
 import { analyse } from '../index.js'
 
-const PROFILE = 'C:\\Users\\Administrator\\.dsh\\profiles\\desktop'
+const PROFILE = resolveProfile()
 setProfileDir(PROFILE)
 
 // Only `profileContext` — everything else falls back, which is the degraded path

@@ -1,0 +1,25 @@
+{
+ "ok": true,
+ "plugin": "dsh-plugin-studio",
+ "version": "1.0.0",
+ "apiVersion": 3,
+ "endpoints": [
+  "GET /inventory",
+  "GET /skills",
+  "GET /saved",
+  "GET /diag",
+  "POST /pack",
+  "POST /save",
+  "POST /delete-pack",
+  "POST /categories/save",
+  "POST /categories/reset",
+  "POST /suggest",
+  "POST /explain",
+  "POST /remove",
+  "POST /skills/remove",
+  "POST /skills/enable",
+  "POST /skills/pack",
+  "POST /plan",
+  "POST /apply"
+ ]
+}

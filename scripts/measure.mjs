@@ -11,6 +11,7 @@
 // one would mean a dependency the plugin does not need.
 import fs from 'node:fs'
 import { execFileSync } from 'node:child_process'
+import { fileURLToPath } from 'node:url'
 
 const HERE = new URL('.', import.meta.url)
 const BUILD = new URL('../build/', HERE)
@@ -27,6 +28,16 @@ const browser = BROWSERS.find((path) => fs.existsSync(path))
 if (!browser) {
   console.log('no browser found; skipping layout measurement')
   process.exit(0)
+}
+
+// `render.mjs` produces the page this script measures. Running this first on a
+// clean checkout would otherwise die on a missing-file stack trace that says
+// nothing about what to do, so build it here when it is absent.
+if (!fs.existsSync(PREVIEW)) {
+  console.log('preview.html missing; rendering it first')
+  execFileSync(process.execPath, [fileURLToPath(new URL('render.mjs', HERE)), '--offline'], {
+    stdio: 'inherit',
+  })
 }
 
 const html = fs.readFileSync(PREVIEW, 'utf8')

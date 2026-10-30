@@ -1,0 +1,64 @@
+name: 功能建议
+description: 想要一个它现在没有的能力，或者觉得某个地方用着别扭
+title: '[Feature] '
+labels: ['enhancement']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        想法不用写成规格书。「我想做什么事，现在卡在哪」这句话本身就够开始讨论了。
+
+        如果只是觉得某个按钮位置别扭，也欢迎提 —— 交互问题往往比功能缺失更影响日常使用。
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: 你想解决什么问题
+      description: 先说场景，再说方案。直接给方案的话，我可能不理解它为什么重要。
+      placeholder: |
+        我装了 40 多个插件，其中十来个是自己写着玩的。
+        每次想清掉不用的，都得一个个点开看名字回忆它是干什么的 —— 要是能按「装完就没启用过」筛一下就好了。
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: 你希望的用法
+      description: 界面上应该出现什么？点了之后发生什么？画个文字草图也行。
+    validations:
+      required: false
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: 你现在怎么绕过这个问题
+      description: 如果你已经在用别的办法凑合，那个办法是什么？它哪里不够好？
+    validations:
+      required: false
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: 和哪块有关
+      multiple: true
+      options:
+        - 分类（三级树、自动归类）
+        - 删除 / 批量操作
+        - AI 讲解
+        - 最后使用时间
+        - 技能管理
+        - 整合包（打包 / 恢复）
+        - 界面布局与交互
+        - 安装 / 兼容性
+        - 其他
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: contribute
+    attributes:
+      label: 参与意愿
+      options:
+        - label: 我愿意提 PR 实现这个（可以先在 Issue 里对一下方案）
+          required: false
