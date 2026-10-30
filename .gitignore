@@ -6,6 +6,11 @@ dist/
 
 # Dependencies
 node_modules/
+# ...except the synthetic profile the suites run against. That directory is not
+# installed dependencies: it is checked-in test data whose whole point is to
+# look like a real profile on disk. Ignoring it made a fresh clone (CI) read an
+# empty inventory, so the suites passed only where a real profile existed.
+!fixtures/profile/node_modules/
 
 # Editor / OS noise
 .DS_Store
