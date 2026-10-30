@@ -31,8 +31,8 @@
     "icon.svg",
     "README.md",
     "CHANGELOG.md",
-    "UPLOAD-GUIDE.md",
-    "LICENSE"
+    "LICENSE",
+    "docs/UPLOAD-GUIDE.md"
   ],
   "os": [
     "darwin",
