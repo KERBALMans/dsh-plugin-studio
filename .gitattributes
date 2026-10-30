@@ -1,0 +1,5 @@
+# Normalise line endings in the repository, but keep the checked-out bytes
+# platform-native. `scripts/render.mjs` parses `client.js` as text and a CRLF
+# checkout used to break its CSS regex, so Windows CI failed for a reason that
+# looked like a missing stylesheet.
+* text=auto

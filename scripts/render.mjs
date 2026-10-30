@@ -278,7 +278,11 @@ console.log(`settled after ${passes + 1} passes`)
 const outDir = new URL('../build/', HERE)
 fs.mkdirSync(outDir, { recursive: true })
 
-const cssMatch = src.match(/const CSS = `([\s\S]*?)`\n/)
+// Match the template literal regardless of line endings. `core.autocrlf=input`
+// (Windows CI) checks `client.js` out with CRLF, and a `\n`-anchored regex then
+// finds nothing — `css` goes empty and every class looks unstyled, which reads
+// as "the stylesheet is missing" rather than "the regex is wrong".
+const cssMatch = src.match(/const CSS = `([\s\S]*?)`\r?\n/)
 const css = cssMatch ? cssMatch[1] : ''
 
 const page = `<!doctype html>
