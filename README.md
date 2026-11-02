@@ -1,5 +1,13 @@
 # 插件工坊 · dsh-plugin-studio
 
+[![CI](https://github.com/KERBALMans/dsh-plugin-studio/actions/workflows/ci.yml/badge.svg)](https://github.com/KERBALMans/dsh-plugin-studio/actions/workflows/ci.yml)
+[![Latest Release](https://img.shields.io/github/v/release/KERBALMans/dsh-plugin-studio?label=release)](https://github.com/KERBALMans/dsh-plugin-studio/releases)
+[![License: MIT](https://img.shields.io/github/license/KERBALMans/dsh-plugin-studio)](./LICENSE)
+[![Node](https://img.shields.io/badge/node-%3E%3D%2020-339933?logo=node.js&logoColor=white)](https://nodejs.org)
+[![DeepSeek Harness](https://img.shields.io/badge/DeepSeek%20Harness-%3E%3D%200.2.0--rc.1-1a1a1a)](https://github.com/anywhere-labs/deepseek-harness-desktop)
+[![Downloads](https://img.shields.io/github/downloads/KERBALMans/dsh-plugin-studio/total)](https://github.com/KERBALMans/dsh-plugin-studio/releases)
+
+
 > 一个页面管好 **DeepSeek Harness** 的**插件**和**技能**：三级自动分类、批量删除、AI 大白话讲解、最后使用时间、最近运行档位、一键打包。
 
 它是 `dsh-modpack`（插件整合包）的下一代：原来的整合包只负责"打包带走"，工坊负责"平时怎么管"。
@@ -13,6 +21,7 @@
 ## 目录
 
 - [一句话介绍](#一句话介绍)
+- [English](#english)
 - [本次更新（v1.0.8）](#本次更新v108)
 - [六个功能](#六个功能)
 - [功能特点](#功能特点)
@@ -33,6 +42,42 @@
 ## 一句话介绍
 
 装了十几个插件之后，Harness 的设置页会变成一长串平铺的列表。你想删掉几个不用的，但看不出哪个是干什么的、不敢删、也不知道哪个真的没用。**插件工坊**把这四件事合到一个页面里：**分类 → 看懂 → 看使用记录 → 批量删**，插件和技能一起管。
+
+---
+
+## English
+
+**Plugin Studio for DeepSeek Harness** — a single browser page to manage your DeepSeek Harness **plugins** and **skills**: three-tier auto classification, bulk delete, plain-language AI explanations, last-used time, a "recently ran" tier, and one-click packaging.
+
+It is the next generation of `dsh-modpack`: where the modpack only "packs things up", the Studio handles "how you manage them day to day".
+
+### What it does
+
+- **Three-tier auto classification** (essential / common / decoration) — rules are explainable, not a black box.
+- **Bulk delete & bulk package** — destructive actions ship with confirm / dryRun.
+- **Plain-language AI explanations** — describes any plugin's purpose in plain Chinese.
+- **Last-used time + recently-ran tier** — see at a glance which plugins are still alive.
+- **Skills management** view.
+- **One-click packaging** into a `.tgz`, ready to share or upload.
+
+### Install
+
+1. Update the DeepSeek Harness desktop client to a version that supports the plugin marketplace.
+2. Open **Settings → Plugin Studio** and install / enable with one click.
+   Or download `dsh-plugin-studio-1.0.8.tgz` from [Releases](https://github.com/KERBALMans/dsh-plugin-studio/releases) and install from file.
+
+> Requires: Node ≥ 20, DeepSeek Harness ≥ 0.2.0-rc.1.
+
+### v1.0.8 highlights
+
+Adds a **"recently ran" tier**: some plugins run constantly in the background (e.g. `dsh-media-lens`, `dsh-builtin-browser`) yet never show up in tool calls. The Studio now reads the host's `desktop-next-*.jsonl` logs to surface their latest activity, with a startup-window filter (drops the first 120s of each run) and a ledger (`usage-ledger.json`) so activity times never regress when logs rotate. Scanning 3 log files takes ~77ms.
+
+### Tests
+
+CI runs **9 test suites** across Windows / macOS / Linux × Node 20 / 22 / 24:
+`smoke · analyse · routes · actions · ai · style · compat · render · measure`.
+
+[中文文档](#插件工坊--dsh-plugin-studio) · [Issues](https://github.com/KERBALMans/dsh-plugin-studio/issues)
 
 ---
 
