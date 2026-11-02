@@ -32,6 +32,33 @@ window.__ModuleLoader__.load({
     const API = '/api/dsh-plugin-studio'
     const API_VERSION = 3
 
+    // The settings page unmounts this component every time the user switches
+    // tabs, so a mount-time fetch means re-reading every session log on each
+    // visit — seconds of spinner for an answer that has not changed. Keep the
+    // last result here (module scope survives unmount) and only refetch when
+    // the refresh button asks for it.
+    const panelCache = new Map()
+
+    /**
+     * Describe the evidence behind a timestamp.
+     *
+     * "Last used 3 days ago" raises the obvious "how do you know?", and the
+     * answers are not equally intuitive: a tool call is self-evident, a model
+     * provider or a session projection is not.
+     */
+    const viaText = (t, via) => {
+      if (!via) return undefined
+      const [kind, ...rest] = String(via).split(':')
+      const subject = rest.join(':')
+      if (kind === 'tool') return `${t('viaTool')}: ${subject}`
+      if (kind === 'provider') return `${t('viaProvider')}: ${subject}`
+      if (kind === 'projection') return `${t('viaProjection')}: ${subject}`
+      if (kind === 'command') return `${t('viaCommand')}: /${subject}`
+      if (kind === 'skill') return t('viaSkill')
+      if (kind === 'ledger') return t('viaLedger')
+      return via
+    }
+
     /* -------------------------------------------------------------- */
     /* text                                                            */
     /* -------------------------------------------------------------- */
@@ -44,6 +71,13 @@ window.__ModuleLoader__.load({
         tabSkills: '技能',
         tabPacks: '整合包',
         refresh: '刷新',
+        refreshHint: '重新读取一次使用时间',
+        viaTool: '来自工具调用',
+        viaProvider: '来自模型服务转发',
+        viaProjection: '来自会话面板投影',
+        viaCommand: '来自斜杠命令',
+        viaSkill: '来自技能调用',
+        viaLedger: '来自历史使用记录',
         search: '搜索名称、描述或分类…',
         filterAll: '全部',
         filterEnabled: '已启用',
@@ -68,6 +102,10 @@ window.__ModuleLoader__.load({
         error: '出错了',
         retry: '重试',
         neverUsed: '从没用过',
+        lastRun: '最近运行：',
+        runHint: '这个插件最近一次在客户端里活动的时间。来自宿主运行日志，只说明它跑过，不代表你调用了它。',
+        passive: '常驻运行',
+        passiveHint: '这个插件不注册任何工具，所以使用时间无法从工具调用看出来。',
         lastUsed: '最后使用：',
         official: '官方',
         locked: '不可删',
@@ -126,6 +164,13 @@ window.__ModuleLoader__.load({
         tabSkills: 'Skills',
         tabPacks: 'Packs',
         refresh: 'Refresh',
+        refreshHint: 'Re-read the last-used timestamps',
+        viaTool: 'from a tool call',
+        viaProvider: 'from a model provider',
+        viaProjection: 'from a session projection',
+        viaCommand: 'from a slash command',
+        viaSkill: 'from a skill call',
+        viaLedger: 'from the usage history',
         search: 'Search name, description or category…',
         filterAll: 'All',
         filterEnabled: 'Enabled',
@@ -150,6 +195,10 @@ window.__ModuleLoader__.load({
         error: 'Something went wrong',
         retry: 'Retry',
         neverUsed: 'Never used',
+        lastRun: 'Last active: ',
+        runHint: 'When this plugin last did something inside the client. Read from the host log — it ran, but that is not the same as you using it.',
+        passive: 'resident',
+        passiveHint: 'This plugin registers no tools, so tool calls cannot date it.',
         lastUsed: 'Last used: ',
         official: 'official',
         locked: 'locked',
@@ -404,7 +453,9 @@ window.__ModuleLoader__.load({
       const { row, t, selected, onToggle, onExplain, busy, expanded, onExpand } = props
       const blocked = row.removable === false || !!row.readOnlyReason
       const meta = []
-      if (row.usedAt) meta.push(h('span', { key: 'u' }, `${t('lastUsed')}${row.usedText || ''}`))
+      if (row.usedAt) meta.push(h('span', { key: 'u', title: viaText(t, row.usedVia) }, `${t('lastUsed')}${row.usedText || ''}`))
+      else if (row.ranAt) meta.push(h('span', { key: 'u', title: t('runHint') }, `${t('lastRun')}${row.ranText || ''}`))
+      else if (row.passive) meta.push(h('span', { key: 'u', title: t('passiveHint') }, t('passive')))
       else meta.push(h('span', { key: 'u', className: 'dps-warn' }, t('neverUsed')))
       if (row.rowCount > 0) meta.push(h('span', { key: 'r' }, `${row.rowCount} 个加载项`))
       if (row.bytes) meta.push(h('span', { key: 'b' }, t('size', { n: row.files || 0 })))
@@ -494,10 +545,18 @@ window.__ModuleLoader__.load({
       const [aiStats, setAiStats] = React.useState(null)
       const [diagText, setDiagText] = React.useState(null)
 
-      const load = React.useCallback(async () => {
+      const load = React.useCallback(async (refresh) => {
+        const force = refresh === true
+        const cached = force ? null : panelCache.get(kind)
+        if (cached) {
+          setState({ status: 'ready', data: cached, error: null })
+          return
+        }
         setState((prev) => ({ ...prev, status: prev.data ? 'refreshing' : 'loading', error: null }))
         try {
-          const data = await request(kind === 'skill' ? '/skills' : '/inventory')
+          const path = kind === 'skill' ? '/skills' : '/inventory'
+          const data = await request(force ? `${path}?refresh=1` : path)
+          panelCache.set(kind, data)
           setState({ status: 'ready', data, error: null })
           setSelected((prev) => {
             const keys = new Set((data.rows || []).map((row) => row.key))
@@ -746,7 +805,11 @@ window.__ModuleLoader__.load({
             value: query,
             onChange: (event) => setQuery(event.target.value),
           }),
-          h(Button, { onClick: load, disabled: state.status === 'loading' }, state.status === 'loading' ? t('loading') : t('refresh')),
+          h(Button, {
+            onClick: () => load(true),
+            disabled: state.status === 'loading' || state.status === 'refreshing',
+            title: t('refreshHint'),
+          }, state.status === 'loading' || state.status === 'refreshing' ? t('loading') : `↻ ${t('refresh')}`),
           h(Button, { onClick: () => setView(view === 'tree' ? 'list' : 'tree') }, view === 'tree' ? t('viewList') : t('viewTree')),
           // Bug reports are much easier to act on when the reporter can hand
           // over the environment in one paste. The payload is the same JSON the
@@ -817,7 +880,7 @@ window.__ModuleLoader__.load({
           'div',
           { className: 'dps-empty' },
           h('div', null, `${t('error')}：${state.error}`),
-          h('div', { style: { marginTop: 10 } }, h(Button, { onClick: load }, t('retry'))),
+          h('div', { style: { marginTop: 10 } }, h(Button, { onClick: () => load(true) }, t('retry'))),
         )
       } else if (filtered.length === 0) {
         body = h('div', { className: 'dps-empty' }, rows.length === 0 ? t('empty') : t('emptyFilter'))
@@ -996,7 +1059,11 @@ window.__ModuleLoader__.load({
         h(
           'div',
           { className: 'dps-bar' },
-          h(Button, { onClick: load, disabled: state.status === 'loading' }, state.status === 'loading' ? t('loading') : t('refresh')),
+          h(Button, {
+            onClick: () => load(true),
+            disabled: state.status === 'loading' || state.status === 'refreshing',
+            title: t('refreshHint'),
+          }, state.status === 'loading' || state.status === 'refreshing' ? t('loading') : `↻ ${t('refresh')}`),
         ),
         banner ? h(Banner, { tone: banner.tone }, banner.text) : null,
         state.status === 'error' ? h(Banner, { tone: 'err' }, state.error) : null,

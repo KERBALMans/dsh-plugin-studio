@@ -28,7 +28,7 @@ cd dsh-plugin-studio
 node scripts/all.mjs --offline
 ```
 
-跑完你会看到 10 个套件的汇总。`--offline` 表示不连真实客户端，用仓库里 `fixtures/` 的数据渲染页面 —— CI 就是这么跑的。
+跑完你会看到 9 个测试套件的汇总。`--offline` 表示不连真实客户端，用仓库里 `fixtures/` 的数据渲染页面 —— CI 就是这么跑的。
 
 想对着**自己的真实客户端**跑：
 
@@ -218,7 +218,7 @@ node scripts/shoot.mjs              # 截图到 build/
 
 ## 测试怎么写的
 
-10 个套件，每个都是独立可跑的 `.mjs`：
+9 个测试套件，每个都是独立可跑的 `.mjs`：
 
 | 套件 | 管什么 |
 | --- | --- |

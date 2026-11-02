@@ -1,8 +1,15 @@
 name: CI
 
-# The suites are pure Node: no dependencies, no build step, no running Host.
-# `render` and `measure` read `fixtures/` when `--offline` is passed, which is
-# why this can run on a bare runner.
+# The nine test suites are pure Node: no dependencies, no build step, no running
+# Host. `render` and `measure` read `fixtures/` when `--offline` is passed, and
+# `measure` uses a headless Edge/Chrome for layout checks (reports "skip", not
+# "fail", when no browser is present), so the structural checks still gate the
+# build on a bare runner.
+#
+# The 9 gating suites:
+#   smoke analyse routes actions ai style compat render measure
+# (scripts/scores.mjs is a debug helper that prints scoring detail and is NOT
+#  part of the gating set.)
 on:
   push:
     branches: [main]
@@ -46,9 +53,23 @@ jobs:
             console.log('no runtime dependencies');
           "
 
-      - name: Run all suites
+      - name: Run the 9 test suites
         shell: bash
-        run: node scripts/all.mjs --offline
+        run: |
+          SUITES="smoke analyse routes actions ai style compat render measure"
+          FAILED=0
+          for s in $SUITES; do
+            echo "=== $s ==="
+            if ! node "scripts/$s.mjs" --offline; then
+              echo "::error:: suite $s failed"
+              FAILED=$((FAILED+1))
+            fi
+          done
+          if [ "$FAILED" -ne 0 ]; then
+            echo "::error::$FAILED suite(s) failed"
+            exit 1
+          fi
+          echo "all 9 suites passed"
 
       - name: Verify the package packs
         shell: bash
@@ -66,9 +87,7 @@ jobs:
         with:
           node-version: '22'
 
-      # `dist/` is gitignored — tarballs ship as Release assets, not commits — so
-      # a fresh clone has no such directory and `npm pack --pack-destination`
-      # fails with ENOENT instead of creating it.
+      # `dist/` is gitignored -- tarballs ship as Release assets, not commits.
       - name: Pack
         run: |
           mkdir -p dist
@@ -81,8 +100,6 @@ jobs:
           echo '--- contents ---'
           tar -tzf dist/*.tgz | sort
 
-      # Kept as a downloadable artifact so a reviewer can install exactly the
-      # bytes CI tested, without cloning.
       - name: Upload tarball
         uses: actions/upload-artifact@v4
         with:
@@ -91,8 +108,7 @@ jobs:
           retention-days: 14
 
   # The version in package.json, the git tag, and the CHANGELOG entry are three
-  # places the same number lives. Releases have shipped with them out of sync
-  # before; this catches it on a tag push instead of after publication.
+  # places the same number lives. This catches a mismatch on a tag push.
   version-check:
     name: Version consistency
     if: startsWith(github.ref, 'refs/tags/v')
@@ -119,7 +135,7 @@ jobs:
         shell: bash
         run: |
           TAG="${GITHUB_REF_NAME#v}"
-          if ! grep -qE "^## \[?${TAG//./\\.}\]?" CHANGELOG.md; then
+          if ! grep -qE "^## \[?${TAG//./\.}\]?" CHANGELOG.md; then
             echo "::error::CHANGELOG.md has no section for $TAG"
             exit 1
           fi

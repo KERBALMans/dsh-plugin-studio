@@ -27,8 +27,11 @@ import {
 } from './lib/env.js'
 import { capabilityReport } from './lib/caps.js'
 import { inventory } from './lib/inventory.js'
-import { FAMILIES, DOMAINS, classifyAll, buildTree, codeEvidence } from './lib/classify.js'
+import { FAMILIES, DOMAINS, classifyAll, buildTree, codeEvidence, packageDir } from './lib/classify.js'
 import { collectUsage, lastUsedFor, relativeAge } from './lib/usage.js'
+import { attributeKeys, attributeTools, toolSurface } from './lib/attribution.js'
+import { mergeLedger, mergeRuns, readLedger, writeLedger } from './lib/ledger.js'
+import { scanActivity } from './lib/activity.js'
 import { skillInventory, removeSkills, setSkillEnabled, packSkills, skillRoots } from './lib/skills.js'
 import { aiAnalyse, resolveCallTarget } from './lib/ai.js'
 import { enrichRemote, needsRemote, remoteCacheExists } from './lib/remote.js'
@@ -115,6 +118,93 @@ function listSaved() {
  * read once per row and stashed on the row, because the AI pass wants the same
  * slots/touches and re-reading every package twice would double the page cost.
  */
+/**
+ * A resolver for package name -> directory.
+ *
+ * The profile's own `node_modules` only holds what the user installed. The
+ * Harness's built-in bundles (`@deepseek-ai/dsh-base`, `dsh-web-app`) resolve
+ * out of the app archive instead, and they own most of the tools people
+ * actually call — `read`, `grep`, `web_search`, `todo_write`. Asking
+ * `pluginPackages` covers both, because it holds the same lookup roots the
+ * process was booted with; the profile is the fallback for older builds.
+ */
+function packageLocator(ctx) {
+  const packages = serviceOf(ctx, 'pluginPackages')
+  const base = import.meta.url
+  // The profile only holds what the user installed. `@deepseek-ai/dsh-base` and
+  // `dsh-web-app` ship inside the Harness itself, so a lookup that cannot reach
+  // the install directory silently loses every core tool (`read`, `grep`,
+  // `web_search`, `skill`) — which is exactly the bug this fixes.
+  const fallbackRoots = installRoots()
+  const seen = new Map()
+  return (name) => {
+    if (seen.has(name)) return seen.get(name)
+    let dir = null
+    if (packages && typeof packages.packageOf === 'function') {
+      try {
+        const found = packages.packageOf(name, base)
+        if (found && typeof found.dir === 'string' && existsSync(found.dir)) dir = found.dir
+      } catch {
+        // Older or differently-shaped service: fall back to the filesystem.
+      }
+    }
+    if (!dir) {
+      for (const root of fallbackRoots) {
+        const candidate = join(root, ...name.split('/'))
+        if (existsSync(candidate)) {
+          dir = candidate
+          break
+        }
+      }
+    }
+    if (!dir) dir = packageDir(name, profileDir())
+    seen.set(name, dir)
+    return dir
+  }
+}
+
+/**
+ * Where the Harness keeps its own packages.
+ *
+ * Two shapes have to work. Inside the Electron main process `process.execPath`
+ * is the app binary (`<app>/DSH.exe`), so `resources` sits next to it. Inside a
+ * bundled Node runtime it is `<app>/resources/runtime/<arch>/.../node.exe`, so
+ * `resources` sits above it. Both resolve to `<app>/resources/app/node_modules`,
+ * which is where `@deepseek-ai/dsh-base` and friends actually live — the profile
+ * only ever holds what the user installed.
+ */
+function installRoots() {
+  const exe = String(process.execPath || '').split(String.fromCharCode(92)).join('/')
+  const roots = []
+  const at = exe.indexOf('/resources/')
+  if (at > 0) roots.push(`${exe.slice(0, at)}/resources/app/node_modules`)
+  const dir = exe.slice(0, exe.lastIndexOf('/'))
+  if (dir) roots.push(`${dir}/resources/app/node_modules`)
+  return roots
+}
+
+/**
+ * Serve the analysis from memory.
+ *
+ * A full pass reads every session log — around three seconds on a real profile
+ * — and the settings page mounts this component on every visit, so an
+ * uncached route made switching tabs feel broken. The page loads once, the
+ * result stays here, and the refresh arrow asks for a new one.
+ */
+const analysisCache = new Map()
+
+async function analyseCached(ctx, kind, options = {}) {
+  const key = `${kind}\u0000${options.cwd || ''}`
+  const cached = analysisCache.get(key)
+  if (cached && !options.refresh) {
+    return { ...cached.view, cached: true, cachedAt: cached.at }
+  }
+  const view = await analyse(ctx, { kind, cwd: options.cwd })
+  const at = Date.now()
+  analysisCache.set(key, { view, at })
+  return { ...view, cached: false, cachedAt: at }
+}
+
 async function analyse(ctx, options = {}) {
   const kind = options.kind === 'skill' ? 'skill' : 'plugin'
   const warnings = []
@@ -141,14 +231,63 @@ async function analyse(ctx, options = {}) {
   const usage = await collectUsage(ctx, { cwd: options.cwd })
   if (usage.errors && usage.errors.length) warnings.push(...usage.errors.slice(0, 3))
 
+  // Which package owns which tool. Static regexes over package source could not
+  // answer this — five packages mention `bash` somewhere — so the join runs the
+  // other way: real tool names from the request headers, matched to the package
+  // whose bytes contain the tool's own description. See lib/attribution.js.
+  //
+  // The row is a bundle, so it also contributes every Loader row it mounts: the
+  // tools the user calls belong to children like `@deepseek-ai/dsh-tool-fs`,
+  // not to `@deepseek-ai/dsh-base`, and only the module list connects them.
+  const locate = packageLocator(ctx)
+  const targets = rows
+    .filter((row) => row.kind !== 'skill')
+    .map((row) => ({
+      name: row.name,
+      modules: (Array.isArray(row.rows) ? row.rows : []).map((entry) => entry.moduleName).filter(Boolean),
+    }))
+  const attribution = attributeTools(usage.registry || new Map(), targets, profileDir(), {
+    resolveDir: locate,
+    // Only the tools somebody actually called can change the column, and each
+    // one costs a scan of every candidate package, so resolve that set rather
+    // than the whole catalogue.
+    only: new Set(Object.keys(usage.tools || {})),
+  })
+
+  // Not every plugin leaves a `tool/call` behind. `dsh-connect-workbuddy` is a
+  // model provider — every turn routes through it — and `dsh-context` attaches
+  // a per-session projection, so both look unused to a tool-only rule. Those
+  // traces are folded in here, by the same literal-declaration attribution.
+  const signals = attributeKeys(
+    {
+      provider: usage.providers || {},
+      command: usage.commands || {},
+      projection: usage.projections || {},
+    },
+    targets,
+    profileDir(),
+    { resolveDir: locate },
+  )
+
   const verdicts = classifyAll(rows, { profileDir: profileDir(), usage })
   for (const row of rows) {
     // `classifyAll` returns a Map keyed by row.key — indexing it like an object
     // silently yields undefined for every row.
     const verdict = verdicts.get(row.key)
+    // A skill has no package to read; its proof is the `skill` call that named
+    // it, which is recorded separately for exactly that reason.
     const code = row.kind === 'skill' ? null : codeEvidence(row.name, profileDir())
+    const ownedTools = row.kind === 'skill'
+      ? []
+      : attribution.owned.get(row.name) || (code ? code.toolNames : [])
     const used = lastUsedFor(
-      { name: row.name, short: row.name, toolNames: code ? code.toolNames : [] },
+      {
+        name: row.name,
+        short: row.name,
+        toolNames: ownedTools,
+        skillCalls: row.kind === 'skill' ? usage.skillCalls || {} : null,
+        extra: row.kind === 'skill' ? [] : signals.get(row.name) || [],
+      },
       usage,
     )
     row.family = verdict.family
@@ -166,6 +305,7 @@ async function analyse(ctx, options = {}) {
     row.mentionedText = used && used.weak ? relativeAge(used.weak) : null
     // Kept for the AI pass only; not serialised to the client.
     Object.defineProperty(row, '_code', { value: code, enumerable: false, configurable: true })
+    Object.defineProperty(row, '_ownedTools', { value: ownedTools, enumerable: false, configurable: true })
     const note = saved.notes[row.key]
     if (note && note.what) {
       row.ai = { what: note.what, remove: note.remove || null, why: note.why || null, at: note.at || null }
@@ -179,6 +319,84 @@ async function analyse(ctx, options = {}) {
       row.confidence = 'manual'
       row.evidence = ['你手动指定过分类']
     }
+  }
+
+  // Session logs are not an archive: the session-clean plugin deletes whole
+  // sessions, and a deleted session takes its `tool/call` events with it. This
+  // ledger keeps the newest time ever seen so the column can only move forward.
+  const ledger = readLedger()
+  const fresh = rows
+    .filter((row) => row.usedAt)
+    .map((row) => ({ name: row.name, time: row.usedAt, via: row.usedVia }))
+  if (mergeLedger(ledger, fresh)) writeLedger(ledger)
+  for (const row of rows) {
+    if (row.usedAt) continue
+    const remembered = ledger.rows[row.name]
+    if (!remembered || !remembered.time) continue
+    row.usedAt = remembered.time
+    row.usedText = relativeAge(remembered.time)
+    row.usedVia = remembered.via || 'ledger'
+  }
+
+  // Between "the user called it" and "it never did anything" there is a third
+  // state: the plugin did run, just never through a tool (a provider proxy, a
+  // panel, a background watcher). The host log knows about that activity, so it
+  // is surfaced under its own label — it dates the plugin, it does not prove a
+  // deliberate use.
+  const activity = scanActivity()
+  const entryRows = new Map()
+  for (const row of rows) {
+    if (row.kind === 'skill') continue
+    for (const entry of Array.isArray(row.rows) ? row.rows : []) {
+      for (const key of [entry.entryId, entry.rowId, entry.moduleName]) {
+        if (key) entryRows.set(String(key), row.name)
+      }
+    }
+  }
+  const ranAt = new Map()
+  for (const [pluginId, time] of activity) {
+    const name = entryRows.get(pluginId)
+    if (!name) continue
+    if (!ranAt.has(name) || ranAt.get(name) < time) ranAt.set(name, time)
+  }
+  for (const row of rows) {
+    if (row.kind === 'skill' || row.usedAt) continue
+    const seen = ranAt.get(row.name)
+    if (!seen) continue
+    row.ranAt = seen
+    row.ranText = relativeAge(seen)
+  }
+
+  // Host logs rotate, so the activity stays in the ledger as a weaker tier.
+  // `rows` (real usage) always wins: a run seen later never replaces a call.
+  let ledgerDirty = false
+  if (mergeRuns(ledger, [...ranAt.entries()].map(([name, time]) => ({ name, time })))) ledgerDirty = true
+  for (const row of rows) {
+    if (row.kind === 'skill' || row.usedAt) continue
+    const remembered = ledger.runs[row.name]
+    if (!remembered || !remembered.time) continue
+    if (row.ranAt && row.ranAt >= remembered.time) continue
+    row.ranAt = remembered.time
+    row.ranText = relativeAge(remembered.time)
+  }
+  if (ledgerDirty) writeLedger(ledger)
+
+  // A row that never ran a tool may simply have no tool to run — a wallpaper
+  // engine or a cost meter lives in services and render slots. Calling that
+  // "never used" is misleading, so the two cases are told apart here.
+  const idle = rows
+    .filter((row) => row.kind !== 'skill' && !row.usedAt && !row.ranAt)
+    .map((row) => ({
+      name: row.name,
+      modules: (Array.isArray(row.rows) ? row.rows : []).map((entry) => entry.moduleName).filter(Boolean),
+    }))
+  const surface = toolSurface(idle, profileDir(), { resolveDir: locate })
+  for (const row of rows) {
+    if (row.kind === 'skill' || row.usedAt || row.ranAt) continue
+    // Only a definite "no registration call anywhere in the package" counts;
+    // an unreadable package leaves this undefined and keeps the old wording.
+    // A disabled row already carries its own badge, so it keeps "never used".
+    row.passive = surface.get(row.name) === false && row.enabled !== false
   }
 
   // Rebuild the verdict map from the rows so a manual or AI override moves the
@@ -374,7 +592,7 @@ async function buildAiEntries(ctx, rows, options = {}) {
       halves: code ? code.halves : (row.kind === 'skill' ? ['skill'] : []),
       slots: code ? code.slots : [],
       touches: code ? code.touches : [],
-      toolNames: code ? code.toolNames : [],
+      toolNames: code ? code.toolNames : (row._ownedTools || []),
       readmeHead: code && code.readme ? code.readme : (row.readme || null),
       ruleVerdict: {
         familyLabel: row.familyLabel,
@@ -382,7 +600,7 @@ async function buildAiEntries(ctx, rows, options = {}) {
         evidence: row.evidence || [],
       },
       remote: remote && remote.found ? { summary: remote.summary, source: `github.com/${remote.repo}` } : null,
-      usage: row.usedAt ? { text: row.usedText } : null,
+      usage: row.usedAt ? { text: row.usedText, via: row.usedVia } : null,
       catalog: { families: FAMILIES, domains: DOMAINS },
     })
   }
@@ -606,14 +824,10 @@ function makeHandler(ctx) {
         return
       }
 
-      if (tail === '/inventory') {
-        const view = await analyse(ctx, { kind: 'plugin', cwd: query.get('cwd') || undefined })
-        sendJson(res, 200, { ok: true, apiVersion: API_VERSION, ...view })
-        return
-      }
-
-      if (tail === '/skills') {
-        const view = await analyse(ctx, { kind: 'skill', cwd: query.get('cwd') || undefined })
+      if (tail === '/inventory' || tail === '/skills') {
+        const kind = tail === '/skills' ? 'skill' : 'plugin'
+        const refresh = query.get('refresh') === '1' || query.get('refresh') === 'true'
+        const view = await analyseCached(ctx, kind, { cwd: query.get('cwd') || undefined, refresh })
         sendJson(res, 200, { ok: true, apiVersion: API_VERSION, ...view })
         return
       }

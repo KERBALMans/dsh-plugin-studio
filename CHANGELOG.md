@@ -7,6 +7,218 @@
 
 ---
 
+## [1.0.8] — 2026-11-02
+
+新增「最近运行」档位：有些插件一直在跑，却永远不会出现在工具调用里。
+
+### 背景
+
+`dsh-media-lens` 注册了 `media_read_image` 等工具，但只有你主动让它看图时才会被调用；`dsh-builtin-browser` 只在真正开浏览器时才动。它们的会话记录还可能被清理掉，于是列里只剩「从没用过」——这既冤枉也不稳定。
+
+### 改动
+
+- 新增 `lib/activity.js`：读宿主运行日志（`<DSH_HOME>/logs/desktop-next-*.jsonl` 最近 3 个文件），按 `fields.pluginId` 取每个插件最近一次活动时间。
+- **启动窗口过滤**：每次客户端启动时插件都会打「registered xxx」「config loaded」之类的日志，若不过滤，每次重启后所有行都会变成「刚刚」。因此丢弃同一 `runId` 起始 120 秒内的活动，只保留运行期真实操作。
+- 归属：日志里的 `pluginId`（`include:` 前缀已剥离）先按 `entryId`、再按 `rowId`、再按 `moduleName` 匹配到 bundle 行。
+- 展示优先级：**最后使用 > 最近运行 > 常驻运行 > 从没用过**。`最近运行` 有独立的措辞与悬停说明，明确写着「只说明它跑过，不代表你调用了它」。
+- 台账增加 `runs` 段：宿主日志会轮转（只留 3 天），观测到的最晚活动时间写入 `usage-ledger.json`，不会因为日志滚动而倒退；它与真实使用分开存，真实使用永远优先。
+- 性能：扫 3 个日志文件约 77 ms。
+
+### 结果
+
+34 行里 10 行有真实使用时间，另有 4 行显示「最近运行」：`dsh-plugin-wallpaper-engine`、`dsh-media-lens`、`@agents-anywhere/dsh-bridge-next`、`dsh-builtin-browser`。
+
+### 测试
+
+`node scripts/all.mjs --offline` → 10 suites, 10 passed。
+
+---
+
+## [1.0.7] — 2026-11-02
+
+修回归：`dsh-context` 明明一直在跑却显示「从没用过」，而它在 1.0.6 之前是能显示的。
+
+### 根因
+
+1. **本插件自己的更新日志抢走了归属权。** `literalOwner()` 判断某个 projection 键属于哪个
+   包时，只看「哪个包里出现过这个字面量」，不看出现的位置。1.0.6 的 `CHANGELOG.md` 在解释
+   修复时写下了 `contextHeaders` 这个词，于是 `dsh-context`（代码里声明）和 `dsh-plugin-studio`
+   （文档里提到）各算一票，平票即放弃——`dsh-context` 注册的 `contextHeaders` /
+   `contextActivity` 全部返回 null。现在按文件类型加权（代码 3 > JSON 2 > 文档 1），且只有
+   最高权重来自代码文件才认，文档里的提及不再算数。
+2. **会话日志被删，历史使用时间跟着蒸发。** 装在本机的 `dsh-session-clean` 会在你点清理时
+   删除整个会话（`DataBase/logs/session-delete.log` 记录了 291 行操作，最近一次是
+   2026-11-02T13:22:53Z 删掉 `session-b167f00e-…`）。被删会话里的 `tool/call` 一起消失，
+   于是「上次用过」重新变回「从没用过」。这也解释了 `dsh-media-lens`、`dsh-builtin-browser`
+   的时间为何在两次版本之间不见了——它们的使用记录在被删的会话里。
+
+### 修复
+
+- **加权归属**：`attributeKeys` 的 `literalOwner` 改为按文件权重取最高分，平票才放弃；
+  只出现在 Markdown 里的词一律不算声明。`CACHE_VERSION` 升到 5，旧缓存自动作废。
+- **持久使用台账**（新增 `lib/ledger.js`）：`DataBase/storages/dsh-plugin-studio/usage-ledger.json`
+  按行名记住观测到的最新时间，每轮合并取最大值。会话被删、归属规则调整都不会让时间倒退，
+  列只会往前走。台账里的时间以「来自历史使用记录」为悬停说明。
+- **两个来源合并**：`sessionQuery` 的快照只带会话尾部，早先的工具调用会丢。现在
+  service 与磁盘两条路径都折进同一份结果，时间取最大值，来源标记为 `sessionQuery+files`。
+- `emptyUsage()` 改为导出，供 `_diag/` 下的单会话探测脚本使用。
+
+### 验证
+
+- `node scripts/all.mjs --offline` → `10 suites, 10 passed`
+- 离线复跑真实 profile：`dsh-context` 由 `projection:contextHeaders` 点亮（此前为 null），
+  `dsh-connect-workbuddy` 仍由 `provider:workbuddy-global` 点亮。
+
+已知限制：已经被删掉的会话无法复活，`dsh-media-lens` / `dsh-builtin-browser` 的历史时间
+找不回来；从这一版起它们（以及所有插件）再被用过一次就会记进台账并一直保留。
+
+## [1.0.6] — 2026-11-02
+
+「最后使用时间」不再只看工具调用。这一版把三种同样真实、但完全不经过 `tool/call`
+的使用痕迹也折进来，并解决面板每次切回都重新加载、要等三秒的问题。
+
+### 判断规则
+
+- **模型服务（provider）**：`model/selection`、`request/context`、`llm/retry` 三类事件都
+  带 `data.provider`。插件把远端模型接成 provider 时一个工具都不注册——`dsh-connect-workbuddy`
+  就是这样，之前无论用多少次都显示「从没用过」。现在按 provider id 归属到包：先在包里找
+  该 id 的字面量，找不到再退化为「包名的词段命中 provider 前缀」（`workbuddy-global` 由
+  `workbuddy-` 运行时拼出来，字面量根本不存在），只在唯一命中时才认。
+- **会话投影（projection）**：`DataBase/storages/session_projcache/sessions/*.json` 的
+  `record.rows` 的 key 就是各包注册的投影名，文件 mtime 就是该会话投影最后写入时间。
+  `dsh-context` 注册的 `contextTimeline` / `contextHeaders` / `contextActivity` 因此能拿到
+  真实时间——它没有工具，也不是 provider，之前同样一片空白。
+- **斜杠命令**：`user/message` 正文以 `/cmd` 开头时记一笔（客户端展开的命令不落日志，
+  所以这条是"有则更好"，不作为主要依据）。
+
+三类共用一套归属：key 必须**恰好只有一个包**声明才认，投影 key 还要求 ≥13 字符，
+避免 `goal`、`title` 这种半个安装目录都出现的短词被错误点亮。宁可留空，不可点亮错的行。
+
+### 性能与交互
+
+- 宿主端 `analyse()` 结果进内存缓存（`analysisCache`），`?refresh=1` 才重算；新装插件后
+  点刷新即可看到。
+- 客户端 `panelCache` 以 kind 为键缓存结果，组件卸载不丢，**切回面板立刻出图、不再重新请求**。
+- 刷新按钮换成「↻ 刷新」，只在用户主动点击时才重新读取使用时间；悬停时间的提示会说明
+  证据类型（工具调用 / 模型服务 / 会话投影 / 斜杠命令）。
+
+### 验证
+
+`node scripts/all.mjs --offline` → 10 suites, 10 passed。离线复算：`dsh-connect-workbuddy`
+由 provider 规则点亮，`dsh-context` 由投影规则点亮，其余行保持不变。
+
+## [1.0.5] — 2026-11-02
+
+给「没有工具、因此永远不会有调用记录」的插件一个说法。之前这类行和真正没用过的插件
+一样显示「从没用过」，看起来像监测又坏了。
+
+判定方式是新增的 `toolSurface()`：把一个行的包和它挂载的每个子模块都扫一遍，看有没有
+`tools.register(` / `defineTool(` / `registerTool(` / `toolRegistry.register(`——再看
+根级 patch 有没有声明 `serverName`（MCP 服务是靠协议广播工具的，不走注册调用，
+`@local/rea-switch` 就是这种）。判定为无工具的启用行改显示「常驻运行」并挂 tooltip；
+停用行不动，它本来就有「已停用」徽章；包读不到时也保持原文案，不猜。
+
+效果：24 个未点亮的行分成 15 个已停用、7 个常驻型（壁纸、费用统计、市场、优惠券、
+会话清理、平滑输出、桥接）、2 个有工具但确实一次没调用过（`dsh-connect-workbuddy`、
+`dsh-context`）。`toolSurface` 冷态 180 ms、热态 7 ms，按包 mtime 做进程内缓存。
+
+## [1.0.4] — 2026-11-02
+
+修掉 1.0.3 的缓存读写方向错误：MCP 服务名表写入时是 `[server, [包…]]`，读取时却按
+`[包, [server…]]` 解析，于是 `mcp__rea__*` 那几行的使用时间每隔一次请求就消失一次
+（`dsh-plugin-rea` 在「2 天前」和「从没用过」之间来回跳），而且每次缓存失效都会触发全量重扫
+（`/inventory` 从 2.7 s 涨到 6.1 s）。改成同一方向读写后连跑三次结果一致，热态 12 ms。
+
+## [1.0.3] — 2026-11-02
+
+把 1.0.2 漏掉的插件补上。1.0.2 让 5 行显示了时间，但页面上绝大多数行仍是「从没用过」，
+包括 `@deepseek-ai/dsh-base` 这种每天都在用的行。
+
+### 根因
+
+1.0.2 把「bundle 名」当成了包的归属单位，而页面上的每一行是一个 **bundle**，
+它下面挂着几十个子模块。`@deepseek-ai/dsh-base` 一行就挂了 96 个加载项，
+`read` / `grep` / `web_search` / `skill` 全都来自它的子模块，bundle 自己的源码里没有这些工具。
+另外 `packageDir()` 只查 profile 的 `node_modules`，而 `dsh-base`、`dsh-web-app` 这些包
+在 Harness 的安装目录里，profile 里根本没有副本，所以永远扫不到。
+
+### 修复
+
+- **两级归属**：先按 `packageNameOf(entry.moduleName)` 把工具归到子模块包，
+  再按 bundle 的 `rows[].moduleName` 上卷到页面上的行。
+- **两个搜索根**：`packageLocator(ctx)` 先用 `pluginPackages.packageOf()`（能解析到
+  Harness 安装目录），失败才回退到 profile 的 `node_modules`。
+- **MCP 服务名**：`mcp__rea__*` 这类工具按 `cordis.patch.yml` 里的 `serverName` 归属，
+  声明同一 server 的包都算（`dsh-plugin-rea` 与 `@local/rea-switch`）。
+- **CJK 指纹**：中文句号切句，中文最短 18 字（原先一律 40 字符，中文工具描述全被丢弃）。
+- **名称兜底**：描述是运行时拼出来、任何文件里都没有原文时（`dsh_browser_list_tabs`），
+  退回用工具名的引号字面量匹配。
+- **平票取舍**：描述被多个包同时包含时（`dsh-tool-pwsh` 抄了 `bash` 的段落），
+  优先「包名末段含该工具名」的那个，其次「唯一一个官方包」，其余判为无法归属。
+- **性能**：`FILE_MAX` 提到 8 MiB、`TOTAL_MAX` 16 MiB（覆盖 `billion-context` 的 5.8 MB 打包产物）；
+  缓存改为按工具增量（`CACHE_VERSION = 3`），冷跑 3.0 s，热跑 13 ms。
+
+### 结果
+
+34 行里 10 行有使用时间（1.0.2 是 5 行）：`@deepseek-ai/dsh-base`、`@deepseek-ai/dsh-web-app`、
+`@local/rea-switch`、`billion-context`、`dsh-builtin-browser`、`dsh-gitbash-shell`、
+`dsh-media-lens`、`dsh-ops`、`dsh-plugin-rea`、`dsh-plugin-studio`。
+
+仍未归属的 5 个工具都是预期内的：`present` / `ask_user_question` /
+`load_workspace_dependencies` 的包不在任何 bundle 的加载项里，`purge_status` / `modpack_list`
+的来源包没有安装。
+
+## [1.0.2] — 2026-11-02
+
+修掉「最后使用时间」几乎全空的问题。这一版之前，页面上绝大多数行都显示「从没用过」，
+包括每天都在用的插件。
+
+### 根因
+
+判定「用过」靠的是「这个包注册了哪些工具」再和会话日志里的 `tool/call` 对上。
+这个映射原先由 `lib/classify.js` 的两条正则从包源码里猜工具名，而 34 个插件里有 29 个
+一个都猜不出来：
+
+- `dsh-ops` 的工具名是运行时拼的（`ops_` 前缀 + 能力名），源码里根本没有完整字符串；
+- `billion-context` 的入口是打包产物，工具名不在可读的源码位置；
+- 内置 `skill` 工具是运行时注入的，任何包都不拥有它。
+
+技能行更彻底：`index.js` 里 `row.kind === 'skill'` 时把代码证据强制为 `null`，
+所以技能永远不可能有使用时间。
+
+### 修复
+
+- **新增 `lib/attribution.js`**：改用「工具描述指纹」归属。`request/header` 事件里带着
+  模型当时看到的完整工具目录（`{ name, description, parameters }`），而描述是注册它的
+  包作者自己写的。取描述里 40–120 字符的句子做指纹，到每个包自己的字节里找，就能精确
+  反推「哪个包拥有哪个工具」。实测归属：`dsh-builtin-browser` 33 个、`dsh-ops` 13 个、
+  `dsh-plugin-studio` 3 个、`dsh-media-lens` 3 个、`dsh-gitbash-shell` 2 个。
+  匹配按文件类型加权（`.js` 3 > `.json` 2 > `.md` 1），并跳过 `docs/`、`tests/`、
+  `fixtures/`、`vendor/` —— `dsh-ops` 的文档里原样引用了内置 `skill` 工具的描述，
+  不跳过就会把它误判成 skill 工具的拥有者。
+- **技能行接上真实调用**：`skill` 工具的参数就是 `{ name: "animate" }`，会话日志里完整
+  可读。`lib/usage.js` 新增 `skillCalls`，`lastUsedFor` 按技能名精确查表。
+- **归属结果落盘缓存**：扫描全部包字节约 2 秒，而答案只在装/卸/升级包时变。缓存键是
+  「各包目录 mtime + 顶层文件名」和「注册表工具名 + 描述」的哈希，12 小时过期。
+  命中后 2ms。
+- **行上带出处**：`row.usedVia` 形如 `tool:ops_read_files` 或 `skill`，作为 `title`
+  挂在时间文本上，鼠标悬停能看到是哪一次调用点亮了这一行。
+
+### 结果
+
+同一个 profile 上，有使用时间的行从 3 行变成 5 个插件 + 2 个技能。仍然显示「从没用过」
+的 282 个工具属于两种情况，都保持保守处理（宁可显示未使用，不可错误点亮）：
+
+- 工具属于 Harness 自身安装目录里的包（`read`、`write`、`web_fetch`、`plugin_manager`
+  等），profile 里没有这些包的源码可查；
+- 描述短于 40 字符或过于通用（`present`、`list_agents`、`web_search`），不足以做指纹。
+
+### 测试
+
+- `node scripts/all.mjs --offline` 10/10 通过。
+
+---
+
 ## [1.0.1] — 2026-10-30
 
 修掉三个 AI 功能上的缺陷，都是用户直接撞得到的。
